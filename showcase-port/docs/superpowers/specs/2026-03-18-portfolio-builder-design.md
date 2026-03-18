@@ -28,13 +28,14 @@ src/
 │   ├── edit/
 │   │   └── [...slug]/              # Catch-all — Puck editor for any page
 │   │       └── page.tsx
+│   ├── middleware.ts                   # Block /edit/ routes in production
 │   └── api/
 │       ├── puck/
 │       │   ├── route.ts            # GET/POST/DELETE page JSON
 │       │   └── pages/
 │       │       └── route.ts        # GET/POST page registry
 │       └── upload/
-│           └── route.ts            # POST image upload
+│           └── route.ts            # POST image upload (dev-only guard)
 ├── components/
 │   ├── ui/                         # shadcn/ui primitives
 │   ├── magicui/                    # Magic UI animated components
@@ -66,6 +67,8 @@ src/
 ├── lib/
 │   ├── puck/
 │   │   ├── config.ts               # Puck component config
+│   │   ├── editor.tsx              # Wrapper: re-exports <Puck> for app routes
+│   │   ├── renderer.tsx            # Wrapper: re-exports <Render> for app routes
 │   │   ├── plugins/
 │   │   │   └── project-linker.tsx   # Plugin rail: association overview
 │   │   └── fields/
@@ -75,9 +78,10 @@ src/
 ├── hooks/
 │   └── use-project-media.ts        # Collect media by projectId
 ├── validations/
-│   └── page.ts                     # Page registry schema
+│   ├── page.ts                     # Page registry + Puck page data schemas
+│   └── upload.ts                   # Upload validation (MIME types, max size)
 └── types/
-    └── puck.ts                     # Shared Puck types
+    └── puck.ts                     # Shared Puck types (PuckPageData, MediaBlock union)
 
 content/                            # Outside src/ — flat JSON files
 ├── _registry.json
@@ -147,15 +151,45 @@ const VideoDetailSchema = z.object({
 const ProjectBlockSchema = z.object({
   id: z.string().uuid(),
   title: z.string().min(1),
-  description: z.union([
-    z.string().min(1),                    // plain text fallback
-    z.array(z.record(z.unknown()))        // rich text node array from @tohuhono/puck-rich-text
-  ]),
+  description: z.record(z.unknown()),    // Puck built-in RichText field output (structured JSON)
   coverImage: z.string().min(1),
   tags: z.array(z.string()).default([]),
   liveUrl: z.string().url().optional(),
   repoUrl: z.string().url().optional(),
   // No gallery array — associated media resolved at render time via projectId
+});
+```
+
+**Note:** `description` uses Puck's built-in `RichText` field type (available in @puckeditor/core 0.21+). The exact output shape will be pinned during implementation. No third-party rich text package needed.
+
+### Puck Page Data Schema
+
+```ts
+// src/validations/page.ts
+const PuckComponentSchema = z.object({
+  type: z.string(),
+  props: z.record(z.unknown()),          // validated per-component-type during save
+});
+
+const PuckPageDataSchema = z.object({
+  root: z.object({ props: z.record(z.unknown()) }).passthrough(),
+  content: z.array(PuckComponentSchema),
+});
+```
+
+On save, the API route first validates the Puck envelope with `PuckPageDataSchema`, then walks `content` and validates each component's `props` against its specific block schema based on `type`.
+
+### Upload Validation
+
+```ts
+// src/validations/upload.ts
+const ACCEPTED_MIME_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+
+const UploadSchema = z.object({
+  file: z.instanceof(File)
+    .refine((f) => ACCEPTED_MIME_TYPES.includes(f.type), "Unsupported file type")
+    .refine((f) => f.size <= MAX_FILE_SIZE, "File exceeds 10MB limit"),
 });
 ```
 
@@ -184,6 +218,18 @@ Media-to-project association is **relational, not nested**:
 - Associations are **per-page** (no cross-page linking in v1)
 
 **Why this works:** Avoids deeply nested JSON. Moving an image between projects is a single ID change. AI can reason about flat structures more reliably.
+
+### Data Access on Published Pages
+
+On the published site, the Puck `<Render>` component receives the full page data as a prop. To make this data accessible to `useProjectMedia` and the lightbox system, the published page layout wraps content in a `PageDataProvider` (React context) that holds the Puck data. The `useProjectMedia` hook reads from this context — it does NOT use `usePuck` (which is editor-only).
+
+```
+app/(site)/[...slug]/page.tsx
+  → loads JSON from content/{slug}.json
+  → wraps in <PageDataProvider data={pageData}>
+    → <Render config={config} data={pageData} />
+    → <LightboxProvider />  (reads URL params + page data context)
+```
 
 ## Puck Components & Editor UX
 
@@ -229,7 +275,7 @@ Media-to-project association is **relational, not nested**:
 | Field | Type | Notes |
 |-------|------|-------|
 | Title | text | Required |
-| Description | rich-text | Via @tohuhono/puck-rich-text |
+| Description | rich-text | Puck built-in RichText field (0.21+) |
 | Cover Image | File upload | Required |
 | Tags | array of text | |
 | Live URL | text | Optional |
@@ -305,6 +351,10 @@ src/components/lightbox/
 5. **LightboxGallery** opens with the resolved slides
 6. **Browser back** closes the lightbox naturally
 
+### SSR/Client Boundary
+
+The lightbox URL params (`?media=`, `?project=`) are read **exclusively client-side** via `nuqs` using the `useSearchParams()` hook. The page-level `searchParams` prop must NEVER be used on published `(site)` routes, as it opts the route into dynamic rendering and breaks ISR. The `NuqsAdapter` must wrap the layout. Static HTML always renders with the lightbox closed; it opens only after client hydration.
+
 ### Benefits
 
 - Deep-linkable — share a URL that opens directly to a specific image/project
@@ -340,7 +390,7 @@ src/components/lightbox/
 
 | Method | Action |
 |--------|--------|
-| POST | Accept multipart form, save to `public/uploads/`, run `probe-image-size`, return `{ src, width, height }` |
+| POST | Dev-only guard. Validate with `UploadSchema` (MIME type + 10MB limit). Save to `public/uploads/`, run `probe-image-size` on the raw buffer, return `{ src, width, height }` |
 
 ### Validation Timing
 
@@ -351,6 +401,8 @@ src/components/lightbox/
 ### ISR
 
 - Published pages use `force-static`
+- `generateStaticParams` reads the page registry and returns all known slugs
+- `dynamicParams = true` so newly created pages are generated on first visit via ISR
 - On publish, `revalidatePath('/{slug}')` busts the cache
 - Next visit serves the fresh page
 
@@ -360,8 +412,7 @@ src/components/lightbox/
 
 | Package | Purpose |
 |---------|---------|
-| `@puckeditor/core` | Visual editor |
-| `@tohuhono/puck-rich-text` | Rich text fields |
+| `@puckeditor/core` (0.21+) | Visual editor (includes built-in RichText field) |
 | `yet-another-react-lightbox` | Lightbox gallery |
 | `nuqs` | URL query state for lightbox |
 | `probe-image-size` | Auto-extract image dimensions |
@@ -410,9 +461,31 @@ src/components/lightbox/
 // Rules:
 // - puck-blocks can import: shared-ui, magic-ui, own files, _shared/
 // - puck-blocks CANNOT import other puck-blocks
-// - Only puck-lib imports from @puckeditor/core
+// - Only puck-lib imports from @puckeditor/core directly
+// - App routes import from puck-lib (via editor.tsx / renderer.tsx wrappers), never from @puckeditor/core
 // - lightbox is shared — importable by any block
 // - hooks are shared — importable by any block or lightbox
+```
+
+## Error Handling
+
+| Scenario | Behavior |
+|----------|----------|
+| Page JSON missing on load | Return 404, editor shows "Page not found" |
+| Registry file missing | Auto-create empty `{ "pages": [] }` on first access |
+| Zod validation fails on save | Return 400 with Zod error details, show toast in editor |
+| Upload fails (bad type/size) | Return 400 with validation message |
+| Upload fails (disk error) | Return 500 with error message |
+| Orphaned `projectId` | Media renders normally, just doesn't appear in any project lightbox |
+| Content directory missing | Auto-create `content/` on first API call |
+
+## Editor Route Protection
+
+In production, Next.js middleware blocks all `/edit/*` routes and the `/api/upload` route. The upload API also checks `process.env.NODE_ENV === 'development'` as a secondary guard. This prevents information disclosure and unused editor UI on the deployed site.
+
+```ts
+// src/middleware.ts
+// If NODE_ENV === 'production', redirect /edit/* to / and block /api/upload
 ```
 
 ## CLAUDE.md Rules
@@ -436,9 +509,13 @@ src/components/lightbox/
 
 2. **Zod + Puck performance.** Validation on save only, never during editing interactions.
 
-3. **Rich text schema.** The `description` field on ProjectBlock uses `@tohuhono/puck-rich-text` which outputs structured data. The Zod schema uses a union type to accept both plain strings and rich text node arrays. Pin down the exact shape during implementation.
+3. **Rich text schema.** The `description` field on ProjectBlock uses Puck's built-in RichText field (0.21+). The Zod schema uses `z.record(z.unknown())` as a placeholder. Pin down the exact output shape during implementation and tighten the schema.
 
 4. **Orphaned projectId references.** If a ProjectBlock is deleted, any media with its `projectId` still renders fine — it just won't appear in any project lightbox. No cascading deletes needed.
+
+5. **`probe-image-size` runs server-side** in the upload API route handler on the raw file buffer, before writing to disk. It does not run client-side.
+
+6. **Content directory initialization.** The `content/` directory and `_registry.json` are auto-created on first API access if missing. No manual setup required.
 
 ## Out of Scope (v1)
 
