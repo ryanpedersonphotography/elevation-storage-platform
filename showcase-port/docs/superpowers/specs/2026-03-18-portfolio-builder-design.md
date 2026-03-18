@@ -21,14 +21,15 @@ A portfolio site built with Next.js 15 (App Router) using the bulletproof-nextjs
 
 ```
 src/
+├── middleware.ts                       # Block /edit/ routes in production (must be at src/ root)
 ├── app/
+│   ├── layout.tsx                     # Root layout — wraps with NuqsAdapter + PageDataProvider
 │   ├── (site)/
-│   │   └── [...slug]/              # Catch-all — renders published Puck pages
+│   │   └── [[...slug]]/             # Optional catch-all — handles / and /photography, /gym, etc.
 │   │       └── page.tsx
 │   ├── edit/
 │   │   └── [...slug]/              # Catch-all — Puck editor for any page
 │   │       └── page.tsx
-│   ├── middleware.ts                   # Block /edit/ routes in production
 │   └── api/
 │       ├── puck/
 │       │   ├── route.ts            # GET/POST/DELETE page JSON
@@ -208,6 +209,8 @@ const PageRegistrySchema = z.object({
   pages: z.array(PageRegistryEntrySchema),
 });
 ```
+
+Timestamps are ISO 8601 strings generated server-side via `new Date().toISOString()`.
 
 ### Association Model
 
@@ -484,7 +487,7 @@ The lightbox URL params (`?media=`, `?project=`) are read **exclusively client-s
 In production, Next.js middleware blocks all `/edit/*` routes and the `/api/upload` route. The upload API also checks `process.env.NODE_ENV === 'development'` as a secondary guard. This prevents information disclosure and unused editor UI on the deployed site.
 
 ```ts
-// src/middleware.ts
+// src/middleware.ts (at src/ root, NOT inside src/app/)
 // If NODE_ENV === 'production', redirect /edit/* to / and block /api/upload
 ```
 
