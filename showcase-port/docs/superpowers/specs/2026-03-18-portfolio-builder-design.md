@@ -5,7 +5,7 @@
 
 ## Overview
 
-A portfolio site built with Next.js 15 (App Router) using the bulletproof-nextjs-starter as a foundation. Pages are built visually using the Puck drag-and-drop editor with three custom block types. Media can be associated with projects via a relational ID system. All content is file-based (JSON + local images) and git-trackable.
+A portfolio site built with Next.js 15 (App Router) using the bulletproof-nextjs-starter as a foundation. Pages are built visually using the Puck drag-and-drop editor with three custom block types. Media can be associated with projects via a relational ID system. Page data is file-based (JSON) and git-trackable. Images are hosted on Cloudinary.
 
 ## Architecture
 
@@ -15,6 +15,7 @@ A portfolio site built with Next.js 15 (App Router) using the bulletproof-nextjs
 - **Architecture:** Vertical Slice (as used by the starter) — code organized by concern, blocks are self-contained
 - **Editor:** [Puck](https://github.com/puckeditor/puck/) visual editor for drag-and-drop page building
 - **Deployment:** Vercel with ISR
+- **Media hosting:** [Cloudinary](https://cloudinary.com/) — upload widget in editor, CDN-served images with on-the-fly transformations
 - **User model:** Single user (no auth for v1)
 
 ### Project Structure
@@ -31,12 +32,10 @@ src/
 │   │   └── [...slug]/              # Catch-all — Puck editor for any page
 │   │       └── page.tsx
 │   └── api/
-│       ├── puck/
-│       │   ├── route.ts            # GET/POST/DELETE page JSON
-│       │   └── pages/
-│       │       └── route.ts        # GET/POST page registry
-│       └── upload/
-│           └── route.ts            # POST image upload (dev-only guard)
+│       └── puck/
+│           ├── route.ts            # GET/POST/DELETE page JSON
+│           └── pages/
+│               └── route.ts        # GET/POST page registry
 ├── components/
 │   ├── ui/                         # shadcn/ui primitives
 │   ├── magicui/                    # Magic UI animated components
@@ -73,14 +72,14 @@ src/
 │   │   ├── plugins/
 │   │   │   └── project-linker.tsx   # Plugin rail: association overview
 │   │   └── fields/
-│   │       └── project-select.tsx   # Custom field: project dropdown
+│   │       ├── project-select.tsx   # Custom field: project dropdown
+│   │       └── cloudinary-image.tsx # Custom field: Cloudinary upload widget
 │   └── content/
 │       └── pages.ts                # Read/write page JSON from /content
 ├── hooks/
 │   └── use-project-media.ts        # Collect media by projectId
 ├── validations/
-│   ├── page.ts                     # Page registry + Puck page data schemas
-│   └── upload.ts                   # Upload validation (MIME types, max size)
+│   └── page.ts                     # Page registry + Puck page data schemas
 └── types/
     └── puck.ts                     # Shared Puck types (PuckPageData, MediaBlock union)
 
@@ -88,9 +87,6 @@ content/                            # Outside src/ — flat JSON files
 ├── _registry.json
 ├── photography.json
 └── videography.json
-
-public/
-└── uploads/                        # Images uploaded via editor
 ```
 
 ## Data Model & Schemas
@@ -112,10 +108,11 @@ const MediaMetaSchema = z.object({
 // src/components/puck/ImageDetailBlock/schema.ts
 const ImageDetailSchema = z.object({
   id: z.string().uuid(),
-  src: z.string().min(1),
+  src: z.string().url(),                     // Cloudinary secure_url
   alt: z.string().min(1),
-  width: z.number().positive().optional(),   // auto-populated via probe-image-size
-  height: z.number().positive().optional(),  // auto-populated via probe-image-size
+  width: z.number().positive().optional(),   // returned by Cloudinary upload widget
+  height: z.number().positive().optional(),  // returned by Cloudinary upload widget
+  cloudinaryPublicId: z.string().optional(), // for on-the-fly transformations
   hoverText: z.string().optional(),
   meta: MediaMetaSchema,
   projectId: z.string().uuid().nullable().default(null),
@@ -180,18 +177,60 @@ const PuckPageDataSchema = z.object({
 
 On save, the API route first validates the Puck envelope with `PuckPageDataSchema`, then walks `content` and validates each component's `props` against its specific block schema based on `type`.
 
-### Upload Validation
+### Cloudinary Integration
+
+Images are uploaded and hosted via Cloudinary. No server-side upload route needed.
+
+**Custom Puck Field:** `lib/puck/fields/cloudinary-image.tsx`
 
 ```ts
-// src/validations/upload.ts
-const ACCEPTED_MIME_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
-const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+// Renders a button in the Puck sidebar that opens the Cloudinary Upload Widget.
+// On successful upload, Cloudinary returns:
+//   - secure_url (CDN URL)
+//   - width, height (dimensions)
+//   - public_id (for transformations)
+// These are written directly to the component's props via onChange.
 
-const UploadSchema = z.object({
-  file: z.instanceof(File)
-    .refine((f) => ACCEPTED_MIME_TYPES.includes(f.type), "Unsupported file type")
-    .refine((f) => f.size <= MAX_FILE_SIZE, "File exceeds 10MB limit"),
-});
+const CloudinaryImageField = ({ value, onChange, field }) => {
+  const openWidget = () => {
+    window.cloudinary.createUploadWidget(
+      {
+        cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+        uploadPreset: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET, // unsigned preset
+        sources: ["local", "url", "camera", "google_drive"],
+        multiple: false,
+        maxFileSize: 10_000_000, // 10MB — enforced by Cloudinary
+        resourceType: "image",
+      },
+      (error, result) => {
+        if (!error && result?.event === "success") {
+          onChange({
+            src: result.info.secure_url,
+            width: result.info.width,
+            height: result.info.height,
+            cloudinaryPublicId: result.info.public_id,
+          });
+        }
+      }
+    ).open();
+  };
+  // Renders preview thumbnail + "Upload Image" / "Change Image" button
+};
+```
+
+**On-the-fly transformations:** In render components, append Cloudinary URL transformations for responsive sizing:
+```
+https://res.cloudinary.com/{cloud}/image/upload/w_800,c_limit,f_auto,q_auto/{public_id}
+```
+This ensures the portfolio never loads full-resolution originals — Cloudinary handles resizing, format conversion (WebP/AVIF), and quality optimization at the CDN edge.
+
+**Environment variables required:**
+- `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` — your Cloudinary cloud name
+- `NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET` — an unsigned upload preset configured in Cloudinary dashboard
+
+**Cloudinary script:** Loaded in `app/layout.tsx` via `<Script>` tag:
+```tsx
+<Script src="https://widget.cloudinary.com/v2.0/global/all.js" strategy="lazyOnload" />
 ```
 
 ### Page Registry
@@ -248,7 +287,7 @@ app/(site)/[...slug]/page.tsx
 
 | Field | Type | Notes |
 |-------|------|-------|
-| Image | File upload | Saves to `public/uploads/`, auto-populates width/height |
+| Image | cloudinary-image (custom) | Opens Cloudinary widget, returns URL + dimensions |
 | Alt Text | text | Required |
 | Hover Text | text | Optional hover overlay |
 | Caption | text | Shown in lightbox |
@@ -264,7 +303,7 @@ app/(site)/[...slug]/page.tsx
 |-------|------|-------|
 | Video URL | text | Validated for YouTube/Vimeo |
 | Title | text | Required |
-| Thumbnail | File upload | Optional — falls back to auto-extracted |
+| Thumbnail | cloudinary-image (custom) | Optional — falls back to auto-extracted from YouTube/Vimeo |
 | Hover Text | text | Optional |
 | Caption | text | Shown in lightbox |
 | Description | textarea | Shown in lightbox |
@@ -279,7 +318,7 @@ app/(site)/[...slug]/page.tsx
 |-------|------|-------|
 | Title | text | Required |
 | Description | rich-text | Puck built-in RichText field (0.21+) |
-| Cover Image | File upload | Required |
+| Cover Image | cloudinary-image (custom) | Required — uploaded via Cloudinary widget |
 | Tags | array of text | |
 | Live URL | text | Optional |
 | Repo URL | text | Optional |
@@ -389,16 +428,12 @@ The lightbox URL params (`?media=`, `?project=`) are read **exclusively client-s
 | GET | — | Return full registry |
 | POST | body: `{ slug, title }` | Create empty page + registry entry with timestamps |
 
-**Image upload** — `src/app/api/upload/route.ts`:
-
-| Method | Action |
-|--------|--------|
-| POST | Dev-only guard. Validate with `UploadSchema` (MIME type + 10MB limit). Save to `public/uploads/`, run `probe-image-size` on the raw buffer, return `{ src, width, height }` |
+**Image uploads** are handled entirely client-side via the Cloudinary Upload Widget — no server-side upload route needed.
 
 ### Validation Timing
 
 - **On publish/save only** — full Zod validation of all component props
-- **On upload** — image dimension extraction
+- **On image upload** — Cloudinary enforces file type and size limits via the upload preset configuration
 - **Never on keystroke or drag** — keeps editor performance smooth
 
 ### ISR
@@ -418,10 +453,10 @@ The lightbox URL params (`?media=`, `?project=`) are read **exclusively client-s
 | `@puckeditor/core` (0.21+) | Visual editor (includes built-in RichText field) |
 | `yet-another-react-lightbox` | Lightbox gallery |
 | `nuqs` | URL query state for lightbox |
-| `probe-image-size` | Auto-extract image dimensions |
 | `framer-motion` | Animation (Magic UI dependency) |
 | `eslint-plugin-boundaries` | Architecture enforcement |
 | Magic UI components (copy-paste) | `magic-card`, animated text, `shine-border` |
+| Cloudinary Upload Widget (script tag) | Image upload/hosting — no npm package needed |
 
 ### Already in Starter
 
@@ -445,7 +480,7 @@ The lightbox URL params (`?media=`, `?project=`) are read **exclusively client-s
 | Sentry, PostHog | Not needed for v1 |
 | OpenTelemetry | Not needed |
 | Storybook | Optional, add back later |
-| Vercel Blob / UploadThing | Local uploads for v1 |
+| Vercel Blob / UploadThing | Using Cloudinary instead |
 
 ## ESLint Boundaries
 
@@ -477,18 +512,17 @@ The lightbox URL params (`?media=`, `?project=`) are read **exclusively client-s
 | Page JSON missing on load | Return 404, editor shows "Page not found" |
 | Registry file missing | Auto-create empty `{ "pages": [] }` on first access |
 | Zod validation fails on save | Return 400 with Zod error details, show toast in editor |
-| Upload fails (bad type/size) | Return 400 with validation message |
-| Upload fails (disk error) | Return 500 with error message |
+| Cloudinary upload fails | Widget shows its own error UI — no server handling needed |
 | Orphaned `projectId` | Media renders normally, just doesn't appear in any project lightbox |
 | Content directory missing | Auto-create `content/` on first API call |
 
 ## Editor Route Protection
 
-In production, Next.js middleware blocks all `/edit/*` routes and the `/api/upload` route. The upload API also checks `process.env.NODE_ENV === 'development'` as a secondary guard. This prevents information disclosure and unused editor UI on the deployed site.
+In production, Next.js middleware blocks all `/edit/*` routes. This prevents information disclosure and unused editor UI on the deployed site.
 
 ```ts
 // src/middleware.ts (at src/ root, NOT inside src/app/)
-// If NODE_ENV === 'production', redirect /edit/* to / and block /api/upload
+// If NODE_ENV === 'production', redirect /edit/* to /
 ```
 
 ## CLAUDE.md Rules
@@ -503,12 +537,13 @@ In production, Next.js middleware blocks all `/edit/*` routes and the `/api/uplo
 - Magic UI components live in src/components/magicui/ — treated as shared UI
 - Lightbox is URL-driven via nuqs — never use useState for lightbox state
 - Content is file-based — all page data in /content/*.json
+- Images are hosted on Cloudinary — never store images locally
 - Zod validation runs on save/publish only — never on keystroke or drag
 ```
 
 ## Watch-outs
 
-1. **Vercel `public/uploads/` is read-only at runtime.** v1 assumes local editing + git commit workflow. If live editing on the deployed site is needed later, swap to Vercel Blob in the upload route.
+1. **Cloudinary upload preset must be "unsigned."** This allows client-side uploads without server auth. Configure allowed file types and max size in the Cloudinary dashboard upload preset settings, not in code.
 
 2. **Zod + Puck performance.** Validation on save only, never during editing interactions.
 
@@ -516,15 +551,15 @@ In production, Next.js middleware blocks all `/edit/*` routes and the `/api/uplo
 
 4. **Orphaned projectId references.** If a ProjectBlock is deleted, any media with its `projectId` still renders fine — it just won't appear in any project lightbox. No cascading deletes needed.
 
-5. **`probe-image-size` runs server-side** in the upload API route handler on the raw file buffer, before writing to disk. It does not run client-side.
+5. **Cloudinary URL transformations.** Always use transformation parameters (`w_800,c_limit,f_auto,q_auto`) in render components to serve optimized images. Never render the raw upload URL — it may be a 10MB original.
 
 6. **Content directory initialization.** The `content/` directory and `_registry.json` are auto-created on first API access if missing. No manual setup required.
+
+7. **Cloudinary free tier.** The free plan includes 25 credits/month (roughly 25K transformations or 25GB storage). Sufficient for a personal portfolio. Monitor usage in the Cloudinary dashboard.
 
 ## Out of Scope (v1)
 
 - Authentication on editor routes
 - Cross-page media associations
-- Image optimization pipeline (next/image handles it at render)
 - Page JSON versioning (git history is the version control)
 - AI page generation (Puck AI plugin — revisit for v2)
-- Live editing on deployed site (requires Vercel Blob — v2)
