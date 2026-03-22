@@ -1,0 +1,9 @@
+{
+  "name": "@monorepo/eslint-config",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "eslint-config-next": "^15",
+    "eslint-config-prettier": "^10"
+  }
+}
