@@ -1,9 +1,14 @@
 "use client";
 
-import { Puck } from "@measured/puck";
+import dynamic from "next/dynamic";
 import "@measured/puck/puck.css";
 import { puckConfig } from "@/lib/puck-config";
 import type { Data } from "@measured/puck";
+
+const Puck = dynamic(
+  () => import("@measured/puck").then((mod) => mod.Puck),
+  { ssr: false, loading: () => <div className="flex h-screen items-center justify-center">Loading editor...</div> }
+);
 
 export function EditorClient({
   pagePath,

@@ -2,6 +2,7 @@ import { Render } from "@measured/puck";
 import { notFound } from "next/navigation";
 import { puckConfig } from "@/lib/puck-config";
 import { dataStore } from "@/lib/puck-data";
+import { EditButton } from "./edit-button";
 
 type Params = Promise<{ path?: string[] }>;
 
@@ -14,5 +15,10 @@ export default async function PuckPage({ params }: { params: Params }) {
     notFound();
   }
 
-  return <Render config={puckConfig} data={data} />;
+  return (
+    <>
+      <Render config={puckConfig} data={data} />
+      <EditButton />
+    </>
+  );
 }
