@@ -1,0 +1,33 @@
+@theme {
+  /* Colors — OKLCH for perceptual uniformity */
+  --color-primary: oklch(0.65 0.15 250);
+  --color-primary-foreground: oklch(0.98 0 0);
+  --color-secondary: oklch(0.75 0.05 250);
+  --color-secondary-foreground: oklch(0.98 0 0);
+  --color-accent: oklch(0.7 0.18 150);
+  --color-accent-foreground: oklch(0.98 0 0);
+  --color-background: oklch(0.99 0 0);
+  --color-foreground: oklch(0.15 0 0);
+  --color-muted: oklch(0.92 0.01 250);
+  --color-muted-foreground: oklch(0.55 0.02 250);
+  --color-border: oklch(0.88 0.02 250);
+
+  /* Typography */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Spacing */
+  --spacing-section: 5rem;
+  --spacing-container: 2rem;
+
+  /* Border radii */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px oklch(0 0 0 / 0.07);
+  --shadow-lg: 0 10px 15px oklch(0 0 0 / 0.1);
+}
