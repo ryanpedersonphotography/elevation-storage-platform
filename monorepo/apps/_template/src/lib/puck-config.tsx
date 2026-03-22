@@ -1,7 +1,12 @@
 import type { Config } from "@measured/puck";
 import { blocks } from "@monorepo/puck-blocks";
 
-export const puckConfig: Config = {
+type RootProps = {
+  title: string;
+  description: string;
+};
+
+export const puckConfig: Config<Record<string, never>, RootProps> = {
   components: {
     ...blocks,
   },
