@@ -1,0 +1,40 @@
+{
+  "root": {
+    "props": {
+      "title": "Home",
+      "description": "Welcome to the site"
+    }
+  },
+  "content": [
+    {
+      "type": "Hero",
+      "props": {
+        "id": "hero-1",
+        "heading": "Welcome to Your Site",
+        "subheading": "Built with Puck visual editor. Edit this page at /edit.",
+        "buttonText": "Open Editor",
+        "buttonLink": "/edit",
+        "backgroundImage": "",
+        "alignment": "center"
+      }
+    },
+    {
+      "type": "Spacer",
+      "props": {
+        "id": "spacer-1",
+        "height": "md"
+      }
+    },
+    {
+      "type": "CallToAction",
+      "props": {
+        "id": "cta-1",
+        "heading": "Ready to customize?",
+        "text": "Navigate to /edit to start building your pages visually.",
+        "buttonText": "Start Editing",
+        "buttonLink": "/edit",
+        "variant": "default"
+      }
+    }
+  ]
+}
