@@ -52,7 +52,7 @@ export const Hero: ComponentConfig<HeroProps> = {
 
     return (
       <Section
-        className={cn("relative", className)}
+        className={cn("relative overflow-hidden", className)}
         style={
           backgroundImage
             ? {
@@ -63,10 +63,15 @@ export const Hero: ComponentConfig<HeroProps> = {
             : undefined
         }
       >
-        <Container className={alignClass}>
-          <Heading level={1}>{heading}</Heading>
+        {backgroundImage && (
+          <div className="absolute inset-0 bg-black/60" aria-hidden="true" />
+        )}
+        <Container className={cn("relative z-10", alignClass)}>
+          <Heading level={1} className={backgroundImage ? "text-white" : undefined}>
+            {heading}
+          </Heading>
           {subheading && (
-            <Text size="lg" muted className="mt-4">
+            <Text size="lg" className={cn("mt-4", backgroundImage ? "text-white/80" : "text-muted-foreground")}>
               {subheading}
             </Text>
           )}
