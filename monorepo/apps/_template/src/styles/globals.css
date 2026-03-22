@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@source "../../../../packages/ui/src";
+@source "../../../../packages/puck-blocks/src";
 @import "@monorepo/ui/tokens.css";
 
 /* Client-specific overrides — customize these for each client */
