@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@monorepo/tsconfig": "workspace:*",
+    "@types/react": "^19",
     "typescript": "^5"
   }
 }
