@@ -1,0 +1,56 @@
+{
+  "root": {
+    "props": {
+      "title": "Contact - Christian Car Detailer",
+      "description": "Book a mobile car detailing appointment in the Brainerd Lakes Area"
+    }
+  },
+  "content": [
+    {
+      "type": "Hero",
+      "props": {
+        "id": "hero-1",
+        "heading": "Book a Detail",
+        "subheading": "Ready to make your car shine? Get in touch to schedule your mobile detailing appointment.",
+        "buttonText": "",
+        "buttonLink": "",
+        "backgroundImage": "/images/studio-contact.png",
+        "alignment": "center"
+      }
+    },
+    {
+      "type": "Spacer",
+      "props": {
+        "id": "spacer-1",
+        "height": "md"
+      }
+    },
+    {
+      "type": "TextBlock",
+      "props": {
+        "id": "text-1",
+        "content": "Christian Car Detailer\nOwner: Christian\nPhone: Contact via form\nLocation: Brainerd Lakes Area, MN\n\nWe serve Brainerd, Baxter, Nisswa, Pillager, Pequot Lakes, Crosby, Little Falls, and Pierz.",
+        "alignment": "center"
+      }
+    },
+    {
+      "type": "Spacer",
+      "props": {
+        "id": "spacer-2",
+        "height": "md"
+      }
+    },
+    {
+      "type": "CallToAction",
+      "props": {
+        "id": "cta-1",
+        "heading": "Serving the Brainerd Lakes Area",
+        "text": "Student-owned and operated. Quality work, honest pricing, and a passion for cars.",
+        "buttonText": "See Services",
+        "buttonLink": "/services",
+        "variant": "accent"
+      }
+    }
+  ],
+  "zones": {}
+}

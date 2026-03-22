@@ -1,0 +1,150 @@
+{
+  "root": {
+    "props": {
+      "title": "Services - Christian Car Detailer",
+      "description": "Professional car detailing services in the Brainerd Lakes Area"
+    }
+  },
+  "content": [
+    {
+      "type": "Hero",
+      "props": {
+        "id": "hero-1",
+        "heading": "Our Services",
+        "subheading": "Professional mobile detailing packages for every need and budget.",
+        "buttonText": "Book Now",
+        "buttonLink": "/contact",
+        "backgroundImage": "/images/service-paint-correction.png",
+        "alignment": "center"
+      }
+    },
+    {
+      "type": "Spacer",
+      "props": {
+        "id": "spacer-1",
+        "height": "sm"
+      }
+    },
+    {
+      "type": "ServiceCard",
+      "props": {
+        "id": "service-ceramic",
+        "image": "/images/service-ceramic-coating.png",
+        "imageAlt": "Ceramic coating service",
+        "title": "Ceramic Coating",
+        "price": "Starting $450",
+        "facts": [
+          { "label": "Duration", "value": "1-2 Days" },
+          { "label": "Protection", "value": "2+ Years" },
+          { "label": "Type", "value": "Mobile" }
+        ],
+        "ctaText": "Book Now",
+        "ctaLink": "/contact"
+      }
+    },
+    {
+      "type": "ServiceCard",
+      "props": {
+        "id": "service-foam-wash",
+        "image": "/images/service-foam-wash.png",
+        "imageAlt": "Foam wash and seal service",
+        "title": "Foam Wash + Seal",
+        "price": "Starting $65",
+        "facts": [
+          { "label": "Duration", "value": "1-2 Hours" },
+          { "label": "Protection", "value": "3 Months" },
+          { "label": "Type", "value": "Mobile" }
+        ],
+        "ctaText": "Book Now",
+        "ctaLink": "/contact"
+      }
+    },
+    {
+      "type": "ServiceCard",
+      "props": {
+        "id": "service-paint-correction",
+        "image": "/images/service-paint-correction.png",
+        "imageAlt": "Paint correction service",
+        "title": "Paint Correction",
+        "price": "Starting $300",
+        "facts": [
+          { "label": "Duration", "value": "4-8 Hours" },
+          { "label": "Finish", "value": "Mirror-like" },
+          { "label": "Type", "value": "Mobile" }
+        ],
+        "ctaText": "Book Now",
+        "ctaLink": "/contact"
+      }
+    },
+    {
+      "type": "ServiceCard",
+      "props": {
+        "id": "service-interior-detail",
+        "image": "/images/service-interior-detail.png",
+        "imageAlt": "Interior deep clean service",
+        "title": "Interior Deep Clean",
+        "price": "Starting $150",
+        "facts": [
+          { "label": "Duration", "value": "2-4 Hours" },
+          { "label": "Scope", "value": "Full Interior" },
+          { "label": "Type", "value": "Mobile" }
+        ],
+        "ctaText": "Book Now",
+        "ctaLink": "/contact"
+      }
+    },
+    {
+      "type": "ServiceCard",
+      "props": {
+        "id": "service-headlight-restore",
+        "image": "/images/service-headlight-restore.png",
+        "imageAlt": "Headlight restoration service",
+        "title": "Headlight Restoration",
+        "price": "Starting $75",
+        "facts": [
+          { "label": "Duration", "value": "1 Hour" },
+          { "label": "Result", "value": "Crystal Clear" },
+          { "label": "Type", "value": "Mobile" }
+        ],
+        "ctaText": "Book Now",
+        "ctaLink": "/contact"
+      }
+    },
+    {
+      "type": "ServiceCard",
+      "props": {
+        "id": "service-wheel-detail",
+        "image": "/images/service-wheel-detail.png",
+        "imageAlt": "Wheel and tire reset service",
+        "title": "Wheel & Tire Reset",
+        "price": "Starting $50",
+        "facts": [
+          { "label": "Duration", "value": "45 Min" },
+          { "label": "Coverage", "value": "All 4 Wheels" },
+          { "label": "Type", "value": "Mobile" }
+        ],
+        "ctaText": "Book Now",
+        "ctaLink": "/contact"
+      }
+    },
+    {
+      "type": "Spacer",
+      "props": {
+        "id": "spacer-2",
+        "height": "md"
+      }
+    },
+    {
+      "type": "CallToAction",
+      "props": {
+        "id": "cta-1",
+        "heading": "Ready to get started?",
+        "text": "Book your detail today. We come to you.",
+        "buttonText": "Contact Us",
+        "buttonLink": "/contact",
+        "variant": "default"
+      }
+    }
+  ],
+  "zones": {}
+}

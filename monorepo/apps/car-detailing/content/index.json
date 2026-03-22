@@ -1,8 +1,8 @@
 {
   "root": {
     "props": {
-      "title": "Home",
-      "description": "Welcome to the site"
+      "title": "Christian Car Detailer - Mobile Detailing",
+      "description": "Student-owned mobile car detailing for the Brainerd Lakes Area"
     }
   },
   "content": [
@@ -10,11 +10,11 @@
       "type": "Hero",
       "props": {
         "id": "hero-1",
-        "heading": "Welcome to Your Site",
-        "subheading": "Built with Puck visual editor. Edit this page at /edit.",
-        "buttonText": "Open Editor",
-        "buttonLink": "/edit",
-        "backgroundImage": "",
+        "heading": "Christian Car Detailer",
+        "subheading": "Student-owned mobile car detailing for the Brainerd Lakes Area. Honest pricing, quality results.",
+        "buttonText": "Book a Detail",
+        "buttonLink": "/contact",
+        "backgroundImage": "/images/hero-detail-studio.png",
         "alignment": "center"
       }
     },
@@ -26,75 +26,48 @@
       }
     },
     {
-      "type": "CallToAction",
+      "type": "CardGrid",
       "props": {
-        "id": "cta-1",
-        "heading": "Ready to customize?",
-        "text": "Navigate to /edit to start building your pages visually.",
-        "buttonText": "Start Editing",
-        "buttonLink": "/edit",
-        "variant": "default"
-      }
-    },
-    {
-      "type": "TextBlock",
-      "props": {
-        "content": "Enter your text here.",
-        "alignment": "left",
-        "id": "TextBlock-9fcefab6-f6f4-4743-9653-0a53e0e83fb6"
+        "id": "card-grid-1",
+        "columns": 3,
+        "cards": [
+          {
+            "title": "Ceramic Coating",
+            "description": "Long-lasting paint protection with a deep, glossy finish. Shields against UV, chemicals, and contaminants for 2+ years.",
+            "image": "/images/service-ceramic-coating.png",
+            "link": "/services"
+          },
+          {
+            "title": "Foam Wash + Seal",
+            "description": "A thorough exterior foam wash followed by a sealant application to protect and shine your paint for months.",
+            "image": "/images/service-foam-wash.png",
+            "link": "/services"
+          },
+          {
+            "title": "Paint Correction",
+            "description": "Remove swirl marks, scratches, and oxidation with professional machine polishing for a mirror-like finish.",
+            "image": "/images/service-paint-correction.png",
+            "link": "/services"
+          }
+        ]
       }
     },
     {
       "type": "Spacer",
       "props": {
-        "height": "md",
-        "id": "Spacer-b5b8862b-ac08-4bd0-b70f-003b58b12067"
-      }
-    },
-    {
-      "type": "CardGrid",
-      "props": {
-        "cards": [
-          {
-            "title": "Card 1",
-            "description": "Description",
-            "image": "",
-            "link": "#"
-          },
-          {
-            "title": "Card 2",
-            "description": "Description",
-            "image": "",
-            "link": "#"
-          },
-          {
-            "title": "Card 3",
-            "description": "Description",
-            "image": "",
-            "link": "#"
-          }
-        ],
-        "columns": 3,
-        "id": "CardGrid-e9a8c6bd-677a-44f0-a3d5-68f444bc1f48"
-      }
-    },
-    {
-      "type": "TextBlock",
-      "props": {
-        "content": "Enter your text here.",
-        "alignment": "left",
-        "id": "TextBlock-f8289af5-3ffe-428f-a2d6-f09634f35464"
+        "id": "spacer-2",
+        "height": "sm"
       }
     },
     {
       "type": "CallToAction",
       "props": {
-        "heading": "Ready to get started?",
-        "text": "Contact us today.",
-        "buttonText": "Get in Touch",
-        "buttonLink": "#",
-        "variant": "default",
-        "id": "CallToAction-9b83f2fe-9fa1-4e9a-8bb3-d584d73fc348"
+        "id": "cta-1",
+        "heading": "Mobile Service — We Come to You",
+        "text": "Serving Brainerd, Baxter, Nisswa, Pillager, Pequot Lakes, Crosby, Little Falls, and Pierz.",
+        "buttonText": "See All Services",
+        "buttonLink": "/services",
+        "variant": "accent"
       }
     }
   ],
