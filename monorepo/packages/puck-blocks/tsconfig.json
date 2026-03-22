@@ -1,0 +1,7 @@
+{
+  "extends": "@monorepo/tsconfig/library.json",
+  "compilerOptions": {
+    "outDir": "./dist"
+  },
+  "include": ["src"]
+}
