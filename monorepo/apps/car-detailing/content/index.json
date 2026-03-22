@@ -1,0 +1,102 @@
+{
+  "root": {
+    "props": {
+      "title": "Home",
+      "description": "Welcome to the site"
+    }
+  },
+  "content": [
+    {
+      "type": "Hero",
+      "props": {
+        "id": "hero-1",
+        "heading": "Welcome to Your Site",
+        "subheading": "Built with Puck visual editor. Edit this page at /edit.",
+        "buttonText": "Open Editor",
+        "buttonLink": "/edit",
+        "backgroundImage": "",
+        "alignment": "center"
+      }
+    },
+    {
+      "type": "Spacer",
+      "props": {
+        "id": "spacer-1",
+        "height": "md"
+      }
+    },
+    {
+      "type": "CallToAction",
+      "props": {
+        "id": "cta-1",
+        "heading": "Ready to customize?",
+        "text": "Navigate to /edit to start building your pages visually.",
+        "buttonText": "Start Editing",
+        "buttonLink": "/edit",
+        "variant": "default"
+      }
+    },
+    {
+      "type": "TextBlock",
+      "props": {
+        "content": "Enter your text here.",
+        "alignment": "left",
+        "id": "TextBlock-9fcefab6-f6f4-4743-9653-0a53e0e83fb6"
+      }
+    },
+    {
+      "type": "Spacer",
+      "props": {
+        "height": "md",
+        "id": "Spacer-b5b8862b-ac08-4bd0-b70f-003b58b12067"
+      }
+    },
+    {
+      "type": "CardGrid",
+      "props": {
+        "cards": [
+          {
+            "title": "Card 1",
+            "description": "Description",
+            "image": "",
+            "link": "#"
+          },
+          {
+            "title": "Card 2",
+            "description": "Description",
+            "image": "",
+            "link": "#"
+          },
+          {
+            "title": "Card 3",
+            "description": "Description",
+            "image": "",
+            "link": "#"
+          }
+        ],
+        "columns": 3,
+        "id": "CardGrid-e9a8c6bd-677a-44f0-a3d5-68f444bc1f48"
+      }
+    },
+    {
+      "type": "TextBlock",
+      "props": {
+        "content": "Enter your text here.",
+        "alignment": "left",
+        "id": "TextBlock-f8289af5-3ffe-428f-a2d6-f09634f35464"
+      }
+    },
+    {
+      "type": "CallToAction",
+      "props": {
+        "heading": "Ready to get started?",
+        "text": "Contact us today.",
+        "buttonText": "Get in Touch",
+        "buttonLink": "#",
+        "variant": "default",
+        "id": "CallToAction-9b83f2fe-9fa1-4e9a-8bb3-d584d73fc348"
+      }
+    }
+  ],
+  "zones": {}
+}

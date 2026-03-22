@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@source "../../../../packages/ui/src";
+@source "../../../../packages/puck-blocks/src";
+@import "@monorepo/ui/tokens.css";
+
+/* Christian Car Detailer brand */
+@theme {
+  --color-primary: oklch(0.33 0.06 160);
+  --color-primary-foreground: oklch(0.95 0.02 85);
+  --color-secondary: oklch(0.58 0.12 65);
+  --color-secondary-foreground: oklch(0.98 0 0);
+  --color-accent: oklch(0.58 0.12 65);
+  --color-accent-foreground: oklch(0.98 0 0);
+  --color-background: oklch(0.82 0.06 70);
+  --color-foreground: oklch(0.18 0.04 160);
+  --color-muted: oklch(0.75 0.05 70);
+  --color-muted-foreground: oklch(0.4 0.03 160);
+  --color-border: oklch(0.65 0.06 70);
+  --font-heading: "Domine", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
