@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@import "@monorepo/ui/tokens.css";
+
+/* Client-specific overrides — customize these for each client */
+@theme {
+  /* Override primary color for this client's brand */
+  /* --color-primary: oklch(0.55 0.2 30); */
+}
