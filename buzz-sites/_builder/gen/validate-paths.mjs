@@ -1,3 +1,4 @@
+import { realpathSync } from "node:fs"
 import { resolve, isAbsolute, relative } from "node:path"
 
 export function validateSourcePath(sourcePath, candidateRoot) {
@@ -12,6 +13,22 @@ export function validateSourcePath(sourcePath, candidateRoot) {
   if (rel.startsWith("..")) {
     return { valid: false, reason: `Path escapes candidate directory: ${sourcePath}` }
   }
+
+  // Symlink resolution: if the path (or any of its ancestors) is a symlink
+  // that points outside the candidate root, reject it. realpathSync throws
+  // if the file doesn't exist — that's fine because the string-based checks
+  // above already verified the declared path is safe.
+  try {
+    const realResolved = realpathSync(resolved)
+    const realRoot = realpathSync(candidateRoot)
+    const realRel = relative(realRoot, realResolved)
+    if (realRel.startsWith("..") || isAbsolute(realRel)) {
+      return { valid: false, reason: `Symlink escapes candidate directory: ${sourcePath}` }
+    }
+  } catch {
+    // Path doesn't exist yet — string check above is sufficient.
+  }
+
   return { valid: true, resolved }
 }
 

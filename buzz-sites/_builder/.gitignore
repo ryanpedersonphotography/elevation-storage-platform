@@ -1,0 +1,4 @@
+.DS_Store
+gen/node_modules/
+gen/.tmp-*
+dist/

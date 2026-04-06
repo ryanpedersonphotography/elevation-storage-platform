@@ -880,17 +880,11 @@
       "dependencies": ["src/system/atoms/Button/Button.tsx"],
       "tokens": ["src/styles/tokens/primitives.css", "src/styles/tokens/semantic.css", "src/styles/tokens/treatments.css"]
     },
-    "contentSlots": {
-      "title": { "type": "string", "default": "Rum River Wedding Barn" },
-      "subtitle": { "type": "string" },
-      "slides": { "type": "image[]" },
-      "ctaText": { "type": "string", "default": "Schedule a Tour" },
-      "ctaHref": { "type": "string", "default": "#contact" }
-    },
+    "contentSlots": {},
     "configSlots": {
-      "autoPlayMs": { "type": "number", "default": 6000, "v2": true },
-      "showDots": { "type": "boolean", "default": true, "v2": true }
+      "isActive": { "type": "boolean", "v2": true }
     },
+    "acceptsId": true,
     "npmDeps": [],
     "stylingSystem": "css-modules-tokens",
     "animation": "css-transitions",
@@ -922,9 +916,10 @@
       "tokens": ["src/styles/tokens/primitives.css", "src/styles/tokens/semantic.css", "src/styles/tokens/treatments.css"]
     },
     "contentSlots": {
-      "items": { "type": "card[]" }
+      "items": { "type": "card[]", "required": true }
     },
     "configSlots": {},
+    "acceptsId": true,
     "npmDeps": [],
     "stylingSystem": "css-modules-tokens",
     "animation": "css-transitions",
@@ -932,7 +927,7 @@
     "extractable": false,
     "selfContained": false,
     "extractionComplexity": "requires-refactor",
-    "extractionNotes": "Inline in page.tsx with CSS from page.module.css. Relatively simple JSX — can be carved into own component. Relies on overlap with hero bottom fade.",
+    "extractionNotes": "Pre-extracted to _builder/extracted/ProofBand. Takes items: ProofPoint[] where ProofPoint = { stat: string; desc: string }.",
     "layoutRelationships": {
       "overlapsAbove": "sidebar-glass-gsap:home-hero",
       "usesMask": true,
@@ -957,16 +952,15 @@
       "tokens": ["src/styles/tokens/primitives.css", "src/styles/tokens/semantic.css", "src/styles/tokens/treatments.css"]
     },
     "contentSlots": {
-      "eyebrow": { "type": "string" },
-      "title": { "type": "string" },
-      "body": { "type": "string" },
-      "features": { "type": "string[]" },
-      "image": { "type": "image" },
+      "eyebrow": { "type": "string", "required": true },
+      "title": { "type": "string", "required": true },
+      "body": { "type": "string", "required": true },
+      "features": { "type": "string[]", "required": true },
+      "image": { "type": "image", "required": true },
       "imageAlt": { "type": "string" }
     },
-    "configSlots": {
-      "reverse": { "type": "boolean", "default": false, "v2": true }
-    },
+    "configSlots": {},
+    "acceptsId": true,
     "npmDeps": [],
     "stylingSystem": "css-modules-tokens",
     "animation": "css-transitions",
@@ -974,7 +968,7 @@
     "extractable": false,
     "selfContained": false,
     "extractionComplexity": "requires-refactor",
-    "extractionNotes": "Uses PageSection recipe as layout shell + Image atom. JSX in page.tsx but composition is clean. Needs carving into own component + extracting PageSection dependency.",
+    "extractionNotes": "Pre-extracted to _builder/extracted/SettingSection. Imports PageSection from @/system/recipes/PageSection (must be copied transitively) and Image from @/system/atoms/Image.",
     "layoutRelationships": {
       "usesDivider": "seam",
       "stitchedAccent": true
@@ -997,10 +991,7 @@
       "tokens": ["src/styles/tokens/primitives.css", "src/styles/tokens/semantic.css", "src/styles/tokens/treatments.css"]
     },
     "contentSlots": {
-      "accent": { "type": "string" },
-      "title": { "type": "string" },
-      "subtitle": { "type": "string" },
-      "cards": { "type": "richCard[]" }
+      "cards": { "type": "richCard[]", "required": true }
     },
     "configSlots": {},
     "npmDeps": [],
@@ -1026,13 +1017,14 @@
     "source": {
       "component": "src/app/page.tsx",
       "styles": ["src/app/page.module.css"],
-      "dependencies": [],
+      "dependencies": ["src/system/atoms/Image/Image.tsx"],
       "tokens": ["src/styles/tokens/primitives.css", "src/styles/tokens/semantic.css", "src/styles/tokens/treatments.css"]
     },
     "contentSlots": {
-      "title": { "type": "string" },
-      "subline": { "type": "string" },
-      "image": { "type": "image" }
+      "title": { "type": "string", "required": true },
+      "subline": { "type": "string", "required": true },
+      "image": { "type": "image", "required": true },
+      "imageAlt": { "type": "string", "required": true }
     },
     "configSlots": {},
     "npmDeps": [],
@@ -1042,7 +1034,7 @@
     "extractable": false,
     "selfContained": false,
     "extractionComplexity": "requires-refactor",
-    "extractionNotes": "Inline in page.tsx. Relatively isolatable JSX. Uses page-level negative margin for overlap with planning section below.",
+    "extractionNotes": "Pre-extracted to _builder/extracted/EmotionalBanner. imageAlt is required for accessibility.",
     "layoutRelationships": {
       "expectsOverlap": "planning section overlaps this via negative margin",
       "negativeMargin": false,
@@ -1066,10 +1058,10 @@
       "tokens": ["src/styles/tokens/primitives.css", "src/styles/tokens/semantic.css", "src/styles/tokens/treatments.css"]
     },
     "contentSlots": {
-      "eyebrow": { "type": "string" },
-      "title": { "type": "string" },
-      "body": { "type": "string" },
-      "items": { "type": "string[]" }
+      "eyebrow": { "type": "string", "required": true },
+      "title": { "type": "string", "required": true },
+      "body": { "type": "string", "required": true },
+      "items": { "type": "string[]", "required": true }
     },
     "configSlots": {},
     "npmDeps": [],
@@ -1079,7 +1071,7 @@
     "extractable": false,
     "selfContained": false,
     "extractionComplexity": "requires-refactor",
-    "extractionNotes": "Inline in page.tsx. Uses negative margin overlap with emotional banner above. Rounded top corners. Can be extracted but overlap effect is context-dependent.",
+    "extractionNotes": "Pre-extracted to _builder/extracted/PlanningSection. Uses negative margin overlap with emotional banner above. Place immediately after EmotionalBanner to preserve the overlap effect.",
     "layoutRelationships": {
       "overlapsAbove": "sidebar-glass-gsap:emotional-banner",
       "negativeMargin": true,
@@ -1095,7 +1087,7 @@
     "name": "LocationMap",
     "archetype": "map",
     "tier": "recipe",
-    "description": "Google Maps embed + address block with copy-to-clipboard, action buttons, parking info",
+    "description": "Google Maps embed + address block with copy-to-clipboard, action buttons, parking info. LocationMap and LocationDetails are named exports that take no props; content is sourced from src/data/site.ts.",
     "thumbnail": null,
     "source": {
       "component": "src/system/recipes/LocationContent/LocationContent.tsx",
@@ -1103,13 +1095,7 @@
       "dependencies": ["src/data/site.ts", "src/system/atoms/Button/Button.tsx"],
       "tokens": ["src/styles/tokens/primitives.css", "src/styles/tokens/semantic.css"]
     },
-    "contentSlots": {
-      "accent": { "type": "string" },
-      "title": { "type": "string" },
-      "address": { "type": "string" },
-      "mapsHref": { "type": "string" },
-      "embedMapSrc": { "type": "string" }
-    },
+    "contentSlots": {},
     "configSlots": {},
     "npmDeps": [],
     "stylingSystem": "css-modules-tokens",
@@ -1129,7 +1115,7 @@
     "name": "TourForm",
     "archetype": "form",
     "tier": "recipe",
-    "description": "5-field glass-plate contact form with bronze focus rings, API submission, success/error states",
+    "description": "5-field glass-plate contact form with bronze focus rings, POSTs to /api/schedule-tour, success/error states. Takes no props.",
     "thumbnail": null,
     "source": {
       "component": "src/system/recipes/TourForm/TourForm.tsx",
@@ -1137,11 +1123,7 @@
       "dependencies": ["src/system/atoms/Field/Field.tsx", "src/system/atoms/Input/Input.tsx", "src/system/atoms/Textarea/Textarea.tsx", "src/system/atoms/Button/Button.tsx"],
       "tokens": ["src/styles/tokens/primitives.css", "src/styles/tokens/semantic.css", "src/styles/tokens/treatments.css", "src/styles/tokens/component.css"]
     },
-    "contentSlots": {
-      "accent": { "type": "string", "default": "Get in Touch" },
-      "title": { "type": "string", "default": "Schedule Your Visit" },
-      "lede": { "type": "string" }
-    },
+    "contentSlots": {},
     "configSlots": {},
     "npmDeps": [],
     "stylingSystem": "css-modules-tokens",
@@ -1161,7 +1143,7 @@
     "name": "ProSidebar",
     "archetype": "nav",
     "tier": "recipe",
-    "description": "Fixed left sidebar (280px/88px/0) with noise overlay, spine emboss, section-aware nav via IntersectionObserver, theme toggle",
+    "description": "Fixed left sidebar (280px/88px/0) with noise overlay, spine emboss, section-aware nav via IntersectionObserver, theme toggle. NAV_ITEMS, logo, and venue name are hardcoded; component takes no props.",
     "thumbnail": null,
     "source": {
       "component": "src/system/recipes/ProSidebar/ProSidebar.tsx",
@@ -1169,11 +1151,7 @@
       "dependencies": ["src/system/atoms/Button/Button.tsx"],
       "tokens": ["src/styles/tokens/primitives.css", "src/styles/tokens/semantic.css", "src/styles/tokens/treatments.css"]
     },
-    "contentSlots": {
-      "logo": { "type": "image" },
-      "venueName": { "type": "string" },
-      "navItems": { "type": "card[]" }
-    },
+    "contentSlots": {},
     "configSlots": {},
     "npmDeps": ["@heroicons/react"],
     "stylingSystem": "css-modules-tokens",
@@ -1231,7 +1209,7 @@
     "name": "PageSection",
     "archetype": "layout",
     "tier": "recipe",
-    "description": "Reusable layout shell with stack/split modes, background variants, optional header and divider. Used by 5+ other sections.",
+    "description": "Reusable layout shell with stack/split modes, background variants, optional header and divider. Used internally by SettingSection and other recipes. NOT usable as a standalone page section — requires children, which the generator cannot provide. Flagged as v1.5 and shipped only as a transitive dependency.",
     "thumbnail": null,
     "source": {
       "component": "src/system/recipes/PageSection/PageSection.tsx",
@@ -1239,16 +1217,13 @@
       "dependencies": ["src/system/atoms/SectionDivider/SectionDivider.tsx"],
       "tokens": ["src/styles/tokens/primitives.css", "src/styles/tokens/semantic.css", "src/styles/tokens/treatments.css"]
     },
-    "contentSlots": {
-      "header": { "type": "card" },
-      "children": { "type": "string" }
-    },
+    "contentSlots": {},
     "configSlots": {
-      "layout": { "type": "string", "default": "stack" },
-      "bg": { "type": "string", "default": "base" },
-      "gridWeight": { "type": "string", "default": "even" },
-      "reverse": { "type": "boolean", "default": false },
-      "divider": { "type": "string" }
+      "layout": { "type": "string", "default": "stack", "v2": true },
+      "bg": { "type": "string", "default": "base", "v2": true },
+      "gridWeight": { "type": "string", "default": "even", "v2": true },
+      "reverse": { "type": "boolean", "default": false, "v2": true },
+      "divider": { "type": "string", "v2": true }
     },
     "npmDeps": [],
     "stylingSystem": "css-modules-tokens",
@@ -1257,12 +1232,12 @@
     "extractable": true,
     "selfContained": true,
     "extractionComplexity": "ready",
-    "extractionNotes": "Own directory. Critical shared dependency — used by setting-section, gallery, location, and others. Must be extracted first as a foundation component.",
+    "extractionNotes": "Own directory. Shared layout shell — used transitively by SettingSection. Because it requires a children prop, it cannot be placed directly in a page config's sections list. Generator should copy it whenever any recipe that depends on it is included.",
     "layoutRelationships": {
       "isLayoutShell": true,
-      "usedBy": ["sidebar-glass-gsap:setting-section", "sidebar-glass-gsap:gallery-carousel", "sidebar-glass-gsap:location-map"]
+      "usedBy": ["sidebar-glass-gsap:setting-section"]
     },
     "peerSections": [],
-    "phase": "v1"
+    "phase": "v1.5"
   }
 ]

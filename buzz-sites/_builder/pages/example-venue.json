@@ -1,0 +1,86 @@
+{
+  "name": "example-venue",
+  "baseCandidate": "sidebar-glass-gsap",
+  "theme": "dark",
+  "meta": {
+    "title": "Example Wedding Venue",
+    "description": "A beautiful wedding venue carved from cinematic sections"
+  },
+  "sections": [
+    {
+      "registryId": "sidebar-glass-gsap:home-hero",
+      "id": "home"
+    },
+    {
+      "registryId": "sidebar-glass-gsap:proof-band",
+      "id": "proof",
+      "content": {
+        "items": [
+          { "stat": "200 Acres", "desc": "Rolling countryside" },
+          { "stat": "Up to 250", "desc": "Indoor and outdoor" },
+          { "stat": "3 Venues", "desc": "Barn, garden, lake" },
+          { "stat": "90 min", "desc": "From the city" }
+        ]
+      }
+    },
+    {
+      "registryId": "sidebar-glass-gsap:setting-section",
+      "id": "setting",
+      "content": {
+        "eyebrow": "The Setting",
+        "title": "A Venue That Feels Like Yours",
+        "body": "Rolling fields, soaring beams, and long shadows at golden hour. Every corner of our property was made to frame your day.",
+        "features": [
+          "Ceremony in the meadow",
+          "Reception in the barn",
+          "Sunset portraits at the lake",
+          "Candlelit dinner under the beams"
+        ],
+        "image": "/images/setting.jpg",
+        "imageAlt": "The setting of the venue"
+      }
+    },
+    {
+      "registryId": "sidebar-glass-gsap:gallery-carousel",
+      "id": "gallery",
+      "content": {
+        "cards": [
+          { "src": "/images/barn.jpg", "alt": "The barn", "title": "The Barn", "description": "Soaring beams and warm light." },
+          { "src": "/images/garden.jpg", "alt": "The garden", "title": "The Garden", "description": "Open air under ancient oaks." },
+          { "src": "/images/lake.jpg", "alt": "The lake", "title": "The Lake", "description": "Sunset ceremonies on the water." }
+        ]
+      }
+    },
+    {
+      "registryId": "sidebar-glass-gsap:emotional-banner",
+      "id": "banner",
+      "content": {
+        "title": "The Moment It All Comes Together",
+        "subline": "Candlelight, laughter, and the people who matter most.",
+        "image": "/images/banner.jpg",
+        "imageAlt": "Candlelit reception under the beams"
+      }
+    },
+    {
+      "registryId": "sidebar-glass-gsap:planning-section",
+      "id": "planning",
+      "content": {
+        "eyebrow": "We Handle the Details",
+        "title": "Everything You Need, Under One Roof",
+        "body": "Our team coordinates the logistics so you can stay present.",
+        "items": [
+          "Day-of coordination",
+          "Vendor recommendations",
+          "Rain plan and backup timeline",
+          "Onsite parking and signage",
+          "Rehearsal the day before",
+          "Bridal suite and groom's lounge"
+        ]
+      }
+    },
+    {
+      "registryId": "sidebar-glass-gsap:tour-form",
+      "id": "contact"
+    }
+  ]
+}
