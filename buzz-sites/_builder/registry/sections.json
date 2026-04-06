@@ -1,0 +1,1268 @@
+[
+  {
+    "id": "classic-clean:hero",
+    "candidate": "classic-clean",
+    "name": "HeroEnhanced",
+    "archetype": "hero",
+    "tier": "page-inline",
+    "description": "Full-screen hero with romantic gradient overlay, script accent font, headline, description, CTA button, and scroll indicator",
+    "thumbnail": null,
+    "source": {
+      "component": "src/pages/HomePage.jsx",
+      "styles": ["src/CohesiveDesign.css"],
+      "dependencies": ["src/components/CTAButton.jsx"],
+      "tokens": []
+    },
+    "contentSlots": {
+      "title": { "type": "string", "default": "Your Love Story Begins Here" },
+      "subtitle": { "type": "string", "default": "A venue for your whole story" },
+      "description": { "type": "string" },
+      "ctaText": { "type": "string", "default": "Schedule Your Tour" },
+      "ctaHref": { "type": "string", "default": "/contact" },
+      "backgroundImage": { "type": "image" }
+    },
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "custom-css",
+    "animation": "css-only",
+    "framework": "react-router",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-rewrite",
+    "extractionNotes": "Embedded in HomePage.jsx with CMS hooks. Uses 4439-line monolith CohesiveDesign.css. React Router framework needs Next.js adaptation.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v2"
+  },
+  {
+    "id": "classic-clean:gallery",
+    "candidate": "classic-clean",
+    "name": "MasonicGallery",
+    "archetype": "gallery",
+    "tier": "page-inline",
+    "description": "Responsive masonry layout gallery with category filter tabs, lazy loading, and lightbox modal. 51 photos across 8 categories",
+    "thumbnail": null,
+    "source": {
+      "component": "src/pages/GalleryPage.jsx",
+      "styles": ["src/CohesiveDesign.css"],
+      "dependencies": ["src/components/VenueTabs.jsx"],
+      "tokens": []
+    },
+    "contentSlots": {
+      "title": { "type": "string", "default": "Our Gallery" },
+      "description": { "type": "string" },
+      "categories": { "type": "string[]" },
+      "photos": { "type": "richCard[]" }
+    },
+    "configSlots": {},
+    "npmDeps": ["masonic", "yet-another-react-lightbox"],
+    "stylingSystem": "custom-css",
+    "animation": "css-only",
+    "framework": "react-router",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-rewrite",
+    "extractionNotes": "Needs masonic + lightbox npm packages. CMS data hooks. Monolith CSS. React Router framework.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v2"
+  },
+  {
+    "id": "classic-clean:testimonials-grid",
+    "candidate": "classic-clean",
+    "name": "TestimonialsGrid",
+    "archetype": "testimonials",
+    "tier": "page-inline",
+    "description": "3-column grid of testimonial cards with 5-star ratings, author names, and dates",
+    "thumbnail": null,
+    "source": {
+      "component": "src/pages/TestimonialsPage.jsx",
+      "styles": ["src/CohesiveDesign.css"],
+      "dependencies": [],
+      "tokens": []
+    },
+    "contentSlots": {
+      "title": { "type": "string", "default": "What Couples Are Saying" },
+      "testimonials": { "type": "richCard[]" }
+    },
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "custom-css",
+    "animation": "none",
+    "framework": "react-router",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-rewrite",
+    "extractionNotes": "Inline in TestimonialsPage.jsx. Monolith CSS. React Router framework.",
+    "layoutRelationships": {},
+    "peerSections": ["classic-clean:stats-section"],
+    "phase": "v2"
+  },
+  {
+    "id": "classic-clean:stats-section",
+    "candidate": "classic-clean",
+    "name": "StatsSection",
+    "archetype": "stats",
+    "tier": "page-inline",
+    "description": "4-column stat blocks with large numbers (200+ Weddings, 5.0 Rating, 100% Recommend, 10+ Years)",
+    "thumbnail": null,
+    "source": {
+      "component": "src/pages/TestimonialsPage.jsx",
+      "styles": ["src/CohesiveDesign.css"],
+      "dependencies": [],
+      "tokens": []
+    },
+    "contentSlots": {
+      "stats": { "type": "card[]" }
+    },
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "custom-css",
+    "animation": "none",
+    "framework": "react-router",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-rewrite",
+    "extractionNotes": "Inline in TestimonialsPage.jsx. Shares source with testimonials-grid. Monolith CSS.",
+    "layoutRelationships": {},
+    "peerSections": ["classic-clean:testimonials-grid"],
+    "phase": "v2"
+  },
+  {
+    "id": "classic-clean:feature-blocks",
+    "candidate": "classic-clean",
+    "name": "AlternatingFeatureBlocks",
+    "archetype": "features",
+    "tier": "page-inline",
+    "description": "Alternating left/right image+text blocks with numbering, used for venue highlights",
+    "thumbnail": null,
+    "source": {
+      "component": "src/pages/HomePage.jsx",
+      "styles": ["src/CohesiveDesign.css"],
+      "dependencies": [],
+      "tokens": []
+    },
+    "contentSlots": {
+      "blocks": { "type": "richCard[]" }
+    },
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "custom-css",
+    "animation": "css-only",
+    "framework": "react-router",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-rewrite",
+    "extractionNotes": "Inline in HomePage.jsx. Shares source with hero and experience-cards. Monolith CSS.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v2"
+  },
+  {
+    "id": "classic-clean:experience-cards",
+    "candidate": "classic-clean",
+    "name": "ExperienceCards",
+    "archetype": "features",
+    "tier": "page-inline",
+    "description": "3-column icon feature cards (Day of Coordination, Customizable Packages, Historic Charm)",
+    "thumbnail": null,
+    "source": {
+      "component": "src/pages/HomePage.jsx",
+      "styles": ["src/CohesiveDesign.css"],
+      "dependencies": ["src/components/Icon.jsx"],
+      "tokens": []
+    },
+    "contentSlots": {
+      "cards": { "type": "card[]" }
+    },
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "custom-css",
+    "animation": "none",
+    "framework": "react-router",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-rewrite",
+    "extractionNotes": "Inline in HomePage.jsx. Shares source with hero and feature-blocks. Monolith CSS.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v2"
+  },
+  {
+    "id": "classic-clean:schedule-tour-form",
+    "candidate": "classic-clean",
+    "name": "ScheduleTourForm",
+    "archetype": "form",
+    "tier": "recipe",
+    "description": "Full tour scheduling form with 9 fields, Netlify integration, honeypot spam protection, vendor form variant",
+    "thumbnail": null,
+    "source": {
+      "component": "src/components/ScheduleTourForm.jsx",
+      "styles": ["src/CohesiveDesign.css"],
+      "dependencies": ["src/components/NetlifyForm.jsx", "src/components/FormSubmitButton.jsx"],
+      "tokens": []
+    },
+    "contentSlots": {
+      "title": { "type": "string", "default": "Schedule Your Tour" },
+      "subtitle": { "type": "string" },
+      "description": { "type": "string" },
+      "submitText": { "type": "string", "default": "Schedule Tour" }
+    },
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "custom-css",
+    "animation": "none",
+    "framework": "react-router",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-rewrite",
+    "extractionNotes": "Own component file but Netlify-specific submission. Monolith CSS. React Router framework. Needs form backend adaptation.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v2"
+  },
+  {
+    "id": "classic-clean:venue-discovery",
+    "candidate": "classic-clean",
+    "name": "VenueDiscovery",
+    "archetype": "gallery",
+    "tier": "recipe",
+    "description": "Tabbed venue showcase with main image, thumbnail carousel, fullscreen modal, and venue details. CMS-driven.",
+    "thumbnail": null,
+    "source": {
+      "component": "src/components/VenueDiscovery.jsx",
+      "styles": ["src/CohesiveDesign.css"],
+      "dependencies": ["src/components/VenueTabs.jsx", "src/components/CarouselControls.jsx"],
+      "tokens": []
+    },
+    "contentSlots": {
+      "title": { "type": "string", "default": "Discover Our Spaces" },
+      "subtitle": { "type": "string" },
+      "venues": { "type": "richCard[]" }
+    },
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "custom-css",
+    "animation": "css-only",
+    "framework": "react-router",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-rewrite",
+    "extractionNotes": "Own component file but Contentful CMS hooks (useVenueData). Monolith CSS. React Router framework.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v2"
+  },
+  {
+    "id": "classic-clean:map-directions",
+    "candidate": "classic-clean",
+    "name": "MapDirections",
+    "archetype": "map",
+    "tier": "page-inline",
+    "description": "Google Maps embed with location info cards (address, access, airport, accommodations)",
+    "thumbnail": null,
+    "source": {
+      "component": "src/pages/ContactPage.jsx",
+      "styles": ["src/CohesiveDesign.css"],
+      "dependencies": [],
+      "tokens": []
+    },
+    "contentSlots": {
+      "mapEmbedSrc": { "type": "string" },
+      "address": { "type": "string" },
+      "infoCards": { "type": "card[]" }
+    },
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "custom-css",
+    "animation": "none",
+    "framework": "react-router",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-rewrite",
+    "extractionNotes": "Inline in ContactPage.jsx. Monolith CSS. React Router framework.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v2"
+  },
+  {
+    "id": "classic-clean:timeline",
+    "candidate": "classic-clean",
+    "name": "HistoryTimeline",
+    "archetype": "timeline",
+    "tier": "page-inline",
+    "description": "Interactive TimelineJS timeline with historical events, photo gallery with captions",
+    "thumbnail": null,
+    "source": {
+      "component": "src/pages/HistoryPage.jsx",
+      "styles": ["src/CohesiveDesign.css"],
+      "dependencies": [],
+      "tokens": []
+    },
+    "contentSlots": {
+      "events": { "type": "richCard[]" },
+      "photos": { "type": "richCard[]" }
+    },
+    "configSlots": {},
+    "npmDeps": ["@knight-lab/timelinejs"],
+    "stylingSystem": "custom-css",
+    "animation": "none",
+    "framework": "react-router",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-rewrite",
+    "extractionNotes": "Requires TimelineJS with its own CSS and DOM initialization. Not composable. Monolith CSS. React Router framework.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v3"
+  },
+  {
+    "id": "classic-clean:vendors",
+    "candidate": "classic-clean",
+    "name": "VendorDirectory",
+    "archetype": "vendors",
+    "tier": "page-inline",
+    "description": "Vendor directory with 5 categories, icon headers, vendor cards with name/phone/description",
+    "thumbnail": null,
+    "source": {
+      "component": "src/pages/VendorsPageWithToggle.jsx",
+      "styles": ["src/CohesiveDesign.css"],
+      "dependencies": [],
+      "tokens": []
+    },
+    "contentSlots": {
+      "categories": { "type": "richCard[]" }
+    },
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "custom-css",
+    "animation": "none",
+    "framework": "react-router",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-rewrite",
+    "extractionNotes": "Inline in VendorsPageWithToggle.jsx. Monolith CSS. React Router framework.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v2"
+  },
+  {
+    "id": "classic-clean:footer",
+    "candidate": "classic-clean",
+    "name": "Footer",
+    "archetype": "footer",
+    "tier": "recipe",
+    "description": "Footer with CTA text, contact info, social links, and address",
+    "thumbnail": null,
+    "source": {
+      "component": "src/components/Footer.jsx",
+      "styles": ["src/CohesiveDesign.css"],
+      "dependencies": [],
+      "tokens": []
+    },
+    "contentSlots": {
+      "ctaText": { "type": "string", "default": "Begin Your Love Story" },
+      "phone": { "type": "string" },
+      "address": { "type": "string" },
+      "socialLinks": { "type": "card[]" }
+    },
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "custom-css",
+    "animation": "none",
+    "framework": "react-router",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-rewrite",
+    "extractionNotes": "Own component file but monolith CSS. React Router Link imports.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v2"
+  },
+
+  {
+    "id": "landing-version:hero",
+    "candidate": "landing-version",
+    "name": "Hero",
+    "archetype": "hero",
+    "tier": "page-inline",
+    "description": "Large serif headline hero with 3-image composition, facts grid, inline leadgen form, and ambient blur orbs",
+    "thumbnail": null,
+    "source": {
+      "component": "src/app/page.tsx",
+      "styles": [],
+      "dependencies": ["src/app/_components/leadgen-form.tsx"],
+      "tokens": []
+    },
+    "contentSlots": {
+      "headline": { "type": "string" },
+      "location": { "type": "string" },
+      "subtitle": { "type": "string" },
+      "facts": { "type": "card[]" },
+      "images": { "type": "image[]" }
+    },
+    "configSlots": {},
+    "npmDeps": ["lucide-react"],
+    "stylingSystem": "tailwind",
+    "animation": "css-only",
+    "framework": "nextjs",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-rewrite",
+    "extractionNotes": "Inline in 369-line page.tsx. Tailwind utility classes require Tailwind build pipeline. Cannot mix into CSS Modules page without Tailwind.",
+    "layoutRelationships": {},
+    "peerSections": ["landing-version:value-props"],
+    "phase": "v3"
+  },
+  {
+    "id": "landing-version:value-props",
+    "candidate": "landing-version",
+    "name": "ValueProposition",
+    "archetype": "features",
+    "tier": "page-inline",
+    "description": "3-column glassmorphic card grid with kicker labels, serif titles, and descriptions",
+    "thumbnail": null,
+    "source": {
+      "component": "src/app/page.tsx",
+      "styles": [],
+      "dependencies": [],
+      "tokens": []
+    },
+    "contentSlots": {
+      "kicker": { "type": "string" },
+      "heading": { "type": "string" },
+      "description": { "type": "string" },
+      "cards": { "type": "card[]" }
+    },
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "tailwind",
+    "animation": "none",
+    "framework": "nextjs",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-rewrite",
+    "extractionNotes": "Inline in page.tsx. Tailwind utilities. Cannot mix into CSS Modules page.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v3"
+  },
+  {
+    "id": "landing-version:spaces-grid",
+    "candidate": "landing-version",
+    "name": "SpacesShowcase",
+    "archetype": "gallery",
+    "tier": "page-inline",
+    "description": "2x2 card grid with 4:3 images, kicker badges, titles, descriptions, and 2-column feature points",
+    "thumbnail": null,
+    "source": {
+      "component": "src/app/page.tsx",
+      "styles": [],
+      "dependencies": [],
+      "tokens": []
+    },
+    "contentSlots": {
+      "heading": { "type": "string" },
+      "spaces": { "type": "richCard[]" }
+    },
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "tailwind",
+    "animation": "css-only",
+    "framework": "nextjs",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-rewrite",
+    "extractionNotes": "Inline in page.tsx. Tailwind utilities.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v3"
+  },
+  {
+    "id": "landing-version:logistics",
+    "candidate": "landing-version",
+    "name": "LogisticsSection",
+    "archetype": "features",
+    "tier": "page-inline",
+    "description": "Image + text split with logistics cards, dual CTA buttons",
+    "thumbnail": null,
+    "source": {
+      "component": "src/app/page.tsx",
+      "styles": [],
+      "dependencies": [],
+      "tokens": []
+    },
+    "contentSlots": {
+      "kicker": { "type": "string" },
+      "heading": { "type": "string" },
+      "image": { "type": "image" },
+      "logistics": { "type": "card[]" },
+      "primaryCta": { "type": "card" },
+      "secondaryCta": { "type": "card" }
+    },
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "tailwind",
+    "animation": "none",
+    "framework": "nextjs",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-rewrite",
+    "extractionNotes": "Inline in page.tsx. Tailwind utilities.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v3"
+  },
+  {
+    "id": "landing-version:leadgen-form",
+    "candidate": "landing-version",
+    "name": "LeadgenForm",
+    "archetype": "form",
+    "tier": "recipe",
+    "description": "4-field form with icon-prefixed inputs, amber CTA, glassmorphic container",
+    "thumbnail": null,
+    "source": {
+      "component": "src/app/_components/leadgen-form.tsx",
+      "styles": [],
+      "dependencies": ["src/components/ui/button.tsx", "src/components/ui/input.tsx"],
+      "tokens": []
+    },
+    "contentSlots": {
+      "heading": { "type": "string" },
+      "description": { "type": "string" },
+      "submitText": { "type": "string", "default": "Get Pricing & Tour Options" }
+    },
+    "configSlots": {},
+    "npmDeps": ["lucide-react", "@radix-ui/react-slot"],
+    "stylingSystem": "tailwind",
+    "animation": "none",
+    "framework": "nextjs",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-refactor",
+    "extractionNotes": "Own component file but uses Tailwind + Radix UI primitives. Needs Tailwind pipeline.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v3"
+  },
+  {
+    "id": "landing-version:chat-widget",
+    "candidate": "landing-version",
+    "name": "ChatWidget",
+    "archetype": "chat",
+    "tier": "recipe",
+    "description": "Floating action button with popover chat modal and integrated AI chat",
+    "thumbnail": null,
+    "source": {
+      "component": "src/components/chat/chat-widget.tsx",
+      "styles": [],
+      "dependencies": ["src/app/chat/view/chat.view.tsx"],
+      "tokens": []
+    },
+    "contentSlots": {},
+    "configSlots": {},
+    "npmDeps": ["@radix-ui/react-popover", "lucide-react"],
+    "stylingSystem": "tailwind",
+    "animation": "css-only",
+    "framework": "nextjs",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-rewrite",
+    "extractionNotes": "MASSIVE dependency chain: ChatWidget → ChatScreen → ChatRepository → SendMessageUseCase → ChatView → ChatViewModel. This is an entire Clean Architecture feature, not a section.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v3"
+  },
+  {
+    "id": "landing-version:footer",
+    "candidate": "landing-version",
+    "name": "Footer",
+    "archetype": "footer",
+    "tier": "page-inline",
+    "description": "Glassmorphic footer with venue name/description and address",
+    "thumbnail": null,
+    "source": {
+      "component": "src/app/page.tsx",
+      "styles": [],
+      "dependencies": [],
+      "tokens": []
+    },
+    "contentSlots": {
+      "venueName": { "type": "string" },
+      "description": { "type": "string" },
+      "address": { "type": "string" },
+      "links": { "type": "card[]" }
+    },
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "tailwind",
+    "animation": "none",
+    "framework": "nextjs",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-rewrite",
+    "extractionNotes": "Inline in page.tsx. Tailwind utilities.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v3"
+  },
+  {
+    "id": "landing-version:background-fx",
+    "candidate": "landing-version",
+    "name": "BackgroundLighting",
+    "archetype": "banner",
+    "tier": "page-inline",
+    "description": "Ambient blur orbs (amber, rose, emerald) with radial gradient overlay",
+    "thumbnail": null,
+    "source": {
+      "component": "src/app/page.tsx",
+      "styles": [],
+      "dependencies": [],
+      "tokens": []
+    },
+    "contentSlots": {},
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "tailwind",
+    "animation": "none",
+    "framework": "nextjs",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-rewrite",
+    "extractionNotes": "Inline in page.tsx. Tailwind utilities. Purely decorative — could be rebuilt in CSS Modules trivially.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v3"
+  },
+
+  {
+    "id": "sidebar-glass:home-hero",
+    "candidate": "sidebar-glass",
+    "name": "HomeHero",
+    "archetype": "hero",
+    "tier": "recipe",
+    "description": "Full-height hero with background image, gradient overlay, Framer Motion slide-up title and subtitle",
+    "thumbnail": null,
+    "source": {
+      "component": "src/system/recipes/HomeHero/HomeHero.tsx",
+      "styles": ["src/system/recipes/HomeHero/HomeHero.module.css"],
+      "dependencies": ["src/system/utils/motion.ts"],
+      "tokens": ["src/styles/tokens.css"]
+    },
+    "contentSlots": {
+      "title": { "type": "string", "default": "Rum River Wedding Barn" },
+      "subtitle": { "type": "string" },
+      "backgroundImage": { "type": "image" }
+    },
+    "configSlots": {},
+    "npmDeps": ["framer-motion"],
+    "stylingSystem": "css-modules-tokens",
+    "animation": "framer-motion",
+    "framework": "nextjs",
+    "extractable": true,
+    "selfContained": true,
+    "extractionComplexity": "ready",
+    "extractionNotes": "Own component directory with TSX + CSS Module. Framer Motion dependency. Same token family as sidebar-glass-gsap — minimal bridging.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v1.5"
+  },
+  {
+    "id": "sidebar-glass:wedding-journey",
+    "candidate": "sidebar-glass",
+    "name": "WeddingJourney",
+    "archetype": "timeline",
+    "tier": "recipe",
+    "description": "6 alternating media-split blocks representing wedding day moments with vertical accent line",
+    "thumbnail": null,
+    "source": {
+      "component": "src/system/recipes/WeddingJourney/WeddingJourney.tsx",
+      "styles": ["src/system/recipes/WeddingJourney/WeddingJourney.module.css"],
+      "dependencies": ["src/system/recipes/WeddingJourney/WeddingJourney.data.ts", "src/system/recipes/WeddingJourney/WeddingJourney.types.ts"],
+      "tokens": ["src/styles/tokens.css"]
+    },
+    "contentSlots": {
+      "accent": { "type": "string" },
+      "title": { "type": "string" },
+      "moments": { "type": "richCard[]" }
+    },
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "css-modules-tokens",
+    "animation": "none",
+    "framework": "nextjs",
+    "extractable": true,
+    "selfContained": true,
+    "extractionComplexity": "ready",
+    "extractionNotes": "Own directory with data file. Self-contained. Needs data externalized to props.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v1.5"
+  },
+  {
+    "id": "sidebar-glass:venue-showcase",
+    "candidate": "sidebar-glass",
+    "name": "VenueShowcase",
+    "archetype": "gallery",
+    "tier": "recipe",
+    "description": "Tabbed interface with 4 venue sections, carousel gallery per tab with fade transitions",
+    "thumbnail": null,
+    "source": {
+      "component": "src/system/recipes/VenueShowcase/VenueShowcase.tsx",
+      "styles": ["src/system/recipes/VenueShowcase/VenueShowcase.module.css"],
+      "dependencies": ["src/system/atoms/Tab/Tab.tsx", "src/system/atoms/Image/Image.tsx"],
+      "tokens": ["src/styles/tokens.css"]
+    },
+    "contentSlots": {
+      "accent": { "type": "string" },
+      "title": { "type": "string" },
+      "venues": { "type": "richCard[]" }
+    },
+    "configSlots": {},
+    "npmDeps": ["framer-motion"],
+    "stylingSystem": "css-modules-tokens",
+    "animation": "framer-motion",
+    "framework": "nextjs",
+    "extractable": true,
+    "selfContained": true,
+    "extractionComplexity": "ready",
+    "extractionNotes": "Own directory. Uses Tab + Image atoms and Framer Motion AnimatePresence.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v1.5"
+  },
+  {
+    "id": "sidebar-glass:feature-sequence",
+    "candidate": "sidebar-glass",
+    "name": "FeatureSequence",
+    "archetype": "features",
+    "tier": "recipe",
+    "description": "3 numbered feature blocks with alternating image alignment, gradient backgrounds, slide-up scroll animations",
+    "thumbnail": null,
+    "source": {
+      "component": "src/system/recipes/FeatureSequence/FeatureSequence.tsx",
+      "styles": ["src/system/recipes/FeatureSequence/FeatureSequence.module.css"],
+      "dependencies": ["src/system/recipes/FeatureSequence/FeatureBlock.tsx"],
+      "tokens": ["src/styles/tokens.css"]
+    },
+    "contentSlots": {
+      "accent": { "type": "string" },
+      "title": { "type": "string" },
+      "subtitle": { "type": "string" },
+      "blocks": { "type": "richCard[]" }
+    },
+    "configSlots": {},
+    "npmDeps": ["framer-motion"],
+    "stylingSystem": "css-modules-tokens",
+    "animation": "framer-motion",
+    "framework": "nextjs",
+    "extractable": true,
+    "selfContained": true,
+    "extractionComplexity": "ready",
+    "extractionNotes": "Own directory with FeatureBlock sub-component. Uses Framer Motion whileInView.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v1.5"
+  },
+  {
+    "id": "sidebar-glass:map-directions",
+    "candidate": "sidebar-glass",
+    "name": "MapDirections",
+    "archetype": "map",
+    "tier": "recipe",
+    "description": "Google Maps embed + address with copy-to-clipboard, glassmorphic surface",
+    "thumbnail": null,
+    "source": {
+      "component": "src/system/recipes/MapDirections/MapDirections.tsx",
+      "styles": ["src/system/recipes/MapDirections/MapDirections.module.css"],
+      "dependencies": ["src/data/site.ts"],
+      "tokens": ["src/styles/tokens.css"]
+    },
+    "contentSlots": {
+      "accent": { "type": "string" },
+      "title": { "type": "string" },
+      "address": { "type": "string" },
+      "mapsHref": { "type": "string" },
+      "embedMapSrc": { "type": "string" }
+    },
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "css-modules-tokens",
+    "animation": "none",
+    "framework": "nextjs",
+    "extractable": true,
+    "selfContained": true,
+    "extractionComplexity": "ready",
+    "extractionNotes": "Own directory. Uses site.ts for data — needs data externalized to props.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v1.5"
+  },
+  {
+    "id": "sidebar-glass:schedule-tour-form",
+    "candidate": "sidebar-glass",
+    "name": "ScheduleTourForm",
+    "archetype": "form",
+    "tier": "recipe",
+    "description": "5-field glassmorphic contact form with API submission",
+    "thumbnail": null,
+    "source": {
+      "component": "src/system/recipes/ScheduleTourForm/ScheduleTourForm.tsx",
+      "styles": ["src/system/recipes/ScheduleTourForm/ScheduleTourForm.module.css"],
+      "dependencies": ["src/system/atoms/Field/Field.tsx", "src/system/atoms/Input/Input.tsx", "src/system/atoms/Textarea/Textarea.tsx", "src/system/atoms/Button/Button.tsx"],
+      "tokens": ["src/styles/tokens.css"]
+    },
+    "contentSlots": {
+      "accent": { "type": "string" },
+      "title": { "type": "string" },
+      "lede": { "type": "string" }
+    },
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "css-modules-tokens",
+    "animation": "none",
+    "framework": "nextjs",
+    "extractable": true,
+    "selfContained": true,
+    "extractionComplexity": "ready",
+    "extractionNotes": "Own directory. Depends on 4 atoms (Field, Input, Textarea, Button). Needs API route for submission.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v1.5"
+  },
+  {
+    "id": "sidebar-glass:pro-sidebar",
+    "candidate": "sidebar-glass",
+    "name": "ProSidebar",
+    "archetype": "nav",
+    "tier": "recipe",
+    "description": "Fixed left sidebar with glassmorphic blue effect, collapsible, mobile toggle, theme toggle",
+    "thumbnail": null,
+    "source": {
+      "component": "src/system/recipes/ProSidebar/ProSidebar.tsx",
+      "styles": ["src/system/recipes/ProSidebar/ProSidebar.module.css"],
+      "dependencies": [],
+      "tokens": ["src/styles/tokens.css"]
+    },
+    "contentSlots": {
+      "logo": { "type": "image" },
+      "venueName": { "type": "string" },
+      "navItems": { "type": "card[]" }
+    },
+    "configSlots": {},
+    "npmDeps": ["@heroicons/react"],
+    "stylingSystem": "css-modules-tokens",
+    "animation": "css-only",
+    "framework": "nextjs",
+    "extractable": true,
+    "selfContained": true,
+    "extractionComplexity": "ready",
+    "extractionNotes": "Own directory. Uses Heroicons. Nav items hardcoded — needs config-driven approach.",
+    "layoutRelationships": {
+      "affectsLayout": true,
+      "setsVariable": "--glass-toolbar-offset"
+    },
+    "peerSections": [],
+    "phase": "v1.5"
+  },
+
+  {
+    "id": "sidebar-glass-gsap:home-hero",
+    "candidate": "sidebar-glass-gsap",
+    "name": "HomeHero",
+    "archetype": "hero",
+    "tier": "recipe",
+    "description": "Full-screen 7-slide carousel hero with auto-advance, scrim overlay, vellum glass text plane, dot navigation, cinematic bottom fade",
+    "thumbnail": null,
+    "source": {
+      "component": "src/system/recipes/HomeHero/HomeHero.tsx",
+      "styles": ["src/system/recipes/HomeHero/HomeHero.module.css"],
+      "dependencies": ["src/system/atoms/Button/Button.tsx"],
+      "tokens": ["src/styles/tokens/primitives.css", "src/styles/tokens/semantic.css", "src/styles/tokens/treatments.css"]
+    },
+    "contentSlots": {
+      "title": { "type": "string", "default": "Rum River Wedding Barn" },
+      "subtitle": { "type": "string" },
+      "slides": { "type": "image[]" },
+      "ctaText": { "type": "string", "default": "Schedule a Tour" },
+      "ctaHref": { "type": "string", "default": "#contact" }
+    },
+    "configSlots": {
+      "autoPlayMs": { "type": "number", "default": 6000, "v2": true },
+      "showDots": { "type": "boolean", "default": true, "v2": true }
+    },
+    "npmDeps": [],
+    "stylingSystem": "css-modules-tokens",
+    "animation": "css-transitions",
+    "framework": "nextjs",
+    "extractable": true,
+    "selfContained": true,
+    "extractionComplexity": "ready",
+    "extractionNotes": "Own directory with TSX + CSS Module. Depends on Button atom. Slides array hardcoded — needs props.",
+    "layoutRelationships": {
+      "stickyHero": true,
+      "bottomFade": true,
+      "expectsOverlap": "next section pulls up over hero bottom fade"
+    },
+    "peerSections": ["sidebar-glass-gsap:proof-band"],
+    "phase": "v1"
+  },
+  {
+    "id": "sidebar-glass-gsap:proof-band",
+    "candidate": "sidebar-glass-gsap",
+    "name": "ProofBand",
+    "archetype": "stats",
+    "tier": "page-inline",
+    "description": "4-column proof points with glass-plate backdrop, bronze vertical dividers, soft mask gradient blending into hero",
+    "thumbnail": null,
+    "source": {
+      "component": "src/app/page.tsx",
+      "styles": ["src/app/page.module.css"],
+      "dependencies": [],
+      "tokens": ["src/styles/tokens/primitives.css", "src/styles/tokens/semantic.css", "src/styles/tokens/treatments.css"]
+    },
+    "contentSlots": {
+      "items": { "type": "card[]" }
+    },
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "css-modules-tokens",
+    "animation": "css-transitions",
+    "framework": "nextjs",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-refactor",
+    "extractionNotes": "Inline in page.tsx with CSS from page.module.css. Relatively simple JSX — can be carved into own component. Relies on overlap with hero bottom fade.",
+    "layoutRelationships": {
+      "overlapsAbove": "sidebar-glass-gsap:home-hero",
+      "usesMask": true,
+      "negativeMargin": false,
+      "zIndex": "overlay"
+    },
+    "peerSections": ["sidebar-glass-gsap:home-hero"],
+    "phase": "v1"
+  },
+  {
+    "id": "sidebar-glass-gsap:setting-section",
+    "candidate": "sidebar-glass-gsap",
+    "name": "SettingSection",
+    "archetype": "features",
+    "tier": "page-inline",
+    "description": "Split layout (wide text + narrow JewelFrame image) with eyebrow, italic title, body, and checked feature list",
+    "thumbnail": null,
+    "source": {
+      "component": "src/app/page.tsx",
+      "styles": ["src/app/page.module.css"],
+      "dependencies": ["src/system/recipes/PageSection/PageSection.tsx", "src/system/atoms/Image/Image.tsx"],
+      "tokens": ["src/styles/tokens/primitives.css", "src/styles/tokens/semantic.css", "src/styles/tokens/treatments.css"]
+    },
+    "contentSlots": {
+      "eyebrow": { "type": "string" },
+      "title": { "type": "string" },
+      "body": { "type": "string" },
+      "features": { "type": "string[]" },
+      "image": { "type": "image" },
+      "imageAlt": { "type": "string" }
+    },
+    "configSlots": {
+      "reverse": { "type": "boolean", "default": false, "v2": true }
+    },
+    "npmDeps": [],
+    "stylingSystem": "css-modules-tokens",
+    "animation": "css-transitions",
+    "framework": "nextjs",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-refactor",
+    "extractionNotes": "Uses PageSection recipe as layout shell + Image atom. JSX in page.tsx but composition is clean. Needs carving into own component + extracting PageSection dependency.",
+    "layoutRelationships": {
+      "usesDivider": "seam",
+      "stitchedAccent": true
+    },
+    "peerSections": [],
+    "phase": "v1"
+  },
+  {
+    "id": "sidebar-glass-gsap:gallery-carousel",
+    "candidate": "sidebar-glass-gsap",
+    "name": "GalleryCarousel",
+    "archetype": "gallery",
+    "tier": "recipe",
+    "description": "3-column staggered grid of gallery cards with JewelFrame+GlassPlate images, hover gild and lift effects",
+    "thumbnail": null,
+    "source": {
+      "component": "src/system/recipes/GalleryCarousel/GalleryCarousel.tsx",
+      "styles": ["src/system/recipes/GalleryCarousel/GalleryCarousel.module.css"],
+      "dependencies": ["src/system/atoms/Image/Image.tsx"],
+      "tokens": ["src/styles/tokens/primitives.css", "src/styles/tokens/semantic.css", "src/styles/tokens/treatments.css"]
+    },
+    "contentSlots": {
+      "accent": { "type": "string" },
+      "title": { "type": "string" },
+      "subtitle": { "type": "string" },
+      "cards": { "type": "richCard[]" }
+    },
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "css-modules-tokens",
+    "animation": "css-transitions",
+    "framework": "nextjs",
+    "extractable": true,
+    "selfContained": true,
+    "extractionComplexity": "ready",
+    "extractionNotes": "Own directory with TSX + CSS Module. Depends on Image atom. Cards data hardcoded — needs props.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v1"
+  },
+  {
+    "id": "sidebar-glass-gsap:emotional-banner",
+    "candidate": "sidebar-glass-gsap",
+    "name": "EmotionalBanner",
+    "archetype": "banner",
+    "tier": "page-inline",
+    "description": "Full-width cinematic image with gradient scrim, noise grain overlay, vellum glass text plane",
+    "thumbnail": null,
+    "source": {
+      "component": "src/app/page.tsx",
+      "styles": ["src/app/page.module.css"],
+      "dependencies": [],
+      "tokens": ["src/styles/tokens/primitives.css", "src/styles/tokens/semantic.css", "src/styles/tokens/treatments.css"]
+    },
+    "contentSlots": {
+      "title": { "type": "string" },
+      "subline": { "type": "string" },
+      "image": { "type": "image" }
+    },
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "css-modules-tokens",
+    "animation": "css-transitions",
+    "framework": "nextjs",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-refactor",
+    "extractionNotes": "Inline in page.tsx. Relatively isolatable JSX. Uses page-level negative margin for overlap with planning section below.",
+    "layoutRelationships": {
+      "expectsOverlap": "planning section overlaps this via negative margin",
+      "negativeMargin": false,
+      "usedBy": "sidebar-glass-gsap:planning-section"
+    },
+    "peerSections": ["sidebar-glass-gsap:planning-section"],
+    "phase": "v1"
+  },
+  {
+    "id": "sidebar-glass-gsap:planning-section",
+    "candidate": "sidebar-glass-gsap",
+    "name": "PlanningSection",
+    "archetype": "features",
+    "tier": "page-inline",
+    "description": "2-column checklist grid with eyebrow, italic title, icon-checked items, overlapping top edge",
+    "thumbnail": null,
+    "source": {
+      "component": "src/app/page.tsx",
+      "styles": ["src/app/page.module.css"],
+      "dependencies": [],
+      "tokens": ["src/styles/tokens/primitives.css", "src/styles/tokens/semantic.css", "src/styles/tokens/treatments.css"]
+    },
+    "contentSlots": {
+      "eyebrow": { "type": "string" },
+      "title": { "type": "string" },
+      "body": { "type": "string" },
+      "items": { "type": "string[]" }
+    },
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "css-modules-tokens",
+    "animation": "css-transitions",
+    "framework": "nextjs",
+    "extractable": false,
+    "selfContained": false,
+    "extractionComplexity": "requires-refactor",
+    "extractionNotes": "Inline in page.tsx. Uses negative margin overlap with emotional banner above. Rounded top corners. Can be extracted but overlap effect is context-dependent.",
+    "layoutRelationships": {
+      "overlapsAbove": "sidebar-glass-gsap:emotional-banner",
+      "negativeMargin": true,
+      "roundedTop": true,
+      "zIndex": "overlay"
+    },
+    "peerSections": ["sidebar-glass-gsap:emotional-banner"],
+    "phase": "v1"
+  },
+  {
+    "id": "sidebar-glass-gsap:location-map",
+    "candidate": "sidebar-glass-gsap",
+    "name": "LocationMap",
+    "archetype": "map",
+    "tier": "recipe",
+    "description": "Google Maps embed + address block with copy-to-clipboard, action buttons, parking info",
+    "thumbnail": null,
+    "source": {
+      "component": "src/system/recipes/LocationContent/LocationContent.tsx",
+      "styles": ["src/system/recipes/LocationContent/LocationContent.module.css"],
+      "dependencies": ["src/data/site.ts", "src/system/atoms/Button/Button.tsx"],
+      "tokens": ["src/styles/tokens/primitives.css", "src/styles/tokens/semantic.css"]
+    },
+    "contentSlots": {
+      "accent": { "type": "string" },
+      "title": { "type": "string" },
+      "address": { "type": "string" },
+      "mapsHref": { "type": "string" },
+      "embedMapSrc": { "type": "string" }
+    },
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "css-modules-tokens",
+    "animation": "none",
+    "framework": "nextjs",
+    "extractable": true,
+    "selfContained": true,
+    "extractionComplexity": "ready",
+    "extractionNotes": "Own directory. Uses site.ts for data — needs data externalized to props. Depends on Button atom.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v1"
+  },
+  {
+    "id": "sidebar-glass-gsap:tour-form",
+    "candidate": "sidebar-glass-gsap",
+    "name": "TourForm",
+    "archetype": "form",
+    "tier": "recipe",
+    "description": "5-field glass-plate contact form with bronze focus rings, API submission, success/error states",
+    "thumbnail": null,
+    "source": {
+      "component": "src/system/recipes/TourForm/TourForm.tsx",
+      "styles": ["src/system/recipes/TourForm/TourForm.module.css"],
+      "dependencies": ["src/system/atoms/Field/Field.tsx", "src/system/atoms/Input/Input.tsx", "src/system/atoms/Textarea/Textarea.tsx", "src/system/atoms/Button/Button.tsx"],
+      "tokens": ["src/styles/tokens/primitives.css", "src/styles/tokens/semantic.css", "src/styles/tokens/treatments.css", "src/styles/tokens/component.css"]
+    },
+    "contentSlots": {
+      "accent": { "type": "string", "default": "Get in Touch" },
+      "title": { "type": "string", "default": "Schedule Your Visit" },
+      "lede": { "type": "string" }
+    },
+    "configSlots": {},
+    "npmDeps": [],
+    "stylingSystem": "css-modules-tokens",
+    "animation": "none",
+    "framework": "nextjs",
+    "extractable": true,
+    "selfContained": true,
+    "extractionComplexity": "ready",
+    "extractionNotes": "Own directory. Depends on 4 atoms (Field, Input, Textarea, Button). Needs API route for form submission.",
+    "layoutRelationships": {},
+    "peerSections": [],
+    "phase": "v1"
+  },
+  {
+    "id": "sidebar-glass-gsap:pro-sidebar",
+    "candidate": "sidebar-glass-gsap",
+    "name": "ProSidebar",
+    "archetype": "nav",
+    "tier": "recipe",
+    "description": "Fixed left sidebar (280px/88px/0) with noise overlay, spine emboss, section-aware nav via IntersectionObserver, theme toggle",
+    "thumbnail": null,
+    "source": {
+      "component": "src/system/recipes/ProSidebar/ProSidebar.tsx",
+      "styles": ["src/system/recipes/ProSidebar/ProSidebar.module.css"],
+      "dependencies": ["src/system/atoms/Button/Button.tsx"],
+      "tokens": ["src/styles/tokens/primitives.css", "src/styles/tokens/semantic.css", "src/styles/tokens/treatments.css"]
+    },
+    "contentSlots": {
+      "logo": { "type": "image" },
+      "venueName": { "type": "string" },
+      "navItems": { "type": "card[]" }
+    },
+    "configSlots": {},
+    "npmDeps": ["@heroicons/react"],
+    "stylingSystem": "css-modules-tokens",
+    "animation": "css-transitions",
+    "framework": "nextjs",
+    "extractable": true,
+    "selfContained": true,
+    "extractionComplexity": "ready",
+    "extractionNotes": "Own directory. Uses Heroicons + Button atom. Nav items hardcoded — needs config-driven. Sets --glass-toolbar-offset CSS variable that affects page layout.",
+    "layoutRelationships": {
+      "affectsLayout": true,
+      "setsVariable": "--glass-toolbar-offset",
+      "fixedPosition": true
+    },
+    "peerSections": [],
+    "phase": "v1"
+  },
+  {
+    "id": "sidebar-glass-gsap:section-divider",
+    "candidate": "sidebar-glass-gsap",
+    "name": "SectionDivider",
+    "archetype": "banner",
+    "tier": "atom",
+    "description": "20+ divider variants (river, fold, seam, wave, barn, angle, rule, fade) with SVG/CSS shapes and color gradient control",
+    "thumbnail": null,
+    "source": {
+      "component": "src/system/atoms/SectionDivider/SectionDivider.tsx",
+      "styles": ["src/system/atoms/SectionDivider/SectionDivider.module.css"],
+      "dependencies": [],
+      "tokens": ["src/styles/tokens/primitives.css", "src/styles/tokens/semantic.css"]
+    },
+    "contentSlots": {},
+    "configSlots": {
+      "variant": { "type": "string", "default": "seam", "v2": true },
+      "fromColor": { "type": "string", "v2": true },
+      "toColor": { "type": "string", "v2": true }
+    },
+    "npmDeps": [],
+    "stylingSystem": "css-modules-tokens",
+    "animation": "none",
+    "framework": "nextjs",
+    "extractable": true,
+    "selfContained": true,
+    "extractionComplexity": "ready",
+    "extractionNotes": "Own directory. Pure presentational atom. No dependencies beyond tokens.",
+    "layoutRelationships": {
+      "placedBetween": true
+    },
+    "peerSections": [],
+    "phase": "v1"
+  },
+  {
+    "id": "sidebar-glass-gsap:page-section",
+    "candidate": "sidebar-glass-gsap",
+    "name": "PageSection",
+    "archetype": "layout",
+    "tier": "recipe",
+    "description": "Reusable layout shell with stack/split modes, background variants, optional header and divider. Used by 5+ other sections.",
+    "thumbnail": null,
+    "source": {
+      "component": "src/system/recipes/PageSection/PageSection.tsx",
+      "styles": ["src/system/recipes/PageSection/PageSection.module.css"],
+      "dependencies": ["src/system/atoms/SectionDivider/SectionDivider.tsx"],
+      "tokens": ["src/styles/tokens/primitives.css", "src/styles/tokens/semantic.css", "src/styles/tokens/treatments.css"]
+    },
+    "contentSlots": {
+      "header": { "type": "card" },
+      "children": { "type": "string" }
+    },
+    "configSlots": {
+      "layout": { "type": "string", "default": "stack" },
+      "bg": { "type": "string", "default": "base" },
+      "gridWeight": { "type": "string", "default": "even" },
+      "reverse": { "type": "boolean", "default": false },
+      "divider": { "type": "string" }
+    },
+    "npmDeps": [],
+    "stylingSystem": "css-modules-tokens",
+    "animation": "none",
+    "framework": "nextjs",
+    "extractable": true,
+    "selfContained": true,
+    "extractionComplexity": "ready",
+    "extractionNotes": "Own directory. Critical shared dependency — used by setting-section, gallery, location, and others. Must be extracted first as a foundation component.",
+    "layoutRelationships": {
+      "isLayoutShell": true,
+      "usedBy": ["sidebar-glass-gsap:setting-section", "sidebar-glass-gsap:gallery-carousel", "sidebar-glass-gsap:location-map"]
+    },
+    "peerSections": [],
+    "phase": "v1"
+  }
+]
