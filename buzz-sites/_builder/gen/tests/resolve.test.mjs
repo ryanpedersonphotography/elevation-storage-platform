@@ -16,6 +16,10 @@ const MOCK_REGISTRY = [
       dependencies: [],
       tokens: [],
     },
+    // Real home-hero has no content slots — it is a fully self-contained
+    // recipe driven by hardcoded slides. The resolver must reject any
+    // content the user tries to pass.
+    contentSlots: {},
   },
   {
     id: "sidebar-glass-gsap:proof-band",
@@ -29,6 +33,9 @@ const MOCK_REGISTRY = [
       styles: [],
       dependencies: [],
       tokens: [],
+    },
+    contentSlots: {
+      items: { type: "card[]", required: true },
     },
   },
   {
@@ -44,6 +51,7 @@ const MOCK_REGISTRY = [
       dependencies: [],
       tokens: [],
     },
+    contentSlots: {},
   },
   {
     id: "sidebar-glass:future-section",
@@ -57,6 +65,10 @@ const MOCK_REGISTRY = [
       styles: [],
       dependencies: [],
       tokens: [],
+    },
+    contentSlots: {
+      title: { type: "string" },
+      autoPlay: { type: "boolean" },
     },
   },
 ]
@@ -154,7 +166,7 @@ describe("resolveSections", () => {
     const result = resolveSections(
       [
         {
-          registryId: "sidebar-glass-gsap:home-hero",
+          registryId: "sidebar-glass:future-section",
           content: { title: "Hello" },
           config: { autoPlay: true },
           id: "hero-1",
@@ -162,6 +174,7 @@ describe("resolveSections", () => {
       ],
       MOCK_REGISTRY
     )
+    assert.equal(result.errors.length, 0)
     assert.equal(result.resolved[0].content.title, "Hello")
     assert.equal(result.resolved[0].config.autoPlay, true)
     assert.equal(result.resolved[0].sectionId, "hero-1")
@@ -198,5 +211,82 @@ describe("resolveSections", () => {
       MOCK_REGISTRY
     )
     assert.equal(result.errors.length, 2)
+  })
+
+  it("rejects content keys not in contentSlots", () => {
+    const result = resolveSections(
+      [
+        {
+          registryId: "sidebar-glass-gsap:home-hero",
+          content: { title: "Test" },
+        },
+      ],
+      MOCK_REGISTRY,
+      { baseCandidate: "sidebar-glass-gsap" }
+    )
+    // home-hero has empty contentSlots — title is unknown
+    assert.equal(result.resolved.length, 0)
+    assert.ok(result.errors.length > 0)
+    assert.ok(result.errors.some((e) => e.includes("title")))
+  })
+
+  it("rejects multiple unknown content keys with helpful error", () => {
+    const result = resolveSections(
+      [
+        {
+          registryId: "sidebar-glass-gsap:home-hero",
+          content: { title: "Test", subtitle: "Should fail" },
+        },
+      ],
+      MOCK_REGISTRY,
+      { baseCandidate: "sidebar-glass-gsap" }
+    )
+    assert.equal(result.resolved.length, 0)
+    assert.equal(result.errors.length, 1)
+    assert.match(result.errors[0], /title/)
+    assert.match(result.errors[0], /subtitle/)
+    // Should explain that the section accepts no content slots
+    assert.match(result.errors[0], /no content slots/)
+  })
+
+  it("accepts content keys that match contentSlots", () => {
+    const result = resolveSections(
+      [
+        {
+          registryId: "sidebar-glass:future-section",
+          content: { title: "Hello" },
+        },
+      ],
+      MOCK_REGISTRY
+    )
+    assert.equal(result.errors.length, 0)
+    assert.equal(result.resolved.length, 1)
+  })
+
+  it("rejects partial unknown keys when some are valid", () => {
+    const result = resolveSections(
+      [
+        {
+          registryId: "sidebar-glass:future-section",
+          content: { title: "Hello", bogus: "no" },
+        },
+      ],
+      MOCK_REGISTRY
+    )
+    assert.equal(result.resolved.length, 0)
+    assert.equal(result.errors.length, 1)
+    assert.match(result.errors[0], /bogus/)
+    // Allowed keys (title) should be listed
+    assert.match(result.errors[0], /title/)
+  })
+
+  it("treats missing content as no keys (no error)", () => {
+    const result = resolveSections(
+      [{ registryId: "sidebar-glass-gsap:home-hero" }],
+      MOCK_REGISTRY,
+      { baseCandidate: "sidebar-glass-gsap" }
+    )
+    assert.equal(result.errors.length, 0)
+    assert.equal(result.resolved.length, 1)
   })
 })

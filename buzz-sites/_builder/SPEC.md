@@ -7,7 +7,7 @@ A config-driven landing page generator that assembles pages from pre-built secti
 ## Phase Roadmap
 
 ### V1 — Single Candidate (Build Now)
-- **Section Registry**: 38 sections cataloged, **11 from sidebar-glass-gsap are V1-ready** (7 recipe-tier "ready", 4 page-inline "requires-refactor")
+- **Section Registry**: 38 sections cataloged, **10 from sidebar-glass-gsap are V1-ready** (6 recipe-tier "ready", 4 page-inline "requires-refactor"). PageSection moved to V1.5 — it requires children, so the generator ships it only as a transitive dependency.
 - **Pre-extraction**: Carve the 4 page-inline sections into standalone components before building the generator
 - **Page Config**: JSON format defining section order + content overrides
 - **Generator CLI**: Reads config → copies pre-extracted sections → outputs a Next.js project
@@ -49,7 +49,7 @@ A config-driven landing page generator that assembles pages from pre-built secti
 │              Section Registry                    │
 │  _builder/registry/sections.json                │
 │  - 38 sections across 4 candidates              │
-│  - 11 V1-ready (sidebar-glass-gsap)             │
+│  - 10 V1-ready (sidebar-glass-gsap)             │
 │  - extractionComplexity, layoutRelationships    │
 └────────────────────┬────────────────────────────┘
                      │

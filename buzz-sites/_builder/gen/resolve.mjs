@@ -92,6 +92,27 @@ export function resolveSections(configSections, registry, options = {}) {
       )
     }
 
+    // Validate content keys against contentSlots — a user can write content
+    // keys that the underlying component does not accept; without this guard
+    // the generator would dutifully pass them as JSX props and the generated
+    // page.tsx would fail TypeScript compilation.
+    const contentSlots = entry.contentSlots ?? {}
+    const allowedContentKeys = Object.keys(contentSlots)
+    const providedContentKeys = Object.keys(section.content ?? {})
+    const unknownContentKeys = providedContentKeys.filter(
+      (k) => !allowedContentKeys.includes(k)
+    )
+    if (unknownContentKeys.length > 0) {
+      const allowedDescription =
+        allowedContentKeys.length > 0
+          ? allowedContentKeys.join(", ")
+          : "(none — section has no content slots)"
+      errors.push(
+        `Section "${section.registryId}" was given content keys [${unknownContentKeys.join(", ")}] but only accepts [${allowedDescription}]. Either remove these keys from the config, or this section needs to be pre-extracted with a prop-driven interface.`
+      )
+      continue
+    }
+
     resolved.push({
       entry,
       content: section.content ?? {},

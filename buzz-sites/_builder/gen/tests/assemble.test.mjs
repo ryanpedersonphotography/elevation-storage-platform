@@ -175,4 +175,32 @@ describe("renderScheduleTourRoute", () => {
     assert.match(source, /export async function POST\(request: Request\)/)
     assert.match(source, /status: 400/)
   })
+
+  it("imports zod for body validation", () => {
+    const source = renderScheduleTourRoute()
+    assert.match(source, /import \{ z \} from "zod"/)
+  })
+
+  it("declares a TourRequestSchema with bounded fields", () => {
+    const source = renderScheduleTourRoute()
+    assert.match(source, /const TourRequestSchema = z\.object\(/)
+    // Required fields
+    assert.match(source, /name: z\.string\(\)\.min\(1\)\.max\(200\)/)
+    assert.match(source, /email: z\.string\(\)\.email\(\)/)
+    // Optional bounded fields
+    assert.match(source, /phone: z\.string\(\)\.max\(40\)\.optional\(\)/)
+    assert.match(source, /date: z\.string\(\)\.max\(40\)\.optional\(\)/)
+    assert.match(source, /details: z\.string\(\)\.max\(2000\)\.optional\(\)/)
+  })
+
+  it("parses the body with TourRequestSchema before responding", () => {
+    const source = renderScheduleTourRoute()
+    assert.match(source, /TourRequestSchema\.parse\(body\)/)
+  })
+
+  it("returns flattened ZodError details on validation failure", () => {
+    const source = renderScheduleTourRoute()
+    assert.match(source, /error instanceof z\.ZodError/)
+    assert.match(source, /error\.flatten\(\)/)
+  })
 })

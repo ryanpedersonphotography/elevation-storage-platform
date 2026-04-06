@@ -190,18 +190,40 @@ export function renderGlobals() {
 
 /**
  * Render the content of the schedule-tour API route stub.
+ *
+ * Generates a Next.js Route Handler with a Zod schema that validates the
+ * incoming POST body. Bounded string lengths prevent trivial DoS via
+ * unbounded input. The handler is intentionally a stub — wiring to a real
+ * email service, CRM, or database is a TODO for the consumer.
+ *
  * @returns {string}
  */
 export function renderScheduleTourRoute() {
   return `import { NextResponse } from "next/server"
+import { z } from "zod"
+
+const TourRequestSchema = z.object({
+  name: z.string().min(1).max(200),
+  email: z.string().email(),
+  phone: z.string().max(40).optional(),
+  date: z.string().max(40).optional(),
+  details: z.string().max(2000).optional(),
+})
 
 export async function POST(request: Request) {
   try {
-    const data = await request.json()
+    const body = await request.json()
+    const data = TourRequestSchema.parse(body)
     // TODO: Wire to email service, CRM, or database
     console.log("Tour request received:", data)
     return NextResponse.json({ ok: true })
-  } catch (_error) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { ok: false, errors: error.flatten() },
+        { status: 400 }
+      )
+    }
     return NextResponse.json(
       { ok: false, error: "Invalid request" },
       { status: 400 }

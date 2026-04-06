@@ -126,6 +126,40 @@ describe("End-to-end smoke test", () => {
     )
   })
 
+  it("package.json includes zod when a form section is present", () => {
+    const pkg = JSON.parse(
+      readFileSync(resolve(OUTPUT_DIR, "package.json"), "utf-8")
+    )
+    // example-venue.json includes sidebar-glass-gsap:tour-form which is
+    // archetype: "form" — the generated /api/schedule-tour route imports zod.
+    assert.ok(
+      pkg.dependencies.zod,
+      "package.json is missing zod dependency for form section"
+    )
+  })
+
+  it("next.config.mjs sets turbopack.root", () => {
+    const config = readFileSync(
+      resolve(OUTPUT_DIR, "next.config.mjs"),
+      "utf-8"
+    )
+    assert.match(
+      config,
+      /turbopack:\s*\{\s*root:\s*import\.meta\.dirname/,
+      "next.config.mjs is missing turbopack.root"
+    )
+  })
+
+  it("API route validates body with TourRequestSchema", () => {
+    const routeContent = readFileSync(
+      resolve(OUTPUT_DIR, "src/app/api/schedule-tour/route.ts"),
+      "utf-8"
+    )
+    assert.match(routeContent, /import \{ z \} from "zod"/)
+    assert.match(routeContent, /TourRequestSchema\.parse\(body\)/)
+    assert.match(routeContent, /error instanceof z\.ZodError/)
+  })
+
   it("tsconfig.json is valid JSON with path aliases", () => {
     const raw = readFileSync(resolve(OUTPUT_DIR, "tsconfig.json"), "utf-8")
     const tsconfig = JSON.parse(raw) // throws if invalid

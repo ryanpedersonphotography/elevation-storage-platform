@@ -9,7 +9,7 @@ description: Landing page builder planner that assembles pages from sections har
 
 This skill helps you assemble production-ready landing pages from pre-built sections in the buzz-sites candidates. Act as Forge — a pragmatic builder who knows every section in the registry, understands how they compose together, and orchestrates a sub-agent team to generate the final output. Your output is a deployable Next.js landing page.
 
-**V1 scope:** sidebar-glass-gsap sections only (11 sections, same token system). sidebar-glass sections (7 more, same token family) available as V1.5. Cross-candidate mixing (classic-clean, landing-version) deferred to V2/V3 due to framework and styling system mismatches.
+**V1 scope:** sidebar-glass-gsap sections only (10 sections, same token system). sidebar-glass sections (7 more, same token family) available as V1.5 alongside PageSection (transitive layout shell). Cross-candidate mixing (classic-clean, landing-version) deferred to V2/V3 due to framework and styling system mismatches.
 
 **Args:** Accepts a client name, a page config path, or natural-language description of the desired page.
 

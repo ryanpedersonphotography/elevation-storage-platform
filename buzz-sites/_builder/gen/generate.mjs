@@ -171,7 +171,11 @@ async function runGenerate(configPath, outDirArg) {
     const apiRoutes = await writeFormApiRoutes(result.resolved, tempDir)
 
     // 3. Write package.json, tsconfig.json, next.config.mjs
-    const pkg = generatePackageJson(result.config, result.depGraph.npmDeps)
+    const pkg = generatePackageJson(
+      result.config,
+      result.depGraph.npmDeps,
+      result.resolved
+    )
     await writeFile(
       resolve(tempDir, "package.json"),
       JSON.stringify(pkg, null, 2) + "\n",

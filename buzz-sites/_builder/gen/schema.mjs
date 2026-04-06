@@ -56,10 +56,17 @@ const SectionSchema = z.object({
   id: z.string().optional(),
 })
 
-/** Schema for optional page meta tags */
+/**
+ * Schema for optional page meta tags.
+ *
+ * `title` and `description` are sanitized via stripHtml so embedded
+ * `<script>`, `<style>`, or other markup cannot leak into the rendered
+ * `<head>`. The transform is chained before `.optional()` so it only runs
+ * on a present string and `undefined` passes through cleanly.
+ */
 const MetaSchema = z.object({
-  title: z.string().optional(),
-  description: z.string().optional(),
+  title: z.string().transform(stripHtml).optional(),
+  description: z.string().transform(stripHtml).optional(),
   ogImage: z.string().optional(),
 })
 
