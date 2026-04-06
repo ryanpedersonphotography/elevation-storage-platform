@@ -1,0 +1,13 @@
+{
+  "name": "lp-builder-gen",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Landing page generator CLI for buzz-sites",
+  "scripts": {
+    "generate": "node generate.mjs",
+    "test": "node --test tests/"
+  },
+  "dependencies": {
+    "zod": "^3.25.0"
+  }
+}
