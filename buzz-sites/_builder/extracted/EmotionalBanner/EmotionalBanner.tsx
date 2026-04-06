@@ -5,7 +5,7 @@ export interface EmotionalBannerProps {
   title: string
   subline: string
   image: string
-  imageAlt?: string
+  imageAlt: string
   className?: string
 }
 
@@ -24,7 +24,7 @@ export function EmotionalBanner({
       <div className={styles.bannerImageWrap}>
         <Image
           src={image}
-          alt={imageAlt ?? ""}
+          alt={imageAlt}
           fill
           fit="cover"
           size="hero"
