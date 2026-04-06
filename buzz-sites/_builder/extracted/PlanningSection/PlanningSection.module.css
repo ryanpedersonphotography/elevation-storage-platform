@@ -1,0 +1,75 @@
+/* ── Planning — "The Utilitarian Fold" ──
+   NOTE: margin-top pulls this section up to overlap the preceding
+   EmotionalBanner, creating the layered lookbook effect. */
+.planningSection {
+  padding-top: var(--space-section-standard);
+  padding-bottom: var(--space-section-compact);
+  padding-inline: var(--section-pad-x);
+  background: var(--color-surface-utility);
+  position: relative;
+  margin-top: calc(-1 * var(--space-12));
+  z-index: var(--z-overlay);
+  border-radius: var(--radius-4) var(--radius-4) 0 0;
+}
+
+.planningInner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+}
+
+.planningHeader {
+  text-align: center;
+  margin-bottom: var(--space-10);
+}
+
+.planningEyebrow {
+  font: var(--treatment-type-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-elegant);
+  color: var(--section-accent-color);
+  margin: 0;
+}
+
+.planningTitle {
+  font: var(--type-section-title);
+  font-family: var(--font-family-body);
+  font-style: normal;
+  color: var(--color-text-primary);
+  margin: var(--space-2) 0 0;
+}
+
+.planningBody {
+  font: var(--type-section-lead);
+  color: var(--color-text-secondary);
+  margin: var(--space-2) 0 0;
+}
+
+.planningGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-5) var(--space-8);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: var(--measure-body);
+  margin-inline: auto;
+}
+
+.planningItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font: var(--type-card-title);
+  color: var(--color-text-primary);
+}
+
+.planningCheck {
+  flex-shrink: 0;
+  color: var(--color-accent);
+}
+
+@media (max-width: 640px) {
+  .planningGrid {
+    grid-template-columns: 1fr;
+  }
+}

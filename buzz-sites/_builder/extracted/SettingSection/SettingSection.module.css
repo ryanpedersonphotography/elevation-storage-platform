@@ -1,0 +1,134 @@
+/* ── The Setting — asymmetric spacing, dramatic tension ── */
+.settingSection {
+  padding-top: var(--space-section-cinematic);
+  padding-bottom: var(--space-section-standard);
+  position: relative;
+  overflow: visible;
+}
+
+.settingEyebrow {
+  font: var(--treatment-type-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  color: var(--section-accent-color);
+  margin: 0;
+}
+
+.settingTitle {
+  font: var(--type-section-title);
+  font-style: italic;
+  color: var(--color-text-primary);
+  margin: 0;
+  max-width: var(--measure-display);
+  letter-spacing: var(--tracking-tight);
+}
+
+.settingBody {
+  font: var(--type-section-lead);
+  color: var(--color-text-secondary);
+  margin: 0;
+  max-width: var(--measure-body);
+  line-height: 1.65;
+}
+
+.settingList {
+  list-style: none;
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.settingItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  font: var(--type-card-title);
+  color: var(--color-text-primary);
+}
+
+.settingCheck {
+  flex-shrink: 0;
+  color: var(--color-accent);
+}
+
+/* Setting featured image — JewelFrame with organic leaf/radius-1 shape */
+.settingJewelFrame {
+  position: relative;
+  padding: var(--hero-jewel-padding);
+  border-radius: var(--radius-leaf);
+  background: var(--treatment-frame-jewel-bg);
+  border: 1px solid var(--color-line-metal);
+  box-shadow: var(--treatment-shadow-lifted);
+}
+
+.settingJewelFrame::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+}
+
+.settingGlassPlate {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-arch);
+  box-shadow: var(--treatment-glass-recess);
+  isolation: isolate;
+  aspect-ratio: 3 / 4;
+}
+
+.settingGlassPlate::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--treatment-glass-sheen);
+  mix-blend-mode: screen;
+  opacity: var(--effect-glass-opacity);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.settingGlassPlate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow:
+    inset 0 1px 0 var(--hero-glass-highlight),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18),
+    inset 0 0 0 1px var(--hero-glass-edge);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Setting image — hover lift */
+.settingImage {
+  transition: transform var(--duration-3) var(--ease-smooth);
+}
+
+.settingImage:hover {
+  transform: translateY(-2px);
+}
+
+/* Light theme: flatten Setting frame */
+:global([data-theme="light"]) .settingJewelFrame {
+  padding: var(--hero-jewel-padding-light);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  background: linear-gradient(180deg, #f5efe6, #efe7db);
+}
+
+/* Mobile: flatten if cramped */
+@media (max-width: 768px) {
+  .settingJewelFrame {
+    padding: var(--hero-jewel-padding-mobile);
+  }
+  .settingGlassPlate {
+    border-radius: var(--radius-3);
+    aspect-ratio: 4 / 3;
+  }
+}

@@ -1,0 +1,81 @@
+/* ── Emotional Banner — "The Cinematic Pause" ── */
+.emotionalBanner {
+  padding-inline: var(--section-pad-x);
+  padding-block: var(--space-section-cinematic);
+}
+
+.bannerImageWrap {
+  position: relative;
+  border-radius: var(--radius-0);
+  overflow: hidden;
+  min-height: var(--banner-min-height);
+  isolation: isolate;
+}
+
+/* Noise overlay for cinematic grain texture */
+.bannerImageWrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: soft-light;
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.08) 0.6px, transparent 0.7px),
+    radial-gradient(rgba(0, 0, 0, 0.09) 0.6px, transparent 0.7px);
+  background-size: 12px 12px, 15px 15px;
+  background-position: 0 0, 7px 9px;
+  z-index: 4;
+}
+
+.bannerOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    transparent 20%,
+    rgba(9, 7, 6, 0.45) 60%,
+    rgba(9, 7, 6, 0.75) 100%
+  );
+  z-index: 1;
+}
+
+.bannerContent {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: var(--banner-padding);
+  z-index: 2;
+  text-align: right;
+  max-width: 60%;
+}
+
+.bannerVellum {
+  max-width: none;
+}
+
+.bannerTitle {
+  font: var(--treatment-type-display);
+  font-style: italic;
+  color: var(--color-text-inverse);
+  text-shadow: var(--shadow-text);
+  margin: 0;
+  letter-spacing: var(--tracking-tight);
+}
+
+.bannerSubline {
+  font: var(--type-section-lead);
+  color: color-mix(in srgb, var(--color-text-inverse) 70%, transparent);
+  margin: var(--space-4) 0 0;
+  max-width: none;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .bannerImageWrap {
+    min-height: var(--banner-min-height-mobile);
+  }
+  .bannerContent {
+    max-width: 80%;
+  }
+}
