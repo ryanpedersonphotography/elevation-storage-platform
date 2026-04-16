@@ -1,5 +1,6 @@
 export * from './primitives'
 export * from './compositions'
+export * from './sections'
 export * from './templates'
 export { FacilityProvider, FacilityContext } from './providers/facility-provider'
 export { useFacility } from './hooks/use-facility'

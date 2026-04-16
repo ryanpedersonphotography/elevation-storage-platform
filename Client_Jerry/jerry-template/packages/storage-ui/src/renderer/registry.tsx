@@ -1,5 +1,16 @@
 import type { ComponentType } from 'react'
 import type { FacilityConfig } from '@jerry/facility-config'
+import { Hero } from '../sections/hero'
+import { HeroSimple } from '../sections/hero-simple'
+import { ContentSection } from '../sections/content-section'
+import { UnitGrid } from '../sections/unit-grid'
+import { FeatureGrid } from '../sections/feature-grid'
+import { CallToAction } from '../sections/call-to-action'
+import { ContactForm } from '../sections/contact-form'
+import { MapSection } from '../sections/map-section'
+import { TestimonialGrid } from '../sections/testimonial-grid'
+import { SizeGuide } from '../sections/size-guide'
+import { FacilityDirectory } from '../sections/facility-directory'
 
 export interface SectionProps {
   content: Record<string, unknown>
@@ -8,23 +19,16 @@ export interface SectionProps {
   facilityData: FacilityConfig
 }
 
-// Stub registry — real section components will be added in Phase 6
-// For now, each renders a placeholder div with the component name
-const StubSection = ({ content }: SectionProps) => {
-  const heading = (content as Record<string, unknown>)?.heading ?? 'Section'
-  return <div data-section={String(heading)}>{String(heading)}</div>
-}
-
 export const registry: Record<string, ComponentType<SectionProps>> = {
-  Hero: StubSection,
-  HeroSimple: StubSection,
-  ContentSection: StubSection,
-  UnitGrid: StubSection,
-  FeatureGrid: StubSection,
-  CallToAction: StubSection,
-  ContactForm: StubSection,
-  MapSection: StubSection,
-  TestimonialGrid: StubSection,
-  SizeGuide: StubSection,
-  FacilityDirectory: StubSection,
+  Hero,
+  HeroSimple,
+  ContentSection,
+  UnitGrid,
+  FeatureGrid,
+  CallToAction,
+  ContactForm,
+  MapSection,
+  TestimonialGrid,
+  SizeGuide,
+  FacilityDirectory: FacilityDirectory as ComponentType<SectionProps>,
 }
