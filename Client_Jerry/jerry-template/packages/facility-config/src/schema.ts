@@ -211,7 +211,7 @@ export const InfoSchema = z.object({
 
 export const BrandingSchema = z.object({
   showParent: z.boolean(),
-  template: z.enum(['modern', 'bold', 'friendly']),
+  template: z.enum(['modern', 'bold', 'friendly', 'trojan']),
   colors: z.object({
     primary: OklchSchema,
     accent: OklchSchema,
