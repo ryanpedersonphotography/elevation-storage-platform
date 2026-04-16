@@ -3,6 +3,11 @@ import { Box } from '@radix-ui/themes'
 import { Image } from './image'
 
 export interface SectionProps {
+  /**
+   * Background image for the section. The `alt` field is kept for JSON
+   * compatibility with ImageSchema but is intentionally rendered as `alt=""`
+   * because the background image is decorative (`aria-hidden="true"`).
+   */
   background?: { src: string; alt: string }
   overlay?: 'dark' | 'light'
   children: React.ReactNode
@@ -21,12 +26,12 @@ export function Section({ background, overlay, children, className }: SectionPro
   }
 
   return (
-    <Box asChild position="relative" style={{ overflow: 'hidden' }}>
+    <Box asChild position="relative" style={{ overflow: 'hidden', isolation: 'isolate' }}>
       <section className={className}>
         <Box position="absolute" inset="0">
           <Image
             src={background.src}
-            alt={background.alt}
+            alt=""
             aria-hidden="true"
             style={{
               position: 'absolute',
@@ -50,7 +55,7 @@ export function Section({ background, overlay, children, className }: SectionPro
             }}
           />
         )}
-        <Box position="relative" style={{ zIndex: 10 }} py="9">
+        <Box position="relative" style={{ zIndex: 1 }} py="9">
           {children}
         </Box>
       </section>
