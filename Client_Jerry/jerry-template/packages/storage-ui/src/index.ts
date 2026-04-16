@@ -1,3 +1,8 @@
 export * from './primitives'
 export * from './compositions'
+export * from './templates'
+export { FacilityProvider, FacilityContext } from './providers/facility-provider'
+export { useFacility } from './hooks/use-facility'
+export { useAnalytics } from './hooks/use-analytics'
+export { PageRenderer, registry, type SectionProps } from './renderer'
 export { resolveRadixColor, type RadixColor } from './lib/resolve-color'
