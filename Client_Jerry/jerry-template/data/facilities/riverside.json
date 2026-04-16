@@ -1,0 +1,377 @@
+{
+  "slug": "riverside",
+  "name": "Riverside Storage Co.",
+
+  "info": {
+    "address": {
+      "street": "4500 River Rd",
+      "city": "Riverside",
+      "state": "CA",
+      "zip": "92501"
+    },
+    "phone": "(951) 555-7890",
+    "email": "hello@riversidestorage.com",
+    "coordinates": { "lat": 33.953, "lng": -117.396 },
+    "hours": [
+      { "days": ["Mo", "Tu", "We", "Th", "Fr"], "open": "07:00", "close": "20:00" },
+      { "days": ["Sa"], "open": "08:00", "close": "17:00" },
+      { "days": ["Su"], "open": "10:00", "close": "15:00" }
+    ]
+  },
+
+  "branding": {
+    "showParent": false,
+    "template": "bold",
+    "colors": {
+      "primary": "oklch(0.5 0.2 30)",
+      "accent": "oklch(0.65 0.15 60)"
+    },
+    "logo": "/images/riverside/logo.png"
+  },
+
+  "deployment": {
+    "mode": "standalone",
+    "domain": "riversidestorage.com"
+  },
+
+  "seo": {
+    "siteName": "Riverside Storage Co.",
+    "defaultTitle": "Riverside Storage Co. | Affordable Self Storage in Riverside, CA",
+    "defaultDescription": "Riverside's trusted self-storage provider. Drive-up and climate-controlled units with 24/7 access.",
+    "keywords": ["self storage riverside", "storage units riverside ca", "drive-up storage riverside"],
+    "ogImage": "/images/riverside/og-default.jpg"
+  },
+
+  "analytics": {
+    "gtag": "G-RIVERSIDE01",
+    "gtagEvents": {
+      "reserve_click": true,
+      "phone_click": true,
+      "directions_click": true
+    }
+  },
+
+  "pages": {
+    "home": {
+      "enabled": true,
+      "seo": {
+        "title": "Riverside Storage Co. | Units from $39/mo",
+        "description": "Drive-up and climate-controlled storage in Riverside, CA. Reserve online today.",
+        "keywords": ["storage near riverside", "cheap storage riverside ca"],
+        "ogImage": "/images/riverside/og-home.jpg"
+      },
+      "layout": ["hero", "intro", "featured-units", "why-us", "cta"],
+      "sections": {
+        "hero": {
+          "component": "Hero",
+          "content": {
+            "heading": "Your Space, Your Way",
+            "subtitle": "Drive-up and indoor units starting at $39/mo",
+            "image": { "src": "/images/riverside/hero.jpg", "alt": "Riverside Storage facility at sunset" },
+            "cta": { "label": "Find Your Unit", "href": "/reserve", "variant": "primary" }
+          }
+        },
+        "intro": {
+          "component": "ContentSection",
+          "layout": "image-right",
+          "content": {
+            "heading": "Storage Built Around You",
+            "blurb": "Located just minutes from the 91 freeway, Riverside Storage Co. makes it easy to store what matters.",
+            "paragraphs": [
+              "Family-owned and operated since 2018, we pride ourselves on clean facilities and friendly service.",
+              "From college students to growing businesses, we have a unit that fits your life."
+            ],
+            "image": { "src": "/images/riverside/facility-exterior.jpg", "alt": "Facility exterior with drive-up access" }
+          }
+        },
+        "featured-units": {
+          "component": "UnitGrid",
+          "variant": "cards",
+          "layout": "3-col",
+          "content": {
+            "heading": "Most Popular Sizes",
+            "blurb": "Flexible options for every need",
+            "showPricing": true,
+            "filter": ["5x10-indoor", "10x10-driveup", "10x20-climate"]
+          }
+        },
+        "why-us": {
+          "component": "FeatureGrid",
+          "layout": "4-col",
+          "content": {
+            "heading": "The Riverside Difference",
+            "blurb": "What sets us apart from the rest",
+            "features": [
+              { "icon": "clock", "heading": "24/7 Gate Access", "blurb": "Come and go on your schedule" },
+              { "icon": "shield", "heading": "Fully Fenced", "blurb": "Perimeter fencing with coded entry" },
+              { "icon": "camera", "heading": "Live Monitoring", "blurb": "Real-time security camera coverage" },
+              { "icon": "thermometer", "heading": "Climate Options", "blurb": "Protect sensitive belongings from heat" }
+            ]
+          }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": {
+            "heading": "Lock in your rate today",
+            "blurb": "No admin fees. First month free on select units.",
+            "image": { "src": "/images/riverside/cta-bg.jpg", "alt": "" },
+            "cta": { "label": "Reserve Online", "href": "/reserve", "variant": "primary" },
+            "ctaSecondary": { "label": "Call (951) 555-7890", "href": "tel:9515557890", "variant": "outline" }
+          }
+        }
+      }
+    },
+    "units": {
+      "enabled": true,
+      "seo": {
+        "title": "Unit Sizes & Pricing | Riverside Storage Co.",
+        "description": "Compare storage unit sizes and prices at Riverside Storage Co.",
+        "keywords": ["5x10 storage unit riverside", "10x20 storage price"]
+      },
+      "layout": ["page-header", "unit-table", "size-guide", "cta"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": {
+            "heading": "Unit Sizes & Pricing",
+            "blurb": "Transparent pricing with no hidden fees",
+            "breadcrumb": true
+          }
+        },
+        "unit-table": {
+          "component": "UnitGrid",
+          "variant": "table",
+          "layout": "full-width",
+          "content": {
+            "heading": "All Units",
+            "blurb": "Drive-up, indoor, and climate-controlled options",
+            "showPricing": true,
+            "showFeatures": true
+          }
+        },
+        "size-guide": {
+          "component": "SizeGuide",
+          "variant": "visual",
+          "content": {
+            "heading": "What Fits Where?",
+            "blurb": "Use this guide to pick the right size",
+            "guides": [
+              { "size": "5x10", "description": "Studio apartment or office contents", "fits": ["30 boxes", "Desk and chair", "Small couch"] },
+              { "size": "10x10", "description": "One-bedroom apartment", "fits": ["Queen bed set", "Sofa", "Dining table", "40+ boxes"] },
+              { "size": "10x20", "description": "Full household, car, or boat", "fits": ["Multi-room home", "Vehicle storage", "Commercial inventory"] }
+            ]
+          }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": {
+            "heading": "Ready to move in?",
+            "blurb": "Reserve online and get your first month free.",
+            "cta": { "label": "Reserve Now", "href": "/reserve", "variant": "primary" }
+          }
+        }
+      }
+    },
+    "amenities": {
+      "enabled": true,
+      "seo": {
+        "title": "Amenities & Features | Riverside Storage Co.",
+        "description": "Explore our facility features: drive-up access, climate control, 24/7 security, and more.",
+        "keywords": ["drive-up storage riverside", "climate controlled storage ca"]
+      },
+      "layout": ["page-header", "features", "gallery", "cta"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": {
+            "heading": "Amenities & Features",
+            "blurb": "A facility designed for convenience and peace of mind",
+            "breadcrumb": true
+          }
+        },
+        "features": {
+          "component": "FeatureGrid",
+          "layout": "3-col",
+          "variant": "cards",
+          "content": {
+            "heading": "What We Offer",
+            "blurb": "Every detail built for a better storage experience"
+          }
+        },
+        "gallery": {
+          "component": "ContentSection",
+          "layout": "image-left",
+          "content": {
+            "heading": "See Our Facility",
+            "blurb": "Wide aisles, bright lighting, and spotless units.",
+            "paragraphs": [
+              "We maintain our grounds daily so your experience is always top-notch."
+            ],
+            "image": { "src": "/images/riverside/interior-hallway.jpg", "alt": "Bright interior hallway with clean floors" }
+          }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": {
+            "heading": "Come see for yourself",
+            "blurb": "Walk-ins welcome or schedule a private tour.",
+            "cta": { "label": "Reserve a Unit", "href": "/reserve", "variant": "primary" },
+            "ctaSecondary": { "label": "Get Directions", "href": "/directions", "variant": "outline" }
+          }
+        }
+      }
+    },
+    "reserve": {
+      "enabled": true,
+      "seo": {
+        "title": "Reserve a Unit | Riverside Storage Co.",
+        "description": "Reserve your storage unit online or call us to get started.",
+        "keywords": ["reserve storage riverside", "rent storage unit riverside ca"]
+      },
+      "layout": ["page-header", "form", "info"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": {
+            "heading": "Reserve a Unit",
+            "blurb": "Complete the form and we'll confirm your reservation within one business day",
+            "breadcrumb": true
+          }
+        },
+        "form": {
+          "component": "ContactForm",
+          "variant": "standard",
+          "content": {
+            "heading": "Start Your Reservation",
+            "blurb": "Tell us what size you need and when you'd like to move in.",
+            "fields": ["name", "email", "phone", "unitSize", "moveInDate", "message"],
+            "submitLabel": "Submit Reservation",
+            "successMessage": "Thank you! We'll reach out within 24 hours to confirm your unit."
+          }
+        },
+        "info": {
+          "component": "ContentSection",
+          "layout": "stacked",
+          "content": {
+            "heading": "Questions?",
+            "blurb": "We're here to help you find the perfect unit.",
+            "paragraphs": [
+              "Call us at (951) 555-7890 during business hours, or email hello@riversidestorage.com."
+            ]
+          }
+        }
+      }
+    },
+    "directions": {
+      "enabled": true,
+      "seo": {
+        "title": "Directions & Hours | Riverside Storage Co.",
+        "description": "Get directions to Riverside Storage Co. Located off the 91 freeway.",
+        "keywords": ["storage near me riverside", "riverside storage directions"]
+      },
+      "layout": ["page-header", "map", "hours-info"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": {
+            "heading": "Directions & Hours",
+            "blurb": "Easy to find, just off the 91 freeway",
+            "breadcrumb": true
+          }
+        },
+        "map": {
+          "component": "MapSection",
+          "variant": "embedded",
+          "content": {
+            "heading": "Find Us",
+            "blurb": "4500 River Rd, Riverside, CA 92501",
+            "directions": [
+              { "from": "From the 91 East", "steps": "Exit at Tyler St. Head south on Tyler, turn right on River Rd. Facility is 0.2 miles on the right." },
+              { "from": "From the 60 West", "steps": "Merge onto the 91 West, exit at Tyler St. Head south, turn right on River Rd." }
+            ]
+          }
+        },
+        "hours-info": {
+          "component": "ContentSection",
+          "layout": "stacked",
+          "content": {
+            "heading": "Office & Gate Hours",
+            "blurb": "Gate access is available 24/7 with your personal access code.",
+            "paragraphs": [
+              "Office: Monday-Friday 7am-8pm, Saturday 8am-5pm, Sunday 10am-3pm.",
+              "Gate: Open 24 hours, 7 days a week."
+            ]
+          }
+        }
+      }
+    },
+    "reviews": {
+      "enabled": true,
+      "seo": {
+        "title": "Customer Reviews | Riverside Storage Co.",
+        "description": "Read what our customers say about Riverside Storage Co.",
+        "keywords": ["riverside storage reviews", "storage reviews riverside ca"]
+      },
+      "layout": ["page-header", "testimonials", "cta"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": {
+            "heading": "Customer Reviews",
+            "blurb": "Don't take our word for it — hear from our customers",
+            "breadcrumb": true
+          }
+        },
+        "testimonials": {
+          "component": "ContentSection",
+          "layout": "stacked",
+          "content": {
+            "heading": "What People Are Saying",
+            "blurb": "Rated 4.8 stars across 200+ reviews",
+            "paragraphs": [
+              "Our customers love the clean units, friendly staff, and convenient access."
+            ]
+          }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": {
+            "heading": "Join our happy customers",
+            "blurb": "Reserve your unit and see why Riverside trusts us.",
+            "cta": { "label": "Get Started", "href": "/reserve", "variant": "primary" }
+          }
+        }
+      }
+    }
+  },
+
+  "data": {
+    "units": [
+      { "id": "5x5-indoor", "size": "5x5", "sqft": 25, "price": 39, "features": ["indoor"] },
+      { "id": "5x10-indoor", "size": "5x10", "sqft": 50, "price": 59, "features": ["indoor"] },
+      { "id": "10x10-driveup", "size": "10x10", "sqft": 100, "price": 89, "features": ["drive-up"] },
+      { "id": "10x10-climate", "size": "10x10", "sqft": 100, "price": 109, "features": ["indoor", "climate-controlled"] },
+      { "id": "10x15-driveup", "size": "10x15", "sqft": 150, "price": 129, "features": ["drive-up"] },
+      { "id": "10x20-climate", "size": "10x20", "sqft": 200, "price": 179, "features": ["indoor", "climate-controlled"] },
+      { "id": "10x30-driveup", "size": "10x30", "sqft": 300, "price": 219, "features": ["drive-up"] }
+    ],
+    "amenities": [
+      { "id": "24hr-access", "label": "24/7 Gate Access", "icon": "clock", "description": "Come and go whenever you need" },
+      { "id": "security-cameras", "label": "HD Security Cameras", "icon": "camera", "description": "Real-time monitoring of the entire property" },
+      { "id": "climate-control", "label": "Climate Controlled", "icon": "thermometer", "description": "Temperature-regulated units for sensitive items" },
+      { "id": "drive-up", "label": "Drive-Up Access", "icon": "truck", "description": "Pull right up to your unit door" },
+      { "id": "fenced", "label": "Perimeter Fencing", "icon": "shield", "description": "Fully fenced and gated facility" }
+    ],
+    "testimonials": [
+      { "name": "Maria L.", "rating": 5, "text": "Super clean facility and the staff is incredibly helpful. Best storage experience I've had." },
+      { "name": "Kevin R.", "rating": 5, "text": "Drive-up access makes moving in a breeze. Great prices too." },
+      { "name": "Sarah T.", "rating": 4, "text": "Convenient location right off the freeway. My unit stays cool even in summer." }
+    ]
+  },
+
+  "integrations": {}
+}
