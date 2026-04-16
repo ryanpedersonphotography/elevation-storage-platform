@@ -6,7 +6,7 @@
 
 **Architecture:** Turborepo monorepo with two Next.js apps (umbrella + standalone) sharing a component library (`packages/storage-ui`) and config package (`packages/facility-config`). Components follow a 4-layer hierarchy (primitives → compositions → sections → renderer). Facility data lives in JSON files validated by Zod at build time.
 
-**Tech Stack:** Turborepo, Bun, Next.js 15, React 19, Tailwind CSS v4, CVA, Zod, Vitest, Playwright, Lucide React
+**Tech Stack:** Turborepo, Bun, Next.js 15, React 19, Tailwind CSS v4, Radix Themes, Zod, Vitest, Playwright, Lucide React
 
 **Spec:** `docs/superpowers/specs/2026-04-15-elevation-storage-platform-design.md`
 
@@ -643,13 +643,11 @@ git commit -m "feat: implement Zod facility config schema with validation"
 
 ## Phase 2: Design Tokens & Primitives
 
-### Task 4: Scaffold storage-ui package with design tokens
+### Task 4: Scaffold storage-ui package with Radix Themes
 
 **Files:**
 - Create: `packages/storage-ui/package.json`
 - Create: `packages/storage-ui/tsconfig.json`
-- Create: `packages/storage-ui/src/tokens.css`
-- Create: `packages/storage-ui/src/utils.ts`
 - Create: `packages/storage-ui/src/index.ts`
 
 - [ ] **Step 1: Create package.json**
@@ -665,9 +663,7 @@ git commit -m "feat: implement Zod facility config schema with validation"
     "test": "vitest run"
   },
   "dependencies": {
-    "class-variance-authority": "^0.7",
-    "clsx": "^2",
-    "tailwind-merge": "^3",
+    "@radix-ui/themes": "^3",
     "lucide-react": "^0.460",
     "react": "^19",
     "react-dom": "^19",
@@ -687,58 +683,17 @@ git commit -m "feat: implement Zod facility config schema with validation"
 }
 ```
 
-- [ ] **Step 2: Create tokens.css**
+Note: Radix Themes provides design tokens via its own CSS. Import `@radix-ui/themes/styles.css` in consuming app's globals.css — no custom `tokens.css` needed.
 
-```css
-@theme {
-  /* Colors — overridden per-facility via inline style */
-  --color-primary: oklch(0.55 0.15 250);
-  --color-primary-foreground: oklch(0.98 0 0);
-  --color-accent: oklch(0.7 0.18 30);
-  --color-accent-foreground: oklch(0.98 0 0);
-  --color-background: oklch(0.99 0 0);
-  --color-foreground: oklch(0.15 0 0);
-  --color-muted: oklch(0.95 0 0);
-  --color-muted-foreground: oklch(0.45 0 0);
-  --color-border: oklch(0.9 0 0);
-
-  /* Typography — overridden per-template */
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-
-  /* Spacing scale */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 2rem;
-  --spacing-xl: 4rem;
-  --spacing-2xl: 6rem;
-
-  /* Border radii — overridden per-template */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-}
-```
-
-- [ ] **Step 3: Create utils.ts**
-
-```ts
-import { clsx, type ClassValue } from 'clsx'
-import { twMerge } from 'tailwind-merge'
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
-```
-
-- [ ] **Step 4: Create barrel export**
+- [ ] **Step 2: Create barrel export**
 
 `packages/storage-ui/src/index.ts`:
 ```ts
-export { cn } from './utils'
+// Primitives, compositions, sections, renderer exported in subsequent tasks
+export {}
 ```
 
-- [ ] **Step 5: Create tsconfig.json and install**
+- [ ] **Step 3: Create tsconfig.json and install**
 
 ```json
 {
@@ -750,11 +705,11 @@ export { cn } from './utils'
 
 Run: `bun install`
 
-- [ ] **Step 6: Commit**
+- [ ] **Step 4: Commit**
 
 ```bash
 git add packages/storage-ui/
-git commit -m "feat: scaffold storage-ui package with design tokens"
+git commit -m "feat: scaffold storage-ui package with Radix Themes"
 ```
 
 ---
@@ -762,54 +717,74 @@ git commit -m "feat: scaffold storage-ui package with design tokens"
 ### Task 5: Implement primitive components
 
 **Files:**
-- Create: `packages/storage-ui/src/primitives/heading.tsx`
-- Create: `packages/storage-ui/src/primitives/text.tsx`
-- Create: `packages/storage-ui/src/primitives/button.tsx`
 - Create: `packages/storage-ui/src/primitives/image.tsx`
-- Create: `packages/storage-ui/src/primitives/container.tsx`
-- Create: `packages/storage-ui/src/primitives/stack.tsx`
-- Create: `packages/storage-ui/src/primitives/cluster.tsx`
-- Create: `packages/storage-ui/src/primitives/grid.tsx`
 - Create: `packages/storage-ui/src/primitives/section.tsx`
 - Create: `packages/storage-ui/src/primitives/index.ts`
+- Create: `packages/storage-ui/src/lib/resolve-color.ts`
 - Create: `packages/storage-ui/src/primitives/__tests__/primitives.test.tsx`
 
-This task creates all 9 primitive components. Each uses CVA for variant recipes and token-based Tailwind classes. No arbitrary values.
+Most primitives are direct re-exports from `@radix-ui/themes`: `Heading`, `Text`, `Button`, `Container`, `Flex`, `Grid`, `Card`, `Box`. Only `Image` and `Section` are custom components.
 
 - [ ] **Step 1: Write primitive tests**
 
-Test that `Heading` renders correct semantic element, `Button` applies variant classes, `Image` enforces alt prop, `Container` applies size classes, layout primitives (`Stack`, `Cluster`, `Grid`) render with gap classes.
+Test that `Image` enforces `alt` prop and renders an `<img>` element, and that `Section` applies background image and overlay when props are provided. Test that Radix re-exports (`Heading`, `Text`, `Button`, `Flex`, `Grid`) are accessible from the barrel.
 
 - [ ] **Step 2: Run tests to verify they fail**
 
 Run: `cd packages/storage-ui && bun run test`
 
-- [ ] **Step 3: Implement all 9 primitives**
+- [ ] **Step 3: Implement `resolveRadixColor()` utility**
 
-Each component follows this pattern:
-- Props typed with TypeScript interface
-- CVA recipe for variants
-- `cn()` for class merging
-- Only token-based Tailwind classes (no arbitrary values)
-- `forwardRef` where appropriate
+`packages/storage-ui/src/lib/resolve-color.ts`:
+```ts
+/**
+ * Maps a facility branding color (oklch string or Radix color name) to a
+ * Radix Themes `accentColor` prop value. Falls back to "blue" when unresolved.
+ */
+export function resolveRadixColor(color: string): string {
+  // If already a Radix named color, pass through
+  const radixColors = [
+    'tomato', 'red', 'ruby', 'crimson', 'pink', 'plum', 'purple', 'violet',
+    'iris', 'indigo', 'blue', 'cyan', 'teal', 'jade', 'green', 'grass',
+    'bronze', 'gold', 'brown', 'orange', 'amber', 'yellow', 'lime', 'mint', 'sky',
+  ]
+  if (radixColors.includes(color)) return color
+  return 'blue' // fallback for oklch values — facility uses CSS custom props instead
+}
+```
 
-Key implementation notes per the spec:
-- `Heading`: `level` prop (1-6), renders corresponding `<h1>`-`<h6>` with type scale classes
-- `Button`: CVA variants (primary/secondary/outline/ghost), sizes (sm/md/lg), renders `<a>` when `href` provided, `<button>` otherwise
-- `Image`: Wraps Next.js `<img>` (not `next/image` since static export), enforces `alt` prop exists, supports `aspect` prop for aspect-ratio CSS
-- `Section`: Accepts optional `background` (`{ src, alt }`) and `overlay` (dark/light). When background provided, renders `Image` primitive internally with absolute positioning + overlay div
+- [ ] **Step 4: Implement custom `Image` and `Section` primitives**
 
-- [ ] **Step 4: Run tests to verify they pass**
+`Image`: Wraps `<img>` (not `next/image` since static export), enforces `alt` prop exists, supports `aspect` prop for aspect-ratio CSS.
 
-- [ ] **Step 5: Export from barrel**
+`Section`: Accepts optional `background` (`{ src, alt }`) and `overlay` (`'dark' | 'light'`). When background provided, renders `Image` primitive internally with absolute positioning + overlay div. Uses Radix `Box` for layout.
 
-Update `packages/storage-ui/src/index.ts` to re-export all primitives.
+- [ ] **Step 5: Create primitives barrel**
 
-- [ ] **Step 6: Commit**
+`packages/storage-ui/src/primitives/index.ts`:
+```ts
+// Radix Themes re-exports — use these directly in compositions and sections
+export {
+  Heading, Text, Button, Container, Flex, Grid, Card, Box,
+  Badge, Table, TextField, TextArea, Select,
+} from '@radix-ui/themes'
+
+// Custom primitives
+export { Image } from './image'
+export { Section } from './section'
+```
+
+- [ ] **Step 6: Run tests to verify they pass**
+
+- [ ] **Step 7: Export from main barrel**
+
+Update `packages/storage-ui/src/index.ts` to re-export all from `./primitives`.
+
+- [ ] **Step 8: Commit**
 
 ```bash
-git add packages/storage-ui/src/primitives/
-git commit -m "feat: implement 9 primitive components with CVA variants"
+git add packages/storage-ui/src/primitives/ packages/storage-ui/src/lib/
+git commit -m "feat: implement primitives — Radix re-exports + custom Image/Section"
 ```
 
 ---
@@ -820,39 +795,51 @@ git commit -m "feat: implement 9 primitive components with CVA variants"
 
 **Files:**
 - Create: `packages/storage-ui/src/compositions/section-header.tsx`
-- Create: `packages/storage-ui/src/compositions/card.tsx`
+- Create: `packages/storage-ui/src/compositions/content-card.tsx`
 - Create: `packages/storage-ui/src/compositions/media-block.tsx`
 - Create: `packages/storage-ui/src/compositions/feature-item.tsx`
 - Create: `packages/storage-ui/src/compositions/cta-group.tsx`
 - Create: `packages/storage-ui/src/compositions/index.ts`
 - Create: `packages/storage-ui/src/compositions/__tests__/compositions.test.tsx`
 
+Note: The composition is named `ContentCard` (not `Card`) to avoid collision with the Radix `Card` primitive re-export.
+
 - [ ] **Step 1: Write composition tests**
 
 Test that:
-- `SectionHeader` renders `Heading` with correct level and optional description via `Text`
-- `Card` compound component renders slots (`Card.Image`, `Card.Body`, `Card.Title`, `Card.Description`)
-- `MediaBlock` renders children in correct order based on `layout` prop (image-right vs image-left vs stacked)
-- `FeatureItem` renders icon + heading + text
-- `CTAGroup` renders primary Button, and secondary Button when `secondary` prop provided. Data-driven: accepts `{ label, href, variant }` objects, NOT children.
+- `SectionHeader` renders Radix `Heading` with correct level and optional description via Radix `Text`
+- `ContentCard` renders children inside a Radix `Card` wrapper (no compound slots — use Radix Card's children prop directly)
+- `MediaBlock` renders children in correct order based on `layout` prop (image-right vs image-left vs stacked) using Radix `Flex`
+- `FeatureItem` renders icon + Radix `Heading` + Radix `Text` in a Radix `Flex` column
+- `CTAGroup` renders primary Radix `Button`, and secondary Radix `Button` when `secondary` prop provided. Data-driven: accepts `{ label, href, variant }` objects, NOT children.
 
 - [ ] **Step 2: Run tests to verify they fail**
 
 - [ ] **Step 3: Implement all 5 compositions**
 
 Key implementation notes:
-- `SectionHeader`: Props: `heading` (string), `description?` (string), `level?` (number, default 2). Uses `Heading` and `Text` primitives.
-- `Card`: Compound component pattern with `Card.Image`, `Card.Body`, `Card.Title`, `Card.Description`, and `children` slot in body.
-- `MediaBlock`: `layout` prop controls flex direction. `MediaBlock.Image` and `MediaBlock.Content` as compound slots.
-- `CTAGroup`: Props: `primary: { label, href, variant }`, `secondary?: { label, href, variant }`. Renders `Button` primitives internally. Does NOT use children — data-driven for JSON compatibility.
+- `SectionHeader`: Props: `heading` (string), `description?` (string), `level?` (Radix Heading `as` level, default `'2'`). Uses Radix `Heading` and `Text`.
+- `ContentCard`: Thin wrapper around Radix `Card`. Accepts `children`. No compound component pattern — Radix Card's children prop handles slot composition.
+- `MediaBlock`: `layout` prop controls Radix `Flex` direction (`row` / `row-reverse` / `column`). Children are passed directly.
+- `CTAGroup`: Props: `primary: { label, href, variant }`, `secondary?: { label, href, variant }`. Renders Radix `Button` components (as `<a>` links via `asChild` + `<a>`). Does NOT use children — data-driven for JSON compatibility.
+- `FeatureItem`: Uses Radix `Flex` (direction column), Radix `Heading`, Radix `Text`. Icon rendered as a Lucide component name string resolved to component.
 
 - [ ] **Step 4: Run tests to verify they pass**
 
 - [ ] **Step 5: Export from barrel and commit**
 
+`packages/storage-ui/src/compositions/index.ts`:
+```ts
+export { SectionHeader } from './section-header'
+export { ContentCard } from './content-card'
+export { MediaBlock } from './media-block'
+export { FeatureItem } from './feature-item'
+export { CTAGroup } from './cta-group'
+```
+
 ```bash
 git add packages/storage-ui/src/compositions/
-git commit -m "feat: implement 5 composition components"
+git commit -m "feat: implement 5 composition components using Radix Themes"
 ```
 
 ---
@@ -867,10 +854,11 @@ git commit -m "feat: implement 5 composition components"
 - Create: `packages/storage-ui/src/templates/bold.ts`
 - Create: `packages/storage-ui/src/templates/friendly.ts`
 - Create: `packages/storage-ui/src/templates/index.ts`
-- Create: `packages/storage-ui/src/templates/build-token-style.ts`
 - Create: `packages/storage-ui/src/providers/facility-provider.tsx`
 - Create: `packages/storage-ui/src/hooks/use-analytics.ts`
 - Create: `packages/storage-ui/src/hooks/use-facility.ts`
+
+Note: `build-token-style.ts` is NOT needed — Radix Themes handles theming via `<Theme>` component props. Templates now describe Radix Theme props rather than CSS custom properties.
 
 - [ ] **Step 1: Implement template types and presets**
 
@@ -878,32 +866,31 @@ git commit -m "feat: implement 5 composition components"
 ```ts
 export interface Template {
   name: string
-  tokens: Record<string, string>
+  /** Radix Themes <Theme> props for this template */
+  radius: 'none' | 'small' | 'medium' | 'large' | 'full'
+  scaling: '90%' | '95%' | '100%' | '105%' | '110%'
+  font: string  // Google Font family name, loaded via next/font/google in the app
   defaults: Record<string, { variant?: string; layout?: string }>
 }
 ```
 
-Then implement `modern.ts`, `bold.ts`, `friendly.ts` matching spec lines 905-963. Each exports a `Template` object.
+Then implement `modern.ts`, `bold.ts`, `friendly.ts`. Each exports a `Template` object with `radius`, `scaling`, `font`, and `defaults`.
 
-`packages/storage-ui/src/templates/build-token-style.ts`:
+Example `modern.ts`:
 ```ts
 import type { Template } from './types'
-import type { FacilityConfig } from '@jerry/facility-config'
 
-export function buildTokenStyle(
-  template: Template,
-  branding: FacilityConfig['branding']
-): React.CSSProperties {
-  const style: Record<string, string> = {}
-
-  for (const [key, value] of Object.entries(template.tokens)) {
-    style[key] = value
-  }
-
-  if (branding.colors.primary) style['--color-primary'] = branding.colors.primary
-  if (branding.colors.accent) style['--color-accent'] = branding.colors.accent
-
-  return style as React.CSSProperties
+export const modern: Template = {
+  name: 'modern',
+  radius: 'medium',
+  scaling: '100%',
+  font: 'Inter',
+  defaults: {
+    Hero: { variant: 'overlay' },
+    ContentSection: { layout: 'image-right' },
+    UnitGrid: { variant: 'cards' },
+    CallToAction: { variant: 'gradient' },
+  },
 }
 ```
 
@@ -913,20 +900,31 @@ export function buildTokenStyle(
 ```tsx
 'use client'
 import { createContext, type ReactNode } from 'react'
+import { Theme } from '@radix-ui/themes'
 import type { FacilityConfig } from '@jerry/facility-config'
+import type { Template } from '../templates/types'
+import { resolveRadixColor } from '../lib/resolve-color'
 
 export const FacilityContext = createContext<FacilityConfig | null>(null)
 
 export function FacilityProvider({
   facility,
+  template,
   children,
 }: {
   facility: FacilityConfig
+  template: Template
   children: ReactNode
 }) {
   return (
     <FacilityContext.Provider value={facility}>
-      {children}
+      <Theme
+        accentColor={resolveRadixColor(facility.branding.colors.primary)}
+        radius={template.radius}
+        scaling={template.scaling}
+      >
+        {children}
+      </Theme>
     </FacilityContext.Provider>
   )
 }
@@ -971,7 +969,7 @@ export function useAnalytics() {
 
 ```bash
 git add packages/storage-ui/src/templates/ packages/storage-ui/src/providers/ packages/storage-ui/src/hooks/
-git commit -m "feat: implement templates, FacilityProvider, and analytics hook"
+git commit -m "feat: implement templates, FacilityProvider with Radix Theme wrapper, and analytics hook"
 ```
 
 ---
@@ -1022,11 +1020,11 @@ git commit -m "feat: implement PageRenderer with component registry"
 
 - [ ] **Step 1: Write Hero tests** — renders heading (h1), subtitle, background image, CTA button. Variant "overlay" adds dark overlay. Variant "split" splits image and content side-by-side.
 
-- [ ] **Step 2: Implement Hero** — uses `Section` (with background), `Container`, `Stack`, `Heading` (level 1), `Text`, `CTAGroup`. Zero hardcoded text. Exports `HeroContentSchema`.
+- [ ] **Step 2: Implement Hero** — uses `Section` (with background), Radix `Container`, Radix `Flex` (direction column), Radix `Heading` (as `h1`), Radix `Text`, `CTAGroup`. Zero hardcoded text. Exports `HeroContentSchema`.
 
 - [ ] **Step 3: Write HeroSimple tests** — renders heading (h2), optional blurb, optional breadcrumb.
 
-- [ ] **Step 4: Implement HeroSimple** — uses `Section`, `Container`, `SectionHeader`. Exports `HeroSimpleContentSchema`.
+- [ ] **Step 4: Implement HeroSimple** — uses `Section`, Radix `Container`, `SectionHeader`. Exports `HeroSimpleContentSchema`.
 
 - [ ] **Step 5: Register in registry, run all tests, commit**
 
@@ -1045,11 +1043,11 @@ git commit -m "feat: implement Hero and HeroSimple sections"
 
 - [ ] **Step 1: Write ContentSection tests** — renders heading, blurb, paragraphs, optional image. Layout "image-right" puts image on right via `MediaBlock`.
 
-- [ ] **Step 2: Implement ContentSection** — uses `Section`, `Container`, `MediaBlock` (when image present), `SectionHeader`, `Text` for paragraphs. Falls back to stacked layout without `MediaBlock` when no image. Exports `ContentSectionContentSchema`.
+- [ ] **Step 2: Implement ContentSection** — uses `Section`, Radix `Container`, `MediaBlock` (when image present, uses Radix `Flex` internally), `SectionHeader`, Radix `Text` for paragraphs. Falls back to stacked layout without `MediaBlock` when no image. Exports `ContentSectionContentSchema`.
 
 - [ ] **Step 3: Write CallToAction tests** — renders heading, blurb, primary CTA, optional secondary CTA, optional background image.
 
-- [ ] **Step 4: Implement CallToAction** — uses `Section` (with optional background/overlay), `Container`, `SectionHeader`, `CTAGroup`. Exports `CallToActionContentSchema`.
+- [ ] **Step 4: Implement CallToAction** — uses `Section` (with optional background/overlay), Radix `Container`, `SectionHeader`, `CTAGroup` (renders Radix `Button` components). Exports `CallToActionContentSchema`.
 
 - [ ] **Step 5: Register, test, commit**
 
@@ -1068,11 +1066,11 @@ git commit -m "feat: implement ContentSection and CallToAction sections"
 
 - [ ] **Step 1: Write UnitGrid tests** — reads from `facilityData.data.units`. Filters by ID when `content.filter` provided. Falls back to all units when filter misses. Variant "cards" renders `Card` components. Variant "table" renders HTML table.
 
-- [ ] **Step 2: Implement UnitGrid** — uses `Section`, `Container`, `SectionHeader`, `Grid`, `Card` (cards variant) or `<table>` with token classes (table variant). Reads `facilityData.data.units`, applies filter, shows pricing/features based on content flags. Exports `UnitGridContentSchema`.
+- [ ] **Step 2: Implement UnitGrid** — uses `Section`, Radix `Container`, `SectionHeader`, Radix `Grid`, Radix `Card` (cards variant) or Radix `Table` (table variant). Reads `facilityData.data.units`, applies filter, shows pricing/features based on content flags. Exports `UnitGridContentSchema`.
 
 - [ ] **Step 3: Write SizeGuide tests** — renders guides array with size, description, fits list.
 
-- [ ] **Step 4: Implement SizeGuide** — uses `Section`, `Container`, `SectionHeader`, `Grid`, `Card`. Exports `SizeGuideContentSchema`.
+- [ ] **Step 4: Implement SizeGuide** — uses `Section`, Radix `Container`, `SectionHeader`, Radix `Grid`, Radix `Card`. Exports `SizeGuideContentSchema`.
 
 - [ ] **Step 5: Register, test, commit**
 
@@ -1091,11 +1089,11 @@ git commit -m "feat: implement UnitGrid and SizeGuide sections"
 
 - [ ] **Step 1: Write FeatureGrid tests** — renders features from content (inline features array) or from `facilityData.data.amenities`. Uses `FeatureItem` composition.
 
-- [ ] **Step 2: Implement FeatureGrid** — uses `Section`, `Container`, `SectionHeader`, `Grid`, `FeatureItem`. Variant "icons" shows icon+text. Variant "cards" wraps in `Card`. Variant "pills" uses rounded pill styling. Exports `FeatureGridContentSchema`.
+- [ ] **Step 2: Implement FeatureGrid** — uses `Section`, Radix `Container`, `SectionHeader`, Radix `Grid`, `FeatureItem` (uses Radix `Flex`, `Heading`, `Text` internally). Variant "icons" shows icon+text. Variant "cards" wraps in Radix `Card`. Variant "pills" uses Radix `Badge` for pill styling. Exports `FeatureGridContentSchema`.
 
 - [ ] **Step 3: Write TestimonialGrid tests** — reads from `facilityData.data.testimonials`, renders name, rating, text.
 
-- [ ] **Step 4: Implement TestimonialGrid** — uses `Section`, `Container`, `SectionHeader`, `Grid`, `Card`. Exports `TestimonialGridContentSchema`.
+- [ ] **Step 4: Implement TestimonialGrid** — uses `Section`, Radix `Container`, `SectionHeader`, Radix `Grid`, Radix `Card`. Exports `TestimonialGridContentSchema`.
 
 - [ ] **Step 5: Register, test, commit**
 
@@ -1115,11 +1113,11 @@ git commit -m "feat: implement FeatureGrid and TestimonialGrid sections"
 
 - [ ] **Step 1: Write ContactForm tests** — renders fields from `content.fields` array, submit button with `content.submitLabel`, success message on submit.
 
-- [ ] **Step 2: Implement ContactForm** — client component (`'use client'`). Uses `Section`, `Container`, `SectionHeader`, form elements with token-based Tailwind classes. Client-side state for form submission (no backend — static export). Fires `reserve_click` analytics event on submit. Exports `ContactFormContentSchema`.
+- [ ] **Step 2: Implement ContactForm** — client component (`'use client'`). Uses `Section`, Radix `Container`, `SectionHeader`, Radix `TextField`, `TextArea`, `Select`, and Radix `Button` for form elements. Client-side state for form submission (no backend — static export). Fires `reserve_click` analytics event on submit. Exports `ContactFormContentSchema`.
 
 - [ ] **Step 3: Write MapSection tests** — renders heading, address blurb, directions list.
 
-- [ ] **Step 4: Implement MapSection** — uses `Section`, `Container`, `SectionHeader`. Variant "embedded" renders an iframe placeholder for Google Maps (actual embed URL from coordinates). Variant "static" renders address + directions text only. Exports `MapSectionContentSchema`.
+- [ ] **Step 4: Implement MapSection** — uses `Section`, Radix `Container`, `SectionHeader`, Radix `Text`. Variant "embedded" renders an iframe placeholder for Google Maps (actual embed URL from coordinates). Variant "static" renders address + directions text only. Exports `MapSectionContentSchema`.
 
 - [ ] **Step 5: Implement FacilityDirectory** — renders list of facilities with name, address, link. Used only in umbrella app. Receives facilities array via props (not context). Exports `FacilityDirectoryContentSchema`.
 
@@ -1174,17 +1172,19 @@ const nextConfig: NextConfig = {
 export default nextConfig
 ```
 
-- [ ] **Step 3: Create globals.css with @source directives**
+- [ ] **Step 3: Create globals.css**
 
 ```css
 @import "tailwindcss";
+@import "@radix-ui/themes/styles.css";
 @source "../../../../packages/storage-ui/src";
-@import "@jerry/storage-ui/tokens.css";
 ```
+
+Note: `@radix-ui/themes/styles.css` replaces the old `@jerry/storage-ui/tokens.css`. No custom token file needed.
 
 - [ ] **Step 4: Create root layout.tsx**
 
-Root layout: HTML shell, fonts, globals.css import. No facility-specific tokens here (those go in the `[facility]` segment layout).
+Root layout: HTML shell, fonts loaded via `next/font/google`, globals.css import. No facility-specific theming here (that lives in the `[facility]` segment layout via `FacilityProvider`).
 
 - [ ] **Step 5: Create root page.tsx (landing + facility directory)**
 
@@ -1192,7 +1192,7 @@ Reads all subdirectory facilities via `loadSubdirectoryFacilities()`. Renders la
 
 - [ ] **Step 6: Create [facility]/layout.tsx (segment layout)**
 
-Loads facility config by slug param. Wraps children in `FacilityProvider`. Applies `buildTokenStyle()` on wrapping `<div>`. Injects per-facility gtag via `GtagScript` client component. Renders `Nav` and `Footer` with `branding.showParent` toggle.
+Loads facility config by slug param. Wraps children in `FacilityProvider` (which internally renders `<Theme>` with facility-specific `accentColor`, `radius`, `scaling` from the template). No manual `buildTokenStyle()` call. Injects per-facility gtag via `GtagScript` client component. Renders `Nav` and `Footer` with `branding.showParent` toggle.
 
 - [ ] **Step 7: Create [facility]/[[...page]]/page.tsx**
 
@@ -1283,11 +1283,11 @@ git commit -m "feat: implement umbrella app with facility routing and SEO"
 
 - [ ] **Step 2: Create next.config.ts** (same as umbrella — `output: 'export'`)
 
-- [ ] **Step 3: Create globals.css** (same as umbrella)
+- [ ] **Step 3: Create globals.css** (same as umbrella — imports `@radix-ui/themes/styles.css`)
 
 - [ ] **Step 4: Create root layout.tsx**
 
-Loads facility via `FACILITY_SLUG` env var. Wraps in `FacilityProvider`. Applies `buildTokenStyle()` on `<html>` element (here it IS the root layout since there's only one facility). Renders Nav, Footer, GtagScript.
+Loads facility via `FACILITY_SLUG` env var. Wraps content in `FacilityProvider` (which renders the Radix `<Theme>` internally — no `buildTokenStyle()` needed). Renders Nav, Footer, GtagScript. Loads font via `next/font/google` using template's `font` field.
 
 ```tsx
 const slug = process.env.FACILITY_SLUG
