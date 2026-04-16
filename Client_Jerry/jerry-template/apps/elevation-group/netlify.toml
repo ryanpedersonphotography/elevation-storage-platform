@@ -1,3 +1,40 @@
+# Elevation Group — Umbrella Site (elevationgroup.com)
+# Netlify Dashboard Setup:
+#   1. Create new site → Import from Git → select this repo
+#   2. Set "Base directory" to: Client_Jerry/jerry-template/apps/elevation-group
+#   3. Netlify auto-reads this file for build command + publish dir
+#   4. No environment variables needed for the umbrella site
+
 [build]
   command = "cd ../.. && bun install && turbo build --filter=@jerry/elevation-group"
   publish = "out"
+
+[build.environment]
+  NODE_VERSION = "20"
+  BUN_VERSION = "1.2.5"
+
+# SPA-style fallback for static export — serves 404.html for unknown paths
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
+
+# Security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Cache static assets aggressively
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
