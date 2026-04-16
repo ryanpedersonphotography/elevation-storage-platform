@@ -1,6 +1,6 @@
 import React from 'react'
 import { z } from 'zod'
-import { Section, Container, Grid, Table, Text, Box } from '../primitives'
+import { Section, Container, Grid, Table, Text, Box, Flex } from '../primitives'
 import { SectionHeader, ContentCard } from '../compositions'
 import type { SectionProps } from '../renderer/registry'
 
@@ -57,13 +57,11 @@ export function SizeGuide({ content, variant = 'visual' }: SectionProps) {
             <ContentCard key={guide.size} title={guide.size} description={guide.description}>
               <Box mt="2">
                 <Text as="p" size="2" weight="bold">What fits:</Text>
-                <ul style={{ margin: '0.25rem 0 0 1rem', padding: 0 }}>
+                <Flex direction="column" gap="1" mt="1" ml="3">
                   {guide.fits.map((item) => (
-                    <li key={item}>
-                      <Text as="span" size="2">{item}</Text>
-                    </li>
+                    <Text key={item} as="p" size="2">{item}</Text>
                   ))}
-                </ul>
+                </Flex>
               </Box>
             </ContentCard>
           ))}

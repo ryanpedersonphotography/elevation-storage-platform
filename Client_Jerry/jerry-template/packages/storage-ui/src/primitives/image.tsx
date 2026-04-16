@@ -1,6 +1,6 @@
 import React from 'react'
 
-export interface ImageProps {
+export interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   src: string
   alt: string
   aspect?: '16/9' | '4/3' | '1/1' | '3/1'
@@ -8,7 +8,7 @@ export interface ImageProps {
   className?: string
 }
 
-export function Image({ src, alt, aspect, priority, className }: ImageProps) {
+export function Image({ src, alt, aspect, priority, className, style, ...rest }: ImageProps) {
   return (
     <img
       src={src}
@@ -20,7 +20,9 @@ export function Image({ src, alt, aspect, priority, className }: ImageProps) {
         height: 'auto',
         objectFit: 'cover',
         ...(aspect ? { aspectRatio: aspect } : {}),
+        ...style,
       }}
+      {...rest}
     />
   )
 }
