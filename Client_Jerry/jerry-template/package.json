@@ -1,0 +1,17 @@
+{
+  "name": "jerry-template",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*"],
+  "packageManager": "bun@1.2.5",
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "type-check": "turbo type-check",
+    "validate": "turbo validate",
+    "test": "turbo test"
+  },
+  "devDependencies": {
+    "turbo": "^2.9.6"
+  }
+}

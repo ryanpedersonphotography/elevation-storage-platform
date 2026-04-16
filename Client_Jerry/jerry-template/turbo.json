@@ -1,0 +1,18 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "validate": {
+      "inputs": ["../../data/facilities/*.json"],
+      "outputs": []
+    },
+    "build": {
+      "dependsOn": ["^build", "validate"],
+      "outputs": [".next/**", "out/**"],
+      "env": ["FACILITY_SLUG"]
+    },
+    "dev": { "persistent": true, "cache": false },
+    "lint": { "dependsOn": ["^lint"] },
+    "type-check": { "dependsOn": ["^build"] },
+    "test": { "dependsOn": ["^build"] }
+  }
+}

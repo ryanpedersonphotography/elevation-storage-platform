@@ -1,0 +1,17 @@
+# dependencies
+node_modules
+
+# build outputs
+.next
+out
+dist
+
+# turbo
+.turbo
+
+# superpowers
+.superpowers
+
+# misc
+.DS_Store
+*.tsbuildinfo
