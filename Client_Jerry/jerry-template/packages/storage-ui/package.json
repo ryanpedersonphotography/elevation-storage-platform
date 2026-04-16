@@ -1,0 +1,28 @@
+{
+  "name": "@jerry/storage-ui",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@radix-ui/themes": "^3",
+    "lucide-react": "^0.460",
+    "react": "^19",
+    "react-dom": "^19",
+    "zod": "^3.23.0",
+    "@jerry/facility-config": "workspace:*"
+  },
+  "devDependencies": {
+    "@jerry/tsconfig": "workspace:*",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5",
+    "vitest": "^3",
+    "@testing-library/react": "^16",
+    "@testing-library/jest-dom": "^6",
+    "jsdom": "^25"
+  }
+}

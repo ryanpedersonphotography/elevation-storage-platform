@@ -1,0 +1,7 @@
+{
+  "extends": "@jerry/tsconfig/library.json",
+  "compilerOptions": {
+    "outDir": "./dist"
+  },
+  "include": ["src"]
+}
