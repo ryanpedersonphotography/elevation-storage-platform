@@ -1,0 +1,96 @@
+{
+  "slug": "test-facility",
+  "name": "Test Facility Storage",
+
+  "info": {
+    "address": {
+      "street": "456 Test Ave",
+      "city": "Testville",
+      "state": "CA",
+      "zip": "90210"
+    },
+    "phone": "(555) 000-1234",
+    "email": "test@elevationgroup.com",
+    "coordinates": { "lat": 34.0522, "lng": -118.2437 },
+    "hours": [
+      { "days": ["Mo", "Tu", "We", "Th", "Fr"], "open": "07:00", "close": "20:00" },
+      { "days": ["Sa"], "open": "09:00", "close": "17:00" }
+    ]
+  },
+
+  "branding": {
+    "showParent": false,
+    "template": "bold",
+    "colors": {
+      "primary": "oklch(0.6 0.2 200)",
+      "accent": "oklch(0.65 0.15 100)"
+    },
+    "logo": "/images/test-facility/logo.png"
+  },
+
+  "deployment": {
+    "mode": "standalone",
+    "domain": "testfacility.com"
+  },
+
+  "seo": {
+    "siteName": "Test Facility Storage",
+    "defaultTitle": "Test Facility Storage | Secure Units",
+    "defaultDescription": "Test facility for validation.",
+    "keywords": ["test storage"],
+    "ogImage": "/images/test-facility/og.jpg"
+  },
+
+  "analytics": {
+    "gtag": null
+  },
+
+  "pages": {
+    "home": {
+      "enabled": true,
+      "seo": {
+        "title": "Test Facility Home"
+      },
+      "layout": ["hero", "cta"],
+      "sections": {
+        "hero": {
+          "component": "Hero",
+          "variant": "split",
+          "content": {
+            "heading": "Test Hero",
+            "image": { "src": "/images/test/hero.jpg", "alt": "Test hero" }
+          }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "variant": "solid",
+          "layout": "centered",
+          "content": {
+            "heading": "Test CTA",
+            "cta": { "label": "Click", "href": "/test", "variant": "primary" }
+          }
+        }
+      }
+    },
+    "about": {
+      "enabled": false,
+      "seo": {},
+      "layout": [],
+      "sections": {}
+    }
+  },
+
+  "data": {
+    "units": [
+      { "id": "5x5-basic", "size": "5x5", "sqft": 25, "price": 39, "features": ["indoor"] }
+    ],
+    "amenities": [
+      { "id": "access", "label": "24-Hour Access", "icon": "clock", "description": "Always open" }
+    ],
+    "testimonials": [
+      { "name": "Jane T.", "rating": 4, "text": "Good service." }
+    ]
+  },
+
+  "integrations": {}
+}
