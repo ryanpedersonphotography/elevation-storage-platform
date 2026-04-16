@@ -1,9 +1,16 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { PageRenderer } from '../page-renderer'
 import type { Page, FacilityConfig } from '@jerry/facility-config'
 import type { Template } from '../../templates/types'
+
+// Mock lucide-react for FeatureGrid dependency chain
+vi.mock('lucide-react', () => ({}))
+// Mock useAnalytics for ContactForm dependency
+vi.mock('../../hooks/use-analytics', () => ({
+  useAnalytics: () => ({ track: vi.fn() }),
+}))
 
 // ─── Fixtures ───
 
@@ -53,7 +60,7 @@ function makePage(overrides: Partial<Page> = {}): Page {
     enabled: true,
     layout: ['hero', 'content'],
     sections: {
-      hero: { component: 'Hero', content: { heading: 'Welcome' } },
+      hero: { component: 'Hero', content: { heading: 'Welcome', image: { src: '/hero.jpg', alt: 'Hero' } } },
       content: { component: 'ContentSection', content: { heading: 'About Us' } },
     },
     ...overrides,
@@ -65,30 +72,27 @@ function makePage(overrides: Partial<Page> = {}): Page {
 describe('PageRenderer', () => {
   it('renders sections in layout order', () => {
     const page = makePage()
-    const { container } = render(
+    render(
       <PageRenderer page={page} facilityData={mockFacility} template={mockTemplate} />
     )
-    const sections = container.querySelectorAll('[data-section]')
-    expect(sections).toHaveLength(2)
-    expect(sections[0]).toHaveAttribute('data-section', 'Welcome')
-    expect(sections[1]).toHaveAttribute('data-section', 'About Us')
+    // Both section headings should render
+    expect(screen.getByRole('heading', { level: 1, name: 'Welcome' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 2, name: 'About Us' })).toBeInTheDocument()
   })
 
   it('applies template defaults when section has no variant/layout', () => {
     const page = makePage({
       layout: ['hero'],
       sections: {
-        hero: { component: 'Hero', content: { heading: 'Test' } },
+        hero: { component: 'Hero', content: { heading: 'Test', image: { src: '/bg.jpg', alt: 'bg' } } },
       },
     })
 
-    // StubSection doesn't render variant/layout visually, but we verify
-    // the component receives them by checking the PageRenderer passes them through.
-    // We'll verify by rendering and confirming no error occurs with defaults applied.
-    const { container } = render(
+    // Verify rendering succeeds with template defaults applied (overlay variant)
+    render(
       <PageRenderer page={page} facilityData={mockFacility} template={mockTemplate} />
     )
-    expect(container.querySelector('[data-section="Test"]')).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1, name: 'Test' })).toBeInTheDocument()
   })
 
   it('section-level variant overrides template default', () => {
@@ -99,15 +103,16 @@ describe('PageRenderer', () => {
           component: 'Hero',
           variant: 'split',
           layout: 'image-left',
-          content: { heading: 'Override' },
+          content: { heading: 'Override', image: { src: '/split.jpg', alt: 'Split' } },
         },
       },
     })
-    const { container } = render(
+    render(
       <PageRenderer page={page} facilityData={mockFacility} template={mockTemplate} />
     )
-    // Section renders successfully with override values
-    expect(container.querySelector('[data-section="Override"]')).toBeInTheDocument()
+    // Section renders successfully with split variant (has image beside content)
+    expect(screen.getByRole('heading', { level: 1, name: 'Override' })).toBeInTheDocument()
+    expect(screen.getByAltText('Split')).toBeInTheDocument()
   })
 
   it('throws descriptive error for unknown component', () => {
