@@ -1,6 +1,5 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import '@testing-library/jest-dom'
 import { Image } from '../image'
 import { Section } from '../section'
 import { resolveRadixColor } from '../../lib/resolve-color'
@@ -82,14 +81,27 @@ describe('resolveRadixColor', () => {
   })
 
   it('maps oklch hue values to nearest Radix color', () => {
-    expect(resolveRadixColor('oklch(0.5 0.2 10)')).toBe('red')
+    expect(resolveRadixColor('oklch(0.5 0.2 5)')).toBe('tomato')
+    expect(resolveRadixColor('oklch(0.5 0.2 20)')).toBe('red')
+    expect(resolveRadixColor('oklch(0.5 0.2 30)')).toBe('ruby')
     expect(resolveRadixColor('oklch(0.5 0.2 45)')).toBe('orange')
-    expect(resolveRadixColor('oklch(0.5 0.2 75)')).toBe('yellow')
-    expect(resolveRadixColor('oklch(0.5 0.2 120)')).toBe('green')
+    expect(resolveRadixColor('oklch(0.5 0.2 55)')).toBe('amber')
+    expect(resolveRadixColor('oklch(0.5 0.2 70)')).toBe('yellow')
+    expect(resolveRadixColor('oklch(0.5 0.2 90)')).toBe('lime')
+    expect(resolveRadixColor('oklch(0.5 0.2 115)')).toBe('grass')
+    expect(resolveRadixColor('oklch(0.5 0.2 140)')).toBe('green')
+    expect(resolveRadixColor('oklch(0.5 0.2 160)')).toBe('jade')
     expect(resolveRadixColor('oklch(0.5 0.2 175)')).toBe('teal')
+    expect(resolveRadixColor('oklch(0.5 0.2 190)')).toBe('cyan')
+    expect(resolveRadixColor('oklch(0.5 0.2 200)')).toBe('sky')
     expect(resolveRadixColor('oklch(0.5 0.2 230)')).toBe('blue')
-    expect(resolveRadixColor('oklch(0.5 0.2 280)')).toBe('purple')
+    expect(resolveRadixColor('oklch(0.5 0.2 245)')).toBe('indigo')
+    expect(resolveRadixColor('oklch(0.5 0.2 260)')).toBe('iris')
+    expect(resolveRadixColor('oklch(0.5 0.2 275)')).toBe('violet')
+    expect(resolveRadixColor('oklch(0.5 0.2 290)')).toBe('purple')
+    expect(resolveRadixColor('oklch(0.5 0.2 305)')).toBe('plum')
     expect(resolveRadixColor('oklch(0.5 0.2 320)')).toBe('pink')
+    expect(resolveRadixColor('oklch(0.5 0.2 335)')).toBe('crimson')
     expect(resolveRadixColor('oklch(0.5 0.2 350)')).toBe('red')
   })
 
