@@ -11,6 +11,7 @@ import { MapSection } from '../sections/map-section'
 import { TestimonialGrid } from '../sections/testimonial-grid'
 import { SizeGuide } from '../sections/size-guide'
 import { FacilityDirectory } from '../sections/facility-directory'
+import { FAQ } from '../sections/faq'
 
 export interface SectionProps {
   content: Record<string, unknown>
@@ -31,4 +32,5 @@ export const registry: Record<string, ComponentType<SectionProps>> = {
   TestimonialGrid,
   SizeGuide,
   FacilityDirectory: FacilityDirectory as ComponentType<SectionProps>,
+  FAQ,
 }

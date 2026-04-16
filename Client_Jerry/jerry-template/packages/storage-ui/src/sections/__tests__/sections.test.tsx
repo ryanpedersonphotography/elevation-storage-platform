@@ -10,6 +10,7 @@ import { FeatureGrid } from '../feature-grid'
 import { CallToAction } from '../call-to-action'
 import { ContactForm } from '../contact-form'
 import { TestimonialGrid } from '../testimonial-grid'
+import { FAQ } from '../faq'
 
 // Mock lucide-react
 vi.mock('lucide-react', () => {
@@ -298,5 +299,76 @@ describe('TestimonialGrid', () => {
     render(<TestimonialGrid {...props} />)
     // Jane Doe has 5 stars
     expect(screen.getByText('★★★★★')).toBeInTheDocument()
+  })
+})
+
+// ─── FAQ ───
+describe('FAQ', () => {
+  it('renders heading', () => {
+    const props = makeSectionProps({
+      heading: 'Frequently Asked Questions',
+      items: [
+        { question: 'Do you have 24-hour access?', answer: 'Yes, all tenants get a personal access code.' },
+      ],
+    })
+    render(<FAQ {...props} />)
+    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('Frequently Asked Questions')
+  })
+
+  it('renders all questions', () => {
+    const props = makeSectionProps({
+      heading: 'FAQ',
+      items: [
+        { question: 'Question one?', answer: 'Answer one.' },
+        { question: 'Question two?', answer: 'Answer two.' },
+      ],
+    })
+    render(<FAQ {...props} />)
+    expect(screen.getByText('Question one?')).toBeInTheDocument()
+    expect(screen.getByText('Question two?')).toBeInTheDocument()
+  })
+
+  it('toggles answer visibility on click (accordion variant)', () => {
+    const props = makeSectionProps({
+      heading: 'FAQ',
+      items: [
+        { question: 'How big are units?', answer: 'We offer 5x5 to 10x30.' },
+      ],
+    }, { variant: 'accordion' })
+    render(<FAQ {...props} />)
+    const trigger = screen.getByText('How big are units?')
+    fireEvent.click(trigger)
+    expect(screen.getByText('We offer 5x5 to 10x30.')).toBeVisible()
+  })
+
+  it('shows all answers in list variant', () => {
+    const props = makeSectionProps({
+      heading: 'FAQ',
+      items: [
+        { question: 'Q1?', answer: 'A1.' },
+        { question: 'Q2?', answer: 'A2.' },
+      ],
+    }, { variant: 'list' })
+    render(<FAQ {...props} />)
+    expect(screen.getByText('A1.')).toBeVisible()
+    expect(screen.getByText('A2.')).toBeVisible()
+  })
+
+  it('falls back to facilityData.data.faq when no items in content', () => {
+    const facilityWithFaq = {
+      ...mockFacility,
+      data: {
+        ...mockFacility.data,
+        faq: [
+          { question: 'From facility data?', answer: 'Yes it is.' },
+        ],
+      },
+    }
+    const props: SectionProps = {
+      content: { heading: 'FAQ' },
+      facilityData: facilityWithFaq as FacilityConfig,
+    }
+    render(<FAQ {...props} />)
+    expect(screen.getByText('From facility data?')).toBeInTheDocument()
   })
 })
