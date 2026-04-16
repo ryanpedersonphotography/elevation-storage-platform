@@ -1,0 +1,3 @@
+[build]
+  command = "cd ../.. && bun install && turbo build --filter=@jerry/facility-standalone"
+  publish = "out"

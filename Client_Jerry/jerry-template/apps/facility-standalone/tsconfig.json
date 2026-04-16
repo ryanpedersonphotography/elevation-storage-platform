@@ -1,0 +1,22 @@
+{
+  "extends": "@jerry/tsconfig/nextjs.json",
+  "include": [
+    "*.ts",
+    "next-env.d.ts",
+    "src",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "incremental": true,
+    "jsx": "preserve"
+  }
+}
