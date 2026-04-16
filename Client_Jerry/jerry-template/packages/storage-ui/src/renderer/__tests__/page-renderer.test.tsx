@@ -1,6 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import '@testing-library/jest-dom'
 import { PageRenderer } from '../page-renderer'
 import type { Page, FacilityConfig } from '@jerry/facility-config'
 import type { Template } from '../../templates/types'

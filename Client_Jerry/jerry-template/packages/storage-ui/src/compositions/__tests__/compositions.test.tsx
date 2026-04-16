@@ -1,6 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import '@testing-library/jest-dom'
 import { SectionHeader } from '../section-header'
 import { ContentCard } from '../content-card'
 import { MediaBlock } from '../media-block'
