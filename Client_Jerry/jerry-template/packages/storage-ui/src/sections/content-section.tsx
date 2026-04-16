@@ -1,7 +1,7 @@
 import React from 'react'
 import { z } from 'zod'
 import { ImageSchema } from '@jerry/facility-config'
-import { Section, Container, Text } from '../primitives'
+import { Section, Container, Text, Box } from '../primitives'
 import { SectionHeader, MediaBlock } from '../compositions'
 import type { SectionProps } from '../renderer/registry'
 
@@ -26,17 +26,17 @@ export function ContentSection({ content, layout, variant = 'clean' }: SectionPr
     </>
   )
 
-  const borderStyle: React.CSSProperties =
+  const wrapperProps: Record<string, unknown> =
     variant === 'bordered'
-      ? { border: '1px solid var(--gray-6, #ddd)', borderRadius: '8px', padding: '2rem' }
+      ? { p: '5', style: { border: '1px solid var(--gray-6, #ddd)', borderRadius: 'var(--radius-3, 8px)' } }
       : variant === 'soft'
-        ? { backgroundColor: 'var(--gray-2, #fafafa)', borderRadius: '8px', padding: '2rem' }
+        ? { p: '5', style: { backgroundColor: 'var(--gray-2, #fafafa)', borderRadius: 'var(--radius-3, 8px)' } }
         : {}
 
   return (
     <Section>
       <Container>
-        <div style={borderStyle}>
+        <Box {...wrapperProps}>
           {c.image ? (
             <MediaBlock
               image={c.image}
@@ -47,7 +47,7 @@ export function ContentSection({ content, layout, variant = 'clean' }: SectionPr
           ) : (
             textContent
           )}
-        </div>
+        </Box>
       </Container>
     </Section>
   )

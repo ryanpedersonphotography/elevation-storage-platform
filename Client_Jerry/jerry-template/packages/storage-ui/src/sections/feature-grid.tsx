@@ -1,6 +1,6 @@
 import React from 'react'
 import { z } from 'zod'
-import { Section, Container, Grid, Badge } from '../primitives'
+import { Section, Container, Grid, Flex, Badge } from '../primitives'
 import { SectionHeader, FeatureItem, ContentCard } from '../compositions'
 import type { SectionProps } from '../renderer/registry'
 
@@ -22,8 +22,20 @@ interface Feature {
   blurb: string
 }
 
-export function FeatureGrid({ content, variant = 'icons', facilityData }: SectionProps) {
+/** Map layout prop to Grid columns */
+function resolveColumns(layout?: string): Record<string, string> {
+  switch (layout) {
+    case '4-col':
+      return { initial: '1', sm: '2', md: '4' }
+    case '3-col':
+    default:
+      return { initial: '1', sm: '2', md: '3' }
+  }
+}
+
+export function FeatureGrid({ content, variant = 'icons', layout, facilityData }: SectionProps) {
   const c = content as unknown as FeatureGridContent
+  const columns = resolveColumns(layout)
 
   // Use inline features or fall back to facilityData amenities
   const features: Feature[] = c.features ?? (
@@ -39,11 +51,11 @@ export function FeatureGrid({ content, variant = 'icons', facilityData }: Sectio
       <Section>
         <Container>
           <SectionHeader heading={c.heading} description={c.blurb} level="2" />
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'center' }}>
+          <Flex wrap="wrap" gap="2" justify="center">
             {features.map((f) => (
               <Badge key={f.heading} size="2">{f.heading}</Badge>
             ))}
-          </div>
+          </Flex>
         </Container>
       </Section>
     )
@@ -54,7 +66,7 @@ export function FeatureGrid({ content, variant = 'icons', facilityData }: Sectio
       <Section>
         <Container>
           <SectionHeader heading={c.heading} description={c.blurb} level="2" />
-          <Grid columns={{ initial: '1', sm: '2', md: '3' }} gap="4">
+          <Grid columns={columns} gap="4">
             {features.map((f) => (
               <ContentCard key={f.heading} title={f.heading} description={f.blurb} />
             ))}
@@ -69,7 +81,7 @@ export function FeatureGrid({ content, variant = 'icons', facilityData }: Sectio
     <Section>
       <Container>
         <SectionHeader heading={c.heading} description={c.blurb} level="2" />
-        <Grid columns={{ initial: '1', sm: '2', md: '3' }} gap="5">
+        <Grid columns={columns} gap="5">
           {features.map((f) => (
             <FeatureItem
               key={f.heading}

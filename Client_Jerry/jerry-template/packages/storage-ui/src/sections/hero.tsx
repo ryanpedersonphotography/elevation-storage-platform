@@ -1,7 +1,7 @@
 import React from 'react'
 import { z } from 'zod'
 import { ImageSchema, CTASchema } from '@jerry/facility-config'
-import { Section, Container, Heading, Text } from '../primitives'
+import { Section, Container, Heading, Text, Flex, Box, Image } from '../primitives'
 import { CTAGroup } from '../compositions'
 import type { SectionProps } from '../renderer/registry'
 
@@ -14,43 +14,61 @@ export const HeroContentSchema = z.object({
 
 type HeroContent = z.infer<typeof HeroContentSchema>
 
-export function Hero({ content, variant = 'overlay' }: SectionProps) {
+export function Hero({ content, variant = 'overlay', layout }: SectionProps) {
   const c = content as unknown as HeroContent
 
   if (variant === 'split') {
+    const imageFirst = layout === 'image-left'
+
+    const imageBlock = (
+      <Box flexGrow="1" flexShrink="1" flexBasis="0%" style={{ minWidth: '280px' }}>
+        <Image src={c.image.src} alt={c.image.alt} aspect="16/9" />
+      </Box>
+    )
+
+    const textBlock = (
+      <Box flexGrow="1" flexShrink="1" flexBasis="0%" style={{ minWidth: '280px' }}>
+        <Heading as="h1" size="8">{c.heading}</Heading>
+        {c.subtitle && (
+          <Text as="p" size="4" mt="3" color="gray">{c.subtitle}</Text>
+        )}
+        {c.cta && (
+          <Box mt="5">
+            <CTAGroup primary={c.cta} />
+          </Box>
+        )}
+      </Box>
+    )
+
     return (
       <Section>
         <Container>
-          <div style={{ display: 'flex', gap: '2rem', alignItems: 'center', flexWrap: 'wrap' }}>
-            <div style={{ flex: '1 1 0%', minWidth: '280px' }}>
-              <img
-                src={c.image.src}
-                alt={c.image.alt}
-                style={{ width: '100%', height: 'auto', objectFit: 'cover', borderRadius: '8px' }}
-              />
-            </div>
-            <div style={{ flex: '1 1 0%', minWidth: '280px' }}>
-              <Heading as="h1" size="8">{c.heading}</Heading>
-              {c.subtitle && (
-                <Text as="p" size="4" mt="3" color="gray">{c.subtitle}</Text>
-              )}
-              {c.cta && (
-                <div style={{ marginTop: '1.5rem' }}>
-                  <CTAGroup primary={c.cta} />
-                </div>
-              )}
-            </div>
-          </div>
+          <Flex gap="5" align="center" wrap="wrap">
+            {imageFirst ? (
+              <>
+                {imageBlock}
+                {textBlock}
+              </>
+            ) : (
+              <>
+                {textBlock}
+                {imageBlock}
+              </>
+            )}
+          </Flex>
         </Container>
       </Section>
     )
   }
 
   // overlay (default) and wave variants
+  // layout: "centered" (default) centers text, "left-aligned" aligns left
+  const textAlign = layout === 'left-aligned' ? 'left' : 'center'
+
   return (
     <Section background={c.image} overlay="dark">
       <Container>
-        <div style={{ textAlign: 'center', color: 'white', padding: '4rem 0' }}>
+        <Box py="9" style={{ textAlign, color: 'white' }}>
           <Heading as="h1" size="8" style={{ color: 'white' }}>{c.heading}</Heading>
           {c.subtitle && (
             <Text as="p" size="4" mt="3" style={{ color: 'rgba(255,255,255,0.9)' }}>
@@ -58,11 +76,11 @@ export function Hero({ content, variant = 'overlay' }: SectionProps) {
             </Text>
           )}
           {c.cta && (
-            <div style={{ marginTop: '1.5rem' }}>
+            <Box mt="5">
               <CTAGroup primary={c.cta} />
-            </div>
+            </Box>
           )}
-        </div>
+        </Box>
       </Container>
       {variant === 'wave' && (
         <svg

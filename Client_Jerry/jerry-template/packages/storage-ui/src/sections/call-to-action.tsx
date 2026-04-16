@@ -1,7 +1,7 @@
 import React from 'react'
 import { z } from 'zod'
 import { ImageSchema, CTASchema } from '@jerry/facility-config'
-import { Section, Container } from '../primitives'
+import { Section, Container, Box } from '../primitives'
 import { SectionHeader, CTAGroup } from '../compositions'
 import type { SectionProps } from '../renderer/registry'
 
@@ -15,8 +15,11 @@ export const CallToActionContentSchema = z.object({
 
 type CallToActionContent = z.infer<typeof CallToActionContentSchema>
 
-export function CallToAction({ content, variant = 'gradient' }: SectionProps) {
+export function CallToAction({ content, variant = 'gradient', layout }: SectionProps) {
   const c = content as unknown as CallToActionContent
+
+  // layout: "centered" (default) or "left-aligned"
+  const textAlign = layout === 'left-aligned' ? 'left' : 'center'
 
   const variantStyles: Record<string, React.CSSProperties> = {
     gradient: {
@@ -34,20 +37,14 @@ export function CallToAction({ content, variant = 'gradient' }: SectionProps) {
     },
   }
 
-  const wrapperStyle: React.CSSProperties = {
-    textAlign: 'center',
-    padding: '3rem 0',
-    ...variantStyles[variant ?? 'gradient'],
-  }
-
   if (c.image) {
     return (
       <Section background={c.image} overlay="dark">
         <Container>
-          <div style={{ textAlign: 'center' }}>
-            <SectionHeader heading={c.heading} description={c.blurb} level="2" />
+          <Box style={{ textAlign }}>
+            <SectionHeader heading={c.heading} description={c.blurb} level="2" align={textAlign === 'left' ? 'left' : 'center'} />
             <CTAGroup primary={c.cta} secondary={c.ctaSecondary} />
-          </div>
+          </Box>
         </Container>
       </Section>
     )
@@ -55,12 +52,12 @@ export function CallToAction({ content, variant = 'gradient' }: SectionProps) {
 
   return (
     <Section>
-      <div style={wrapperStyle}>
+      <Box py="7" style={{ textAlign, ...variantStyles[variant ?? 'gradient'] }}>
         <Container>
-          <SectionHeader heading={c.heading} description={c.blurb} level="2" />
+          <SectionHeader heading={c.heading} description={c.blurb} level="2" align={textAlign === 'left' ? 'left' : 'center'} />
           <CTAGroup primary={c.cta} secondary={c.ctaSecondary} />
         </Container>
-      </div>
+      </Box>
     </Section>
   )
 }
