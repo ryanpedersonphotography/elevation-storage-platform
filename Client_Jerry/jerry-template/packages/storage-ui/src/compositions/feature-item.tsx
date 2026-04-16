@@ -9,7 +9,7 @@ export interface FeatureItemProps {
 }
 
 export function FeatureItem({ icon, heading, description }: FeatureItemProps) {
-  const IconComponent = (icons as Record<string, React.ComponentType<{ size?: number }>>)[icon]
+  const IconComponent = (icons as unknown as Record<string, React.ComponentType<{ size?: number }>>)[icon]
 
   return (
     <Flex direction="column" align="center" gap="3" style={{ textAlign: 'center' }}>

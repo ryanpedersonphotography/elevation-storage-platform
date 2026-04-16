@@ -1,0 +1,27 @@
+{
+  "name": "@jerry/elevation-group",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@jerry/storage-ui": "workspace:*",
+    "@jerry/facility-config": "workspace:*",
+    "@radix-ui/themes": "^3",
+    "next": "^15",
+    "react": "^19",
+    "react-dom": "^19"
+  },
+  "devDependencies": {
+    "@jerry/tsconfig": "workspace:*",
+    "@tailwindcss/postcss": "^4",
+    "tailwindcss": "^4",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5"
+  }
+}
