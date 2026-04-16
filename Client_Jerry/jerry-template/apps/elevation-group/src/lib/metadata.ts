@@ -6,6 +6,9 @@ const BASE_URL = 'https://elevationgroup.com'
 /**
  * Generate Next.js Metadata for a facility page.
  * Page-level SEO fields override facility-level defaults per-field.
+ *
+ * Note: JSON-LD is rendered via the <JsonLd> component in the page,
+ * not via the metadata API (which doesn't produce a proper script tag).
  */
 export function generateFacilityMetadata(
   facility: FacilityConfig,
@@ -28,8 +31,6 @@ export function generateFacilityMetadata(
       : `/${facility.slug}/${pageSlug}`
   const canonical = `${BASE_URL}${canonicalPath}`
 
-  const jsonLd = buildJsonLd(facility, pageSlug)
-
   return {
     title,
     description,
@@ -45,43 +46,10 @@ export function generateFacilityMetadata(
       type: 'website',
       ...(ogImage ? { images: [{ url: ogImage }] } : {}),
     },
-    other: {
-      'script:ld+json': JSON.stringify(jsonLd),
-    },
   }
 }
 
-function formatHours(facility: FacilityConfig): string[] {
-  return facility.info.hours.map((h) => {
-    const dayStr = h.days.join(', ')
-    return `${dayStr} ${h.open}-${h.close}`
-  })
-}
-
-function buildJsonLd(facility: FacilityConfig, pageSlug: string) {
-  const addr = facility.info.address
-  return {
-    '@context': 'https://schema.org',
-    '@type': ['LocalBusiness', 'SelfStorage'],
-    name: facility.name,
-    url: `${BASE_URL}/${facility.slug}${pageSlug === 'home' ? '' : `/${pageSlug}`}`,
-    telephone: facility.info.phone,
-    email: facility.info.email,
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: addr.street,
-      addressLocality: addr.city,
-      addressRegion: addr.state,
-      postalCode: addr.zip,
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: facility.info.coordinates.lat,
-      longitude: facility.info.coordinates.lng,
-    },
-    openingHours: formatHours(facility),
-    ...(facility.seo.ogImage
-      ? { image: facility.seo.ogImage }
-      : {}),
-  }
+/** Base URL for the umbrella site, used by JsonLd component */
+export function getFacilityBaseUrl(facility: FacilityConfig): string {
+  return `${BASE_URL}/${facility.slug}`
 }

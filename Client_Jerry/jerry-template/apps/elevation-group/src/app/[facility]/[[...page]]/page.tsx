@@ -1,6 +1,6 @@
 import { loadFacility, loadSubdirectoryFacilities } from '@jerry/facility-config'
-import { PageRenderer, templates } from '@jerry/storage-ui'
-import { generateFacilityMetadata } from '../../../lib/metadata'
+import { PageRenderer, templates, JsonLd } from '@jerry/storage-ui'
+import { generateFacilityMetadata, getFacilityBaseUrl } from '../../../lib/metadata'
 
 export const dynamicParams = false
 
@@ -43,5 +43,10 @@ export default async function FacilityPage({
 
   const template = templates[facility.branding.template]
 
-  return <PageRenderer page={page} facilityData={facility} template={template} />
+  return (
+    <>
+      <JsonLd facility={facility} pageSlug={pageSlug} baseUrl={getFacilityBaseUrl(facility)} />
+      <PageRenderer page={page} facilityData={facility} template={template} />
+    </>
+  )
 }
