@@ -1,0 +1,335 @@
+{
+  "slug": "smithtown",
+  "name": "Smithtown Self Storage",
+
+  "info": {
+    "address": {
+      "street": "123 Main St",
+      "city": "Smithtown",
+      "state": "NY",
+      "zip": "11787"
+    },
+    "phone": "(631) 555-1234",
+    "email": "smithtown@elevationgroup.com",
+    "coordinates": { "lat": 40.855, "lng": -73.200 },
+    "hours": [
+      { "days": ["Mo", "Tu", "We", "Th", "Fr"], "open": "06:00", "close": "21:00" },
+      { "days": ["Sa", "Su"], "open": "08:00", "close": "18:00" }
+    ]
+  },
+
+  "branding": {
+    "showParent": true,
+    "template": "modern",
+    "colors": {
+      "primary": "oklch(0.55 0.15 250)",
+      "accent": "oklch(0.7 0.18 30)"
+    },
+    "logo": "/images/smithtown/logo.png"
+  },
+
+  "deployment": {
+    "mode": "subdirectory",
+    "domain": null
+  },
+
+  "seo": {
+    "siteName": "Smithtown Self Storage",
+    "defaultTitle": "Smithtown Self Storage | Secure Units in Smithtown, NY",
+    "defaultDescription": "Affordable self storage in Smithtown, NY. Climate-controlled units, 24-hour access.",
+    "keywords": ["self storage smithtown", "storage units smithtown ny", "climate controlled storage"],
+    "ogImage": "/images/smithtown/og-default.jpg"
+  },
+
+  "analytics": {
+    "gtag": "G-XXXXXXXXXX",
+    "gtagEvents": {
+      "reserve_click": true,
+      "phone_click": true,
+      "directions_click": true
+    }
+  },
+
+  "pages": {
+    "home": {
+      "enabled": true,
+      "seo": {
+        "title": "Smithtown Self Storage | Units from $49/mo",
+        "description": "Secure, affordable storage units in Smithtown.",
+        "keywords": ["storage near me", "cheap storage smithtown"],
+        "ogImage": "/images/smithtown/og-home.jpg"
+      },
+      "layout": ["hero", "intro", "featured-units", "why-us", "cta"],
+      "sections": {
+        "hero": {
+          "component": "Hero",
+          "content": {
+            "heading": "Secure Storage in Smithtown",
+            "subtitle": "Climate-controlled units starting at $49/mo",
+            "image": { "src": "/images/smithtown/hero.jpg", "alt": "Smithtown facility exterior" },
+            "cta": { "label": "Reserve Now", "href": "/smithtown/reserve", "variant": "primary" }
+          }
+        },
+        "intro": {
+          "component": "ContentSection",
+          "layout": "image-right",
+          "content": {
+            "heading": "Welcome to Smithtown Self Storage",
+            "blurb": "Conveniently located off Route 25, our facility offers a range of unit sizes.",
+            "paragraphs": [
+              "We've been serving the Smithtown community since 2015.",
+              "Whether you need short-term storage during a move or long-term space for your business inventory."
+            ],
+            "image": { "src": "/images/smithtown/interior.jpg", "alt": "Clean interior hallway" }
+          }
+        },
+        "featured-units": {
+          "component": "UnitGrid",
+          "variant": "cards",
+          "layout": "3-col",
+          "content": {
+            "heading": "Popular Unit Sizes",
+            "blurb": "Find the perfect fit for your needs",
+            "showPricing": true,
+            "filter": ["5x5-indoor", "10x10-climate", "10x20-driveup"]
+          }
+        },
+        "why-us": {
+          "component": "FeatureGrid",
+          "layout": "4-col",
+          "content": {
+            "heading": "Why Choose Us",
+            "blurb": "Everything you need for worry-free storage",
+            "features": [
+              { "icon": "clock", "heading": "24-Hour Access", "blurb": "Access your unit any time" },
+              { "icon": "camera", "heading": "HD Security", "blurb": "24/7 video surveillance" },
+              { "icon": "thermometer", "heading": "Climate Controlled", "blurb": "Temp & humidity regulated" },
+              { "icon": "shield", "heading": "Gated Entry", "blurb": "Personal access code for every tenant" }
+            ]
+          }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": {
+            "heading": "Ready to reserve your unit?",
+            "blurb": "Call us or reserve online today.",
+            "image": { "src": "/images/smithtown/cta-bg.jpg", "alt": "" },
+            "cta": { "label": "Get Started", "href": "/smithtown/reserve", "variant": "primary" },
+            "ctaSecondary": { "label": "Call (631) 555-1234", "href": "tel:6315551234", "variant": "outline" }
+          }
+        }
+      }
+    },
+    "units": {
+      "enabled": true,
+      "seo": {
+        "title": "Unit Sizes & Pricing | Smithtown Self Storage",
+        "description": "Compare storage unit sizes from 5x5 to 10x30.",
+        "keywords": ["5x5 storage unit", "10x10 storage unit price"]
+      },
+      "layout": ["page-header", "unit-table", "size-guide", "cta"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": {
+            "heading": "Unit Sizes & Pricing",
+            "blurb": "Find the right unit for your needs and budget",
+            "breadcrumb": true
+          }
+        },
+        "unit-table": {
+          "component": "UnitGrid",
+          "variant": "table",
+          "layout": "full-width",
+          "content": {
+            "heading": "All Available Units",
+            "blurb": "Compare sizes, features, and monthly rates",
+            "showPricing": true,
+            "showFeatures": true
+          }
+        },
+        "size-guide": {
+          "component": "SizeGuide",
+          "variant": "visual",
+          "content": {
+            "heading": "What Fits in Each Size?",
+            "blurb": "A visual guide to help you choose",
+            "guides": [
+              { "size": "5x5", "description": "Boxes, small furniture, seasonal items", "fits": ["20 boxes", "Small dresser", "Bicycle"] },
+              { "size": "10x10", "description": "One-bedroom apartment contents", "fits": ["Queen bed", "Couch", "Dining set", "50+ boxes"] },
+              { "size": "10x20", "description": "Multi-bedroom home or vehicle", "fits": ["Full household", "Car or boat", "Business inventory"] }
+            ]
+          }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": {
+            "heading": "Found your size?",
+            "blurb": "Reserve your unit online in minutes.",
+            "cta": { "label": "Reserve Now", "href": "/smithtown/reserve", "variant": "primary" }
+          }
+        }
+      }
+    },
+    "amenities": {
+      "enabled": true,
+      "seo": {
+        "title": "Features & Amenities | Smithtown Self Storage",
+        "description": "24-hour access, climate control, security cameras, and more.",
+        "keywords": ["climate controlled storage", "24 hour storage access"]
+      },
+      "layout": ["page-header", "features", "gallery", "cta"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": {
+            "heading": "Features & Amenities",
+            "blurb": "Everything you need for secure, convenient storage",
+            "breadcrumb": true
+          }
+        },
+        "features": {
+          "component": "FeatureGrid",
+          "layout": "3-col",
+          "variant": "cards",
+          "content": {
+            "heading": "Our Facility Features",
+            "blurb": "Built with your convenience and security in mind"
+          }
+        },
+        "gallery": {
+          "component": "ContentSection",
+          "layout": "image-left",
+          "content": {
+            "heading": "Take a Look Inside",
+            "blurb": "Clean, well-lit, and professionally maintained.",
+            "paragraphs": [
+              "Our facility is inspected daily and maintained to the highest standards."
+            ],
+            "image": { "src": "/images/smithtown/interior-wide.jpg", "alt": "Wide view of interior storage hallway" }
+          }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": {
+            "heading": "See it in person",
+            "blurb": "Schedule a tour or reserve your unit today.",
+            "cta": { "label": "Reserve a Unit", "href": "/smithtown/reserve", "variant": "primary" },
+            "ctaSecondary": { "label": "Get Directions", "href": "/smithtown/directions", "variant": "outline" }
+          }
+        }
+      }
+    },
+    "reserve": {
+      "enabled": true,
+      "seo": {
+        "title": "Reserve a Unit | Smithtown Self Storage",
+        "description": "Reserve your storage unit online or contact us to get started.",
+        "keywords": ["reserve storage unit", "rent storage unit smithtown"]
+      },
+      "layout": ["page-header", "form", "info"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": {
+            "heading": "Reserve a Unit",
+            "blurb": "Fill out the form below and we'll get back to you within 24 hours",
+            "breadcrumb": true
+          }
+        },
+        "form": {
+          "component": "ContactForm",
+          "variant": "standard",
+          "content": {
+            "heading": "Request a Reservation",
+            "blurb": "Tell us what you need and we'll hold a unit for you.",
+            "fields": ["name", "email", "phone", "unitSize", "moveInDate", "message"],
+            "submitLabel": "Request Reservation",
+            "successMessage": "Thanks! We'll contact you within 24 hours to confirm."
+          }
+        },
+        "info": {
+          "component": "ContentSection",
+          "layout": "stacked",
+          "content": {
+            "heading": "Prefer to call?",
+            "blurb": "Our team is happy to help you find the right unit.",
+            "paragraphs": [
+              "Call us at (631) 555-1234 during business hours, or email smithtown@elevationgroup.com anytime."
+            ]
+          }
+        }
+      }
+    },
+    "directions": {
+      "enabled": true,
+      "seo": {
+        "title": "Directions & Hours | Smithtown Self Storage",
+        "description": "Find directions to Smithtown Self Storage. Located off Route 25.",
+        "keywords": ["storage near me", "smithtown storage directions"]
+      },
+      "layout": ["page-header", "map", "hours-info"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": {
+            "heading": "Directions & Hours",
+            "blurb": "Conveniently located off Route 25 in Smithtown",
+            "breadcrumb": true
+          }
+        },
+        "map": {
+          "component": "MapSection",
+          "variant": "embedded",
+          "content": {
+            "heading": "Find Us",
+            "blurb": "123 Main St, Smithtown, NY 11787",
+            "directions": [
+              { "from": "From I-495 East", "steps": "Take exit 56 toward Route 111 North. Turn right on Route 25. Facility is 0.5 miles on the left." },
+              { "from": "From Route 25A", "steps": "Head south on Route 111. Turn left on Route 25. Facility is 0.3 miles on the right." }
+            ]
+          }
+        },
+        "hours-info": {
+          "component": "ContentSection",
+          "layout": "stacked",
+          "content": {
+            "heading": "Office & Access Hours",
+            "blurb": "Gate access available 24/7 for tenants with a valid access code.",
+            "paragraphs": [
+              "Office hours: Monday-Friday 9am-6pm, Saturday 9am-4pm, Sunday Closed.",
+              "Gate access: 24 hours a day, 7 days a week."
+            ]
+          }
+        }
+      }
+    },
+    "reviews": {
+      "enabled": false,
+      "seo": {},
+      "layout": [],
+      "sections": {}
+    }
+  },
+
+  "data": {
+    "units": [
+      { "id": "5x5-indoor", "size": "5x5", "sqft": 25, "price": 49, "features": ["indoor"] },
+      { "id": "10x10-climate", "size": "10x10", "sqft": 100, "price": 99, "features": ["indoor", "climate-controlled"] },
+      { "id": "10x20-driveup", "size": "10x20", "sqft": 200, "price": 159, "features": ["drive-up"] }
+    ],
+    "amenities": [
+      { "id": "24hr-access", "label": "24-Hour Access", "icon": "clock", "description": "Access your unit any time, day or night" },
+      { "id": "security-cameras", "label": "Security Cameras", "icon": "camera", "description": "24/7 video surveillance" },
+      { "id": "climate-control", "label": "Climate Controlled", "icon": "thermometer", "description": "Temperature and humidity regulated" }
+    ],
+    "testimonials": [
+      { "name": "John D.", "rating": 5, "text": "Great facility, very clean and secure." }
+    ]
+  },
+
+  "integrations": {}
+}
