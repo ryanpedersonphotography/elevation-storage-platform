@@ -66,14 +66,14 @@ jerry-template/
 **`apps/elevation-group`** — Umbrella site
 
 - Domain: `elevationgroup.com`
-- Routes: `/` (landing + facility directory), `/[facility]/[...page]` (dynamic per-facility pages)
+- Routes: `/` (landing + facility directory), `/[facility]/[[...page]]` (optional catch-all — matches `/smithtown` for homepage and `/smithtown/units` for subpages)
 - Reads all facility JSONs where `deployment.mode = "subdirectory"`
 - Single Netlify site deployment
 
 **`apps/facility-standalone`** — Standalone facility template
 
 - Domain: per-facility custom domain (e.g., `smithtownstorage.com`)
-- Routes: `/` (facility homepage), `/[...page]` (facility pages)
+- Routes: `/[[...page]]` (optional catch-all — matches `/` for homepage and `/units` for subpages)
 - Reads single facility JSON via `FACILITY_SLUG` environment variable
 - Each standalone facility = separate Netlify site pointing to same repo, different env var
 - `FACILITY_SLUG` is a **build-time only** environment variable, set in each Netlify site's dashboard. It is consumed only in `next.config.ts` and server-side data loading functions during `next build`. It must never be referenced in client components — it will be `undefined` in static HTML.
@@ -82,7 +82,7 @@ Both apps use the same `PageRenderer` and component library from `packages/stora
 
 ### Static Export
 
-Both apps use `output: "export"` in `next.config.ts` with `generateStaticParams` to pre-render all pages at build time. Pure static HTML/CSS/JS served from Netlify's CDN — no server runtime needed.
+Both apps use `output: "export"` in `next.config.ts` with `generateStaticParams` to pre-render all pages at build time. All dynamic route segments must export `export const dynamicParams = false` to ensure non-generated paths return 404 rather than attempting runtime rendering. Pure static HTML/CSS/JS served from Netlify's CDN — no server runtime needed.
 
 **Implications for future integrations:** Live pricing/availability from storage management platforms (SiteLink, storEDGE, etc.) cannot be fetched at request time in a static export. Two options when that need arises: (a) ISR with Netlify serverless functions (requires switching from `output: "export"` to server-mode Next.js), or (b) client-side fetch at page load with loading states and CORS configuration. This decision must be made before adding live integrations.
 
@@ -403,7 +403,10 @@ Each facility is defined by a single JSON file in `data/facilities/[slug].json`.
       }
     },
     "reviews": {
-      "enabled": false
+      "enabled": false,
+      "seo": {},
+      "layout": [],
+      "sections": {}
     }
   },
 
@@ -438,6 +441,8 @@ Each facility is defined by a single JSON file in `data/facilities/[slug].json`.
 - Standalone mode: `https://[deployment.domain]/[page]`
 
 This prevents standalone sites from canonicalizing to the umbrella domain, which would destroy their search rankings.
+
+**`branding.colors`** — Color values are validated at build time by a strict `OklchSchema` regex (`/^oklch\(\s*[\d.]+\s+[\d.]+\s+[\d.]+\s*\)$/`). This prevents CSS injection via malformed color strings. Only valid `oklch()` values are accepted.
 
 **`integrations`** — Currently typed as `Record<string, never>` in Zod (empty by decree). When the first integration is implemented, it will become a discriminated union: `{ type: "sitelink", apiKey: "..." } | { type: "storedge", ... }`. See "Integration Seams" section for constraints.
 
@@ -517,6 +522,12 @@ function useAnalytics() {
 Located in `packages/facility-config/src/schema.ts`. Key types:
 
 ```ts
+// Strict OKLCH color validation — prevents CSS injection via color fields
+const OklchSchema = z.string().regex(
+  /^oklch\(\s*[\d.]+\s+[\d.]+\s+[\d.]+\s*\)$/,
+  'Must be a valid oklch() value, e.g. oklch(0.55 0.15 250)'
+)
+
 const ImageSchema = z.object({
   src: z.string().min(1),
   alt: z.string(), // can be empty for decorative images
@@ -545,11 +556,38 @@ const UnitSchema = z.object({
 // Component enum derived from the registry — single source of truth
 const ComponentName = z.enum(Object.keys(registry) as [string, ...string[]])
 
+// Valid variants and layouts per component — enforced at build time
+const variantsByComponent: Record<string, string[]> = {
+  Hero: ["overlay", "split", "wave"],
+  HeroSimple: ["minimal", "colored"],
+  ContentSection: ["clean", "bordered", "soft"],
+  UnitGrid: ["cards", "table", "compact"],
+  FeatureGrid: ["icons", "cards", "pills"],
+  CallToAction: ["gradient", "solid", "rounded"],
+  ContactForm: ["standard", "minimal"],
+  MapSection: ["embedded", "static"],
+  TestimonialGrid: ["cards", "quotes"],
+  SizeGuide: ["visual", "table"],
+  FacilityDirectory: ["cards", "list", "map"],
+}
+
+const layoutValues = ["centered", "left-aligned", "image-right", "image-left",
+  "stacked", "full-width", "2-col", "3-col", "4-col"] as const
+
 const SectionSchema = z.object({
   component: ComponentName,
   variant: z.string().optional(),
-  layout: z.string().optional(),
+  layout: z.enum(layoutValues).optional(),
   content: z.record(z.unknown()), // per-component content validated separately
+}).superRefine((section, ctx) => {
+  // Validate variant against component's allowed values
+  const allowed = variantsByComponent[section.component]
+  if (section.variant && allowed && !allowed.includes(section.variant)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: `Invalid variant "${section.variant}" for ${section.component}. Allowed: ${allowed.join(', ')}`,
+    })
+  }
 })
 
 const PageSchema = z.object({
@@ -558,6 +596,21 @@ const PageSchema = z.object({
   layout: z.array(z.string()),
   sections: z.record(SectionSchema),
 }).superRefine((page, ctx) => {
+  // Skip cross-validation for disabled pages (layout/sections may be empty)
+  if (!page.enabled) return
+
+  // Disallow duplicate layout keys (would cause duplicate React keys)
+  const seen = new Set<string>()
+  for (const key of page.layout) {
+    if (seen.has(key)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `Duplicate section key "${key}" in layout array`,
+      })
+    }
+    seen.add(key)
+  }
+
   // Cross-validate: every key in layout must exist in sections
   for (const key of page.layout) {
     if (!(key in page.sections)) {
@@ -791,7 +844,7 @@ These are mandatory architectural constraints, not suggestions:
 3. **Children + slots for flexibility.** `Card.Body` accepts children for custom content. `MediaBlock.Content` is a slot. `Section` wraps any children. Compositions are flexible without being unpredictable.
 4. **Tokens constrain all visual decisions.** Spacing only uses token values (`gap="lg"`, not `gap="37px"`). Colors only from brand palette. Font sizes from type scale. No magic numbers, no one-off values.
 5. **Variant recipes via CVA, not conditional CSS.** CVA recipes define variant → className maps. `variant="cards"` resolves to a known set of classes. No inline style logic in components.
-6. **Zod schema validates JSON at build time.** Invalid component names, missing required content fields, unknown layout values, layout↔sections key mismatches → build error, not runtime surprise.
+6. **Zod schema validates JSON at build time.** Invalid component names, missing required content fields, unknown variant/layout values (validated per-component), layout↔sections key mismatches, duplicate layout keys, CSS injection via color fields (strict OKLCH regex) → build error, not runtime surprise.
 
 ## Template System
 
@@ -809,20 +862,37 @@ export interface Template {
 
 ### Token & Color Injection
 
-Templates and facility brand colors are injected as CSS custom properties via a `<style>` tag in the root layout:
+Templates and facility brand colors are injected as CSS custom properties via inline `style` attributes — **not** via `dangerouslySetInnerHTML`. This eliminates XSS and CSS injection vectors entirely.
+
+**Injection location:**
+- **Umbrella app:** Token styles are applied in the `[facility]/layout.tsx` segment layout (not the root layout), since each facility has different colors/templates. The root layout (`/`) has no facility-specific tokens.
+- **Standalone app:** Token styles are applied in the root `layout.tsx`, since there is only one facility.
 
 ```tsx
-// In layout.tsx
-<style dangerouslySetInnerHTML={{ __html: `
-  :root {
-    ${Object.entries(template.tokens).map(([k, v]) => `${k}: ${v};`).join('\n    ')}
-    ${facility.branding.colors.primary ? `--color-primary: ${facility.branding.colors.primary};` : ''}
-    ${facility.branding.colors.accent ? `--color-accent: ${facility.branding.colors.accent};` : ''}
+// build a sanitized CSS variable object
+function buildTokenStyle(template: Template, branding: Branding): React.CSSProperties {
+  const style: Record<string, string> = {}
+
+  // Template tokens (font, radii) — values are hardcoded in template definitions,
+  // not user-supplied, so they are trusted
+  for (const [key, value] of Object.entries(template.tokens)) {
+    style[key] = value
   }
-`}} />
+
+  // Facility colors — validated by Zod OklchSchema at build time
+  if (branding.colors.primary) style['--color-primary'] = branding.colors.primary
+  if (branding.colors.accent) style['--color-accent'] = branding.colors.accent
+
+  return style as React.CSSProperties
+}
+
+// In the layout component:
+<html style={buildTokenStyle(template, facility.branding)}>
 ```
 
-**Resolution order:** Base `tokens.css` (via `@theme`) → template token overrides (via `:root`) → facility color overrides (via `:root`, same `<style>` tag, listed after template tokens). Facility colors always win.
+**Security:** Color values from JSON are validated by Zod at build time against a strict OKLCH regex (see Zod schema section). Template token values are hardcoded in TypeScript template definitions, not user-supplied. No `dangerouslySetInnerHTML` is used anywhere in the token injection path.
+
+**Resolution order:** Base `tokens.css` (via `@theme`) → template token overrides (via `style` on `<html>`) → facility color overrides (same `style` object, listed after template tokens). Facility colors always win.
 
 **Mapping:** `branding.colors.primary` → `--color-primary`. `branding.colors.accent` → `--color-accent`. This is the complete set of color overrides. All other tokens (spacing, radii, fonts) come from the template.
 
@@ -847,7 +917,6 @@ Templates and facility brand colors are injected as CSS custom properties via a 
     UnitGrid: { variant: "cards", layout: "3-col" },
     FeatureGrid: { variant: "icons", layout: "4-col" },
     CallToAction: { variant: "gradient", layout: "centered" },
-    Card: { variant: "shadow", layout: "vertical" },
   }
 }
 ```
@@ -869,7 +938,6 @@ Templates and facility brand colors are injected as CSS custom properties via a 
     UnitGrid: { variant: "table", layout: "full-width" },
     FeatureGrid: { variant: "cards", layout: "3-col" },
     CallToAction: { variant: "solid", layout: "left-aligned" },
-    Card: { variant: "bordered", layout: "horizontal" },
   }
 }
 ```
@@ -891,7 +959,6 @@ Templates and facility brand colors are injected as CSS custom properties via a 
     UnitGrid: { variant: "cards", layout: "2-col" },
     FeatureGrid: { variant: "pills", layout: "3-col" },
     CallToAction: { variant: "rounded", layout: "centered" },
-    Card: { variant: "rounded", layout: "vertical" },
   }
 }
 ```
@@ -940,7 +1007,7 @@ Set in the facility JSON via `branding.template`. Each facility picks one templa
    c. Set environment variable `FACILITY_SLUG=[slug]`
    d. Configure the custom domain in Netlify
    e. Push — Netlify builds and deploys the standalone site
-6. If `FACILITY_SLUG` is unset or points to a nonexistent JSON file, the build fails with a descriptive Zod error at the validation step
+6. If `FACILITY_SLUG` is unset or points to a nonexistent JSON file, the build fails with a descriptive error in the `loadFacility()` data loader during `next build` (not the validate task, which only validates all JSON files in `data/facilities/`)
 
 ## Integration Seams
 
