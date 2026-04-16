@@ -12,6 +12,14 @@ dist
 # superpowers
 .superpowers
 
+# netlify state (contains site IDs — do not share)
+.netlify
+
+# environment
+.env
+.env.local
+.env.*.local
+
 # misc
 .DS_Store
 *.tsbuildinfo
