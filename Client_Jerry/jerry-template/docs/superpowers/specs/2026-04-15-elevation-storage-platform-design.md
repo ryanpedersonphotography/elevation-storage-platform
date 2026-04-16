@@ -18,13 +18,13 @@ jerry-template/
 ├── packages/
 │   ├── storage-ui/               # Shared components (see internal structure below)
 │   │   └── src/
-│   │       ├── primitives/       # Layer 1: Heading, Text, Button, Image, etc.
-│   │       ├── compositions/     # Layer 2: SectionHeader, Card, MediaBlock, etc.
+│   │       ├── primitives/       # Layer 1: Image, Section (custom); re-exports from Radix Themes
+│   │       ├── compositions/     # Layer 2: SectionHeader, ContentCard, MediaBlock, etc.
 │   │       ├── sections/         # Layer 3: Hero, UnitGrid, FeatureGrid, etc.
 │   │       ├── templates/        # Template presets (modern.ts, bold.ts, friendly.ts)
 │   │       ├── renderer/         # PageRenderer, component registry
-│   │       ├── providers/        # FacilityProvider (React context)
-│   │       ├── tokens.css        # Base design tokens
+│   │       ├── providers/        # FacilityProvider (React context), Radix Theme wrapper
+│   │       ├── lib/              # resolveRadixColor(), utility helpers
 │   │       └── index.ts          # Barrel exports
 │   ├── facility-config/          # Config types, Zod schemas, loader utilities
 │   │   └── src/
@@ -52,14 +52,19 @@ jerry-template/
 | Bun | >=1.1.0 | Package manager + workspace manager |
 | Next.js | ^15 | App Router, static export |
 | React | ^19 | UI library |
-| Tailwind CSS | v4 | CSS-first styling (no JS config) |
-| CVA | ^0.7 | Variant recipes for component styling |
+| Radix Themes | ^3 | Full design system — accessible, themed components |
+| Tailwind CSS | v4 | Utility classes for layout and custom section styling |
 | Zod | ^3 | JSON config validation at build time |
 | Lucide React | latest | Icon library |
 | Vitest | ^3 | Unit and integration testing |
 | Playwright | ^1 | E2E testing |
 
-**Note on shadcn/ui:** Individual shadcn components may be installed via the shadcn CLI into `packages/storage-ui/src/primitives/` as a starting point, then customized. They are committed source files, not a runtime dependency. The shadcn CLI version used must support Tailwind v4 (v2.1+). Components are adapted to match this project's token system and prop conventions.
+**Note on Radix Themes:** Radix Themes replaces the custom primitive layer (Heading, Text, Button, etc.) and CVA variant recipes. It provides a complete, accessible design system with built-in theming via CSS custom properties. Our primitives layer becomes thin wrappers or direct re-exports from Radix Themes. Custom section styling uses Tailwind utilities on top of Radix components.
+
+**Radix Themes token integration:** Radix Themes uses its own token system (`--accent-*`, `--gray-*`, `--radius-*`, etc.) configured via the `<Theme>` provider's props (`accentColor`, `grayColor`, `radius`, `scaling`). Per-facility branding maps to Radix Theme props:
+- `branding.colors.primary` → Radix `accentColor` (mapped to nearest Radix color scale)
+- `branding.template` → Radix `radius` + `scaling` + font overrides
+- The `<Theme>` component wraps each facility's layout, configured from the facility JSON
 
 ### Two App Targets
 
@@ -732,30 +737,55 @@ The `validate` task runs `packages/facility-config/src/validate.ts` which reads 
 
 Four-layer hierarchy. Each layer builds on the one below it. No layer skips levels.
 
-### Layer 1: Primitives (Design Tokens + Base Elements)
+### Layer 1: Primitives (Radix Themes + Custom)
 
 Located in `packages/storage-ui/src/primitives/`.
 
-**Design Tokens** (`tokens.css`):
-- OKLCH color space for perceptual uniformity across facility palettes
-- Spacing scale: xs (0.25rem) → 2xl (6rem)
-- Type scale: sm (0.875rem) → 3xl (3rem)
-- Border radii: sm → lg (varies by template)
-- Font families (varies by template)
+**From Radix Themes (direct re-exports or thin wrappers):**
 
-**Primitive Components:**
+| Component | Radix Source | Notes |
+|-----------|-------------|-------|
+| `Heading` | `@radix-ui/themes` `Heading` | Semantic headings with size/weight/color props |
+| `Text` | `@radix-ui/themes` `Text` | Body copy with size/weight/color props |
+| `Button` | `@radix-ui/themes` `Button` | Variant (solid/soft/outline/ghost), size (1-4), `asChild` for links |
+| `Container` | `@radix-ui/themes` `Container` | Max-width wrapper with size prop |
+| `Flex` | `@radix-ui/themes` `Flex` | Replaces Stack/Cluster — direction, gap, align, justify |
+| `Grid` | `@radix-ui/themes` `Grid` | Responsive grid with columns, gap |
+| `Card` | `@radix-ui/themes` `Card` | Card container with variant (surface/classic/ghost) |
+| `Separator` | `@radix-ui/themes` `Separator` | Visual dividers |
+| `Badge` | `@radix-ui/themes` `Badge` | For unit features, amenity tags |
+| `TextField` | `@radix-ui/themes` `TextField` | Form inputs for ContactForm |
+| `TextArea` | `@radix-ui/themes` `TextArea` | Multi-line form input |
+| `Select` | `@radix-ui/themes` `Select` | Dropdown for unit size selection |
+| `Table` | `@radix-ui/themes` `Table` | For UnitGrid table variant |
+| `IconButton` | `@radix-ui/themes` `IconButton` | Icon-only buttons |
+
+**Custom primitives (not in Radix Themes):**
 
 | Component | Purpose | Props |
 |-----------|---------|-------|
-| `Heading` | Semantic headings, maps level to type scale | `level` (1-6), `children` |
-| `Text` | Body copy | `size` (sm/base/lg/xl), `children` |
-| `Button` | Actions, CVA variant recipes | `variant` (primary/secondary/outline/ghost), `size` (sm/md/lg), `href?`, `onClick?`, `children` |
 | `Image` | Enforces alt text, lazy loading, aspect ratios | `src`, `alt`, `aspect?` (16/9, 4/3, 1/1, 3/1), `priority?` |
-| `Container` | Max-width wrapper with padding from tokens | `size` (sm/md/lg/xl), `children` |
-| `Stack` | Vertical layout | `gap`, `align?`, `children` |
-| `Cluster` | Horizontal layout | `gap`, `align?`, `justify?`, `children` |
-| `Grid` | Responsive grid with column recipes | `cols`, `gap`, `children` |
-| `Section` | Page section wrapper with vertical spacing. Optionally renders a background image via the `Image` primitive internally. | `background?` (`{ src, alt }`), `overlay?` (dark/light), `children` |
+| `Section` | Page section wrapper with vertical spacing + optional background image + overlay. Uses Radix `Box` internally. | `background?` (`{ src, alt }`), `overlay?` (dark/light), `children` |
+
+**Theme Configuration:**
+
+The Radix `<Theme>` provider wraps each facility's content, configured from the facility JSON:
+
+```tsx
+import { Theme } from '@radix-ui/themes'
+
+<Theme
+  accentColor={resolveRadixColor(facility.branding.colors.primary)}
+  grayColor="slate"
+  radius={template.radius}       // "none" | "small" | "medium" | "large" | "full"
+  scaling={template.scaling}     // "90%" | "95%" | "100%" | "105%" | "110%"
+  appearance="light"
+>
+  {children}
+</Theme>
+```
+
+The `resolveRadixColor()` helper maps an OKLCH value to the nearest Radix color scale name (e.g., `"blue"`, `"crimson"`, `"teal"`). Radix Themes supports 28 accent colors — facility colors are mapped to the closest match.
 
 ### Layer 2: Compositions (Reusable Patterns)
 
@@ -763,13 +793,15 @@ Located in `packages/storage-ui/src/compositions/`. Compose primitives into reus
 
 | Composition | Purpose | Interface |
 |-------------|---------|-----------|
-| `SectionHeader` | Heading + optional blurb, used by every section that has a heading | Props: `heading` (string), `description?` (string), `level?` (number, defaults to 2) |
-| `Card` | Generic card with compound component slots | `Card.Image`, `Card.Body`, `Card.Title`, `Card.Description`, `children` for footer slot |
-| `MediaBlock` | Image + content, layout-aware | `MediaBlock.Image`, `MediaBlock.Content` (children slot). `layout`: image-right, image-left, stacked |
-| `FeatureItem` | Icon + heading + text | Props: `icon` (string). Children for heading + text |
-| `CTAGroup` | One or two CTA buttons, consistent spacing. **Data-driven interface** for JSON compatibility. | Props: `primary` (`{ label, href, variant }`), `secondary?` (`{ label, href, variant }`). Renders `Button` primitives internally. |
+| `SectionHeader` | Heading + optional blurb, used by every section that has a heading | Props: `heading` (string), `description?` (string), `level?` (number, defaults to 2). Uses Radix `Heading` + `Text`. |
+| `ContentCard` | Image + body + title + description + footer slot. Extends Radix `Card`. | `ContentCard.Image`, `ContentCard.Body`, `ContentCard.Title`, `ContentCard.Description`, `children` for footer slot |
+| `MediaBlock` | Image + content, layout-aware. Uses Radix `Flex` for layout direction. | `MediaBlock.Image`, `MediaBlock.Content` (children slot). `layout`: image-right, image-left, stacked |
+| `FeatureItem` | Icon + heading + text | Props: `icon` (string). Uses Radix `Flex`, `Heading`, `Text`. |
+| `CTAGroup` | One or two CTA buttons, consistent spacing. **Data-driven interface** for JSON compatibility. | Props: `primary` (`{ label, href, variant }`), `secondary?` (`{ label, href, variant }`). Uses Radix `Button` internally. |
 
-**Note on CTAGroup:** Because the content model is JSON-driven, `CTAGroup` accepts structured data props (not children). It constructs `Button` elements internally from the `cta` and `ctaSecondary` content fields. This keeps sections simple — they pass `content.cta` directly without manual element construction.
+**Note on CTAGroup:** Because the content model is JSON-driven, `CTAGroup` accepts structured data props (not children). It constructs Radix `Button` elements internally from the `cta` and `ctaSecondary` content fields. This keeps sections simple — they pass `content.cta` directly without manual element construction.
+
+**Note on Card naming:** Named `ContentCard` (not `Card`) to avoid collision with Radix Themes' own `Card` component, which `ContentCard` extends.
 
 ### Layer 3: Sections (JSON-Driven, Pre-Designed)
 
@@ -839,11 +871,11 @@ function PageRenderer({ page, facilityData, template }: PageRendererProps) {
 
 These are mandatory architectural constraints, not suggestions:
 
-1. **Primitives own typographic and layout styling.** Sections never use raw HTML for typographic or layout elements. `<h2>` → `<Heading level={2}>`. `<p>` → `<Text>`. `<img>` → `<Image>`. Structural HTML (`<nav>`, `<header>`, `<footer>`, `<ul>`, `<li>`, `<form>`, `<input>`, `<label>`, `<a>`) may be used directly but must apply token-based Tailwind classes — no arbitrary values.
+1. **Radix Themes components own typographic and layout styling.** Sections never use raw HTML for typographic or layout elements. `<h2>` → Radix `<Heading as="h2">`. `<p>` → Radix `<Text>`. `<img>` → custom `<Image>`. Layout uses Radix `<Flex>`, `<Grid>`, `<Container>`. Structural HTML (`<nav>`, `<header>`, `<footer>`, `<form>`) may be used directly but must use Radix components for their content. No arbitrary Tailwind values — only Radix tokens and utility classes for spacing/positioning.
 2. **Compositions prevent pattern duplication.** heading+blurb → `SectionHeader`. Icon+title+text → `FeatureItem`. Image+content side-by-side → `MediaBlock`. CTA buttons → `CTAGroup`. No section reimplements these patterns.
 3. **Children + slots for flexibility.** `Card.Body` accepts children for custom content. `MediaBlock.Content` is a slot. `Section` wraps any children. Compositions are flexible without being unpredictable.
 4. **Tokens constrain all visual decisions.** Spacing only uses token values (`gap="lg"`, not `gap="37px"`). Colors only from brand palette. Font sizes from type scale. No magic numbers, no one-off values.
-5. **Variant recipes via CVA, not conditional CSS.** CVA recipes define variant → className maps. `variant="cards"` resolves to a known set of classes. No inline style logic in components.
+5. **Radix Themes variant props, not conditional CSS.** Section variants map to Radix component prop combinations (e.g., `Card variant="surface"` vs `variant="classic"`). Custom section-level variants (overlay, split, wave, etc.) use Tailwind utility classes composed at the section level — not inline style logic.
 6. **Zod schema validates JSON at build time.** Invalid component names, missing required content fields, unknown variant/layout values (validated per-component), layout↔sections key mismatches, duplicate layout keys, CSS injection via color fields (strict OKLCH regex) → build error, not runtime surprise.
 
 ## Template System
@@ -855,48 +887,41 @@ A template is a preset that controls design tokens and default variants — not 
 ```ts
 export interface Template {
   name: string
-  tokens: Record<string, string>  // CSS custom property overrides
+  radius: 'none' | 'small' | 'medium' | 'large' | 'full'
+  scaling: '90%' | '95%' | '100%' | '105%' | '110%'
+  font: string  // Google Fonts family name
   defaults: Record<string, { variant?: string; layout?: string }>
 }
 ```
 
-### Token & Color Injection
+### Theme & Color Injection
 
-Templates and facility brand colors are injected as CSS custom properties via inline `style` attributes — **not** via `dangerouslySetInnerHTML`. This eliminates XSS and CSS injection vectors entirely.
+Theming is handled entirely via the Radix `<Theme>` provider — no `dangerouslySetInnerHTML`, no manual CSS custom properties, no XSS surface.
 
 **Injection location:**
-- **Umbrella app:** Token styles are applied in the `[facility]/layout.tsx` segment layout (not the root layout), since each facility has different colors/templates. The root layout (`/`) has no facility-specific tokens.
-- **Standalone app:** Token styles are applied in the root `layout.tsx`, since there is only one facility.
+- **Umbrella app:** `<Theme>` wraps the `[facility]/layout.tsx` segment layout (not the root layout), since each facility has different colors/templates. The root layout (`/`) uses a default `<Theme>`.
+- **Standalone app:** `<Theme>` wraps the root `layout.tsx`, since there is only one facility.
 
 ```tsx
-// build a sanitized CSS variable object
-function buildTokenStyle(template: Template, branding: Branding): React.CSSProperties {
-  const style: Record<string, string> = {}
+import { Theme } from '@radix-ui/themes'
 
-  // Template tokens (font, radii) — values are hardcoded in template definitions,
-  // not user-supplied, so they are trusted
-  for (const [key, value] of Object.entries(template.tokens)) {
-    style[key] = value
-  }
-
-  // Facility colors — validated by Zod OklchSchema at build time
-  if (branding.colors.primary) style['--color-primary'] = branding.colors.primary
-  if (branding.colors.accent) style['--color-accent'] = branding.colors.accent
-
-  return style as React.CSSProperties
-}
-
-// In the layout component:
-<html style={buildTokenStyle(template, facility.branding)}>
+// In the facility layout:
+<Theme
+  accentColor={resolveRadixColor(facility.branding.colors.primary)}
+  grayColor="slate"
+  radius={template.radius}
+  scaling={template.scaling}
+  appearance="light"
+>
+  {children}
+</Theme>
 ```
 
-**Security:** Color values from JSON are validated by Zod at build time against a strict OKLCH regex (see Zod schema section). Template token values are hardcoded in TypeScript template definitions, not user-supplied. No `dangerouslySetInnerHTML` is used anywhere in the token injection path.
+**Color mapping:** `resolveRadixColor()` maps an OKLCH value to the nearest Radix color scale name. Radix Themes supports 28 accent colors (`tomato`, `red`, `crimson`, `pink`, `plum`, `purple`, `violet`, `iris`, `indigo`, `blue`, `cyan`, `teal`, `jade`, `green`, `grass`, `lime`, `mint`, `sky`, `yellow`, `amber`, `orange`, `brown`, `bronze`, `gold`, `sand`, `olive`, `sage`, `mauve`). The mapper compares the OKLCH hue to each scale's reference hue and picks the closest match.
 
-**Resolution order:** Base `tokens.css` (via `@theme`) → template token overrides (via `style` on `<html>`) → facility color overrides (same `style` object, listed after template tokens). Facility colors always win.
+**Security:** No raw CSS injection is possible. Colors are mapped to a fixed enum of Radix color names — even a malicious OKLCH value simply maps to the closest valid color name. Template `radius` and `scaling` are TypeScript enums with fixed valid values. No user-supplied strings are injected into CSS.
 
-**Mapping:** `branding.colors.primary` → `--color-primary`. `branding.colors.accent` → `--color-accent`. This is the complete set of color overrides. All other tokens (spacing, radii, fonts) come from the template.
-
-**Tailwind v4 note:** `:root` custom property overrides work with Tailwind v4's `@theme` because Tailwind resolves `var()` references at build time for static values and at runtime for dynamic values. The `:root` overrides from the `<style>` tag apply at runtime in the browser, which means Tailwind utility classes that reference these tokens (e.g., `bg-primary`, `text-accent`) work correctly because they compile to `var(--color-primary)` etc.
+**Font injection:** Template fonts (Inter, Space Grotesk, DM Sans) are loaded via `next/font/google` in the layout and applied via a CSS class on the `<Theme>` wrapper. No inline style injection needed.
 
 ### Starter Templates
 
@@ -905,12 +930,9 @@ function buildTokenStyle(template: Template, branding: Branding): React.CSSPrope
 ```ts
 {
   name: "modern",
-  tokens: {
-    "--font-sans": "'Inter', sans-serif",
-    "--radius-sm": "0.25rem",
-    "--radius-md": "0.5rem",
-    "--radius-lg": "0.75rem",
-  },
+  radius: "medium",
+  scaling: "100%",
+  font: "Inter",
   defaults: {
     Hero: { variant: "overlay", layout: "centered" },
     ContentSection: { variant: "clean", layout: "image-right" },
@@ -926,12 +948,9 @@ function buildTokenStyle(template: Template, branding: Branding): React.CSSPrope
 ```ts
 {
   name: "bold",
-  tokens: {
-    "--font-sans": "'Space Grotesk', sans-serif",
-    "--radius-sm": "0",
-    "--radius-md": "0",
-    "--radius-lg": "0",
-  },
+  radius: "none",
+  scaling: "105%",
+  font: "Space Grotesk",
   defaults: {
     Hero: { variant: "split", layout: "image-left" },
     ContentSection: { variant: "bordered", layout: "image-left" },
@@ -947,12 +966,9 @@ function buildTokenStyle(template: Template, branding: Branding): React.CSSPrope
 ```ts
 {
   name: "friendly",
-  tokens: {
-    "--font-sans": "'DM Sans', sans-serif",
-    "--radius-sm": "0.5rem",
-    "--radius-md": "1rem",
-    "--radius-lg": "1.5rem",
-  },
+  radius: "large",
+  scaling: "100%",
+  font: "DM Sans",
   defaults: {
     Hero: { variant: "wave", layout: "centered" },
     ContentSection: { variant: "soft", layout: "stacked" },
