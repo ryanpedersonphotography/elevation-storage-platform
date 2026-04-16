@@ -115,6 +115,15 @@ export const FacilityDirectoryContentSchema = z.object({
   blurb: z.string().optional(),
 })
 
+export const FAQContentSchema = z.object({
+  heading: z.string().min(1),
+  blurb: z.string().optional(),
+  items: z.array(z.object({
+    question: z.string().min(1),
+    answer: z.string().min(1),
+  })).optional(),
+})
+
 /**
  * Registry mapping component names to their content Zod schema.
  * Used during validation to ensure content matches the expected shape.
@@ -131,4 +140,5 @@ export const contentSchemaRegistry: Record<string, z.ZodTypeAny> = {
   TestimonialGrid: TestimonialGridContentSchema,
   SizeGuide: SizeGuideContentSchema,
   FacilityDirectory: FacilityDirectoryContentSchema,
+  FAQ: FAQContentSchema,
 }

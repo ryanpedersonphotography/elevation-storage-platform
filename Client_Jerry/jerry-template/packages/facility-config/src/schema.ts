@@ -32,6 +32,7 @@ export const UnitSchema = z.object({
   sqft: z.number().positive(),
   price: z.number().nonnegative(),
   features: z.array(z.string()),
+  available: z.boolean().optional(),
 })
 
 export const AmenitySchema = z.object({
@@ -61,12 +62,13 @@ export const ComponentName = z.enum([
   'TestimonialGrid',
   'SizeGuide',
   'FacilityDirectory',
+  'FAQ',
 ])
 
 // ─── Valid variants per component ───
 
 export const variantsByComponent: Record<string, string[]> = {
-  Hero: ['overlay', 'split', 'wave'],
+  Hero: ['overlay', 'split', 'wave', 'search'],
   HeroSimple: ['minimal', 'colored'],
   ContentSection: ['clean', 'bordered', 'soft'],
   UnitGrid: ['cards', 'table', 'compact'],
@@ -74,9 +76,10 @@ export const variantsByComponent: Record<string, string[]> = {
   CallToAction: ['gradient', 'solid', 'rounded'],
   ContactForm: ['standard', 'minimal'],
   MapSection: ['embedded', 'static'],
-  TestimonialGrid: ['cards', 'quotes'],
+  TestimonialGrid: ['cards', 'quotes', 'featured'],
   SizeGuide: ['visual', 'table'],
-  FacilityDirectory: ['cards', 'list', 'map'],
+  FacilityDirectory: ['cards', 'list', 'map', 'featured'],
+  FAQ: ['accordion', 'list'],
 }
 
 // ─── Layout values ───
@@ -202,6 +205,8 @@ export const InfoSchema = z.object({
   email: z.string().email(),
   coordinates: CoordinatesSchema,
   hours: z.array(HoursSchema).min(1),
+  directionsUrl: z.string().url().optional(),
+  image: ImageSchema.optional(),
 })
 
 export const BrandingSchema = z.object({
@@ -234,10 +239,16 @@ export const AnalyticsSchema = z
   })
   .optional()
 
+export const FAQItemSchema = z.object({
+  question: z.string().min(1),
+  answer: z.string().min(1),
+})
+
 export const DataSchema = z.object({
   units: z.array(UnitSchema),
   amenities: z.array(AmenitySchema),
   testimonials: z.array(TestimonialSchema),
+  faq: z.array(FAQItemSchema).optional(),
 })
 
 export const FacilityConfigSchema = z
