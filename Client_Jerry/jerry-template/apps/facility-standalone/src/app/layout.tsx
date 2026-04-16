@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
-import { Inter, Montserrat, Poppins } from 'next/font/google'
+import { Inter, Space_Grotesk, DM_Sans } from 'next/font/google'
 import { Theme } from '@radix-ui/themes'
 import { loadFacility } from '@jerry/facility-config'
 import { FacilityProvider, resolveRadixColor, templates } from '@jerry/storage-ui'
@@ -21,17 +21,17 @@ const template = templates[facility.branding.template]
 const accentColor = resolveRadixColor(facility.branding.colors.primary)
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
-const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-montserrat' })
-const poppins = Poppins({
+const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space-grotesk' })
+const dmSans = DM_Sans({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
-  variable: '--font-poppins',
+  variable: '--font-dm-sans',
 })
 
 const fontMap: Record<string, string> = {
   Inter: inter.variable,
-  Montserrat: montserrat.variable,
-  Poppins: poppins.variable,
+  'Space Grotesk': spaceGrotesk.variable,
+  'DM Sans': dmSans.variable,
 }
 
 const fontVar = fontMap[template.font] ?? inter.variable
@@ -51,8 +51,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         <Theme
           accentColor={accentColor}
+          grayColor="slate"
           radius={template.radius}
           scaling={template.scaling}
+          appearance="light"
         >
           <FacilityProvider facility={facility}>
             <Nav facility={facility} />
