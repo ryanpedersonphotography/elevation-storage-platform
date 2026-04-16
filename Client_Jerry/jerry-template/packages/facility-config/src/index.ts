@@ -1,3 +1,6 @@
+// ─── Content schema exports ───
+export { contentSchemaRegistry } from './content-schemas'
+
 // ─── Schema exports ───
 export {
   OklchSchema,

@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { contentSchemaRegistry } from './content-schemas'
 
 // ─── Strict OKLCH color validation — prevents CSS injection ───
 export const OklchSchema = z.string().regex(
@@ -108,6 +109,21 @@ export const SectionSchema = z
         code: z.ZodIssueCode.custom,
         message: `Invalid variant "${section.variant}" for ${section.component}. Allowed: ${allowed.join(', ')}`,
       })
+    }
+
+    // Validate content against the component's content schema
+    const contentSchema = contentSchemaRegistry[section.component]
+    if (contentSchema) {
+      const contentResult = contentSchema.safeParse(section.content)
+      if (!contentResult.success) {
+        for (const issue of contentResult.error.issues) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            path: ['content', ...issue.path],
+            message: `${section.component} content: ${issue.message}`,
+          })
+        }
+      }
     }
   })
 
@@ -224,15 +240,42 @@ export const DataSchema = z.object({
   testimonials: z.array(TestimonialSchema),
 })
 
-export const FacilityConfigSchema = z.object({
-  slug: z.string().min(1),
-  name: z.string().min(1),
-  info: InfoSchema,
-  branding: BrandingSchema,
-  deployment: DeploymentSchema,
-  seo: FacilitySeoSchema,
-  analytics: AnalyticsSchema,
-  pages: z.record(PageSchema),
-  data: DataSchema,
-  integrations: z.record(z.never()).optional(),
-})
+export const FacilityConfigSchema = z
+  .object({
+    slug: z.string().min(1),
+    name: z.string().min(1),
+    info: InfoSchema,
+    branding: BrandingSchema,
+    deployment: DeploymentSchema,
+    seo: FacilitySeoSchema,
+    analytics: AnalyticsSchema,
+    pages: z.record(PageSchema),
+    data: DataSchema,
+    integrations: z.record(z.never()).optional(),
+  })
+  .superRefine((facility, ctx) => {
+    // SEO-02: domain is required for standalone deployments
+    if (facility.deployment.mode === 'standalone' && !facility.deployment.domain) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['deployment', 'domain'],
+        message: 'domain is required when deployment.mode is "standalone"',
+      })
+    }
+
+    // SCHEMA-03: FacilityDirectory is not allowed for standalone deployments
+    if (facility.deployment.mode === 'standalone') {
+      for (const [pageKey, page] of Object.entries(facility.pages)) {
+        if (!page.enabled) continue
+        for (const [sectionKey, section] of Object.entries(page.sections)) {
+          if (section.component === 'FacilityDirectory') {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              path: ['pages', pageKey, 'sections', sectionKey, 'component'],
+              message: 'FacilityDirectory is not allowed in standalone deployments',
+            })
+          }
+        }
+      }
+    }
+  })

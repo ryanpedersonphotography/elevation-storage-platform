@@ -72,7 +72,7 @@ describe('PageSchema — layout/sections cross-validation', () => {
       sections: {
         hero: {
           component: 'Hero',
-          content: { heading: 'Test' },
+          content: { heading: 'Test', image: { src: '/t.jpg', alt: 'test' } },
         },
       },
     }
@@ -94,7 +94,7 @@ describe('PageSchema — layout/sections cross-validation', () => {
       sections: {
         hero: {
           component: 'Hero',
-          content: { heading: 'Test' },
+          content: { heading: 'Test', image: { src: '/t.jpg', alt: 'test' } },
         },
       },
     }
@@ -114,11 +114,11 @@ describe('PageSchema — layout/sections cross-validation', () => {
       sections: {
         hero: {
           component: 'Hero',
-          content: { heading: 'Test' },
+          content: { heading: 'Test', image: { src: '/t.jpg', alt: 'test' } },
         },
         orphan: {
           component: 'CallToAction',
-          content: { heading: 'Orphan' },
+          content: { heading: 'Orphan', cta: { label: 'Go', href: '/go', variant: 'primary' } },
         },
       },
     }
@@ -151,7 +151,10 @@ describe('PageSchema — layout/sections cross-validation', () => {
       sections: {
         orphan: {
           component: 'Hero',
-          content: { heading: 'Test' },
+          content: {
+            heading: 'Test',
+            image: { src: '/test.jpg', alt: 'test' },
+          },
         },
       },
     }
@@ -165,7 +168,10 @@ describe('SectionSchema — variant validation', () => {
     const section = {
       component: 'Hero',
       variant: 'overlay',
-      content: { heading: 'Test' },
+      content: {
+        heading: 'Test',
+        image: { src: '/test.jpg', alt: 'test' },
+      },
     }
     const result = SectionSchema.safeParse(section)
     expect(result.success).toBe(true)
@@ -175,7 +181,7 @@ describe('SectionSchema — variant validation', () => {
     const section = {
       component: 'Hero',
       variant: 'nonexistent',
-      content: { heading: 'Test' },
+      content: { heading: 'Test', image: { src: '/t.jpg', alt: 'test' } },
     }
     const result = SectionSchema.safeParse(section)
     expect(result.success).toBe(false)
@@ -188,7 +194,7 @@ describe('SectionSchema — variant validation', () => {
   it('accepts section without variant (optional)', () => {
     const section = {
       component: 'ContentSection',
-      content: { heading: 'Test' },
+      content: { heading: 'Test Content' },
     }
     const result = SectionSchema.safeParse(section)
     expect(result.success).toBe(true)
@@ -204,6 +210,20 @@ describe('SectionSchema — variant validation', () => {
   })
 
   it('validates each component variant mapping', () => {
+    // Provide valid content for each component
+    const validContentByComponent: Record<string, Record<string, unknown>> = {
+      Hero: { heading: 'Test', image: { src: '/img.jpg', alt: 'test' } },
+      HeroSimple: { heading: 'Test' },
+      ContentSection: { heading: 'Test' },
+      UnitGrid: { heading: 'Test' },
+      FeatureGrid: { heading: 'Test' },
+      CallToAction: { heading: 'Test', cta: { label: 'Click', href: '/go', variant: 'primary' } },
+      ContactForm: { heading: 'Test', fields: ['name', 'email'], submitLabel: 'Send', successMessage: 'Done' },
+      MapSection: { heading: 'Test' },
+      TestimonialGrid: { heading: 'Test' },
+      SizeGuide: { heading: 'Test', guides: [{ size: '5x5', description: 'Small', fits: ['Boxes'] }] },
+      FacilityDirectory: { heading: 'Test' },
+    }
     const validPairs: [string, string][] = [
       ['Hero', 'wave'],
       ['HeroSimple', 'colored'],
@@ -218,7 +238,8 @@ describe('SectionSchema — variant validation', () => {
       ['FacilityDirectory', 'map'],
     ]
     for (const [component, variant] of validPairs) {
-      const result = SectionSchema.safeParse({ component, variant, content: {} })
+      const content = validContentByComponent[component] ?? {}
+      const result = SectionSchema.safeParse({ component, variant, content })
       expect(result.success, `${component}/${variant} should be valid`).toBe(true)
     }
   })
@@ -350,6 +371,123 @@ describe('Integrations', () => {
     const facility = makeMinimalFacility() as Record<string, unknown>
     const { integrations: _, ...withoutIntegrations } = facility
     const result = FacilityConfigSchema.safeParse(withoutIntegrations)
+    expect(result.success).toBe(true)
+  })
+})
+
+describe('Content schema validation (SCHEMA-01)', () => {
+  it('rejects Hero with missing image', () => {
+    const section = {
+      component: 'Hero',
+      content: { heading: 'Test' },
+    }
+    const result = SectionSchema.safeParse(section)
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      const messages = result.error.issues.map((i) => i.message)
+      expect(messages.some((m) => m.includes('Hero content'))).toBe(true)
+    }
+  })
+
+  it('rejects CallToAction with missing cta', () => {
+    const section = {
+      component: 'CallToAction',
+      content: { heading: 'Test' },
+    }
+    const result = SectionSchema.safeParse(section)
+    expect(result.success).toBe(false)
+  })
+
+  it('rejects ContactForm with missing required fields', () => {
+    const section = {
+      component: 'ContactForm',
+      content: { heading: 'Test' },
+    }
+    const result = SectionSchema.safeParse(section)
+    expect(result.success).toBe(false)
+  })
+
+  it('accepts Hero with valid content', () => {
+    const section = {
+      component: 'Hero',
+      content: {
+        heading: 'Valid',
+        image: { src: '/hero.jpg', alt: 'Hero image' },
+      },
+    }
+    const result = SectionSchema.safeParse(section)
+    expect(result.success).toBe(true)
+  })
+})
+
+describe('Standalone deployment validation (SEO-02, SCHEMA-03)', () => {
+  it('rejects standalone mode with null domain', () => {
+    const data = makeMinimalFacility({
+      deployment: { mode: 'standalone', domain: null },
+    })
+    const result = FacilityConfigSchema.safeParse(data)
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      const messages = result.error.issues.map((i) => i.message)
+      expect(messages).toContain(
+        'domain is required when deployment.mode is "standalone"'
+      )
+    }
+  })
+
+  it('accepts standalone mode with valid domain', () => {
+    const data = makeMinimalFacility({
+      deployment: { mode: 'standalone', domain: 'example.com' },
+    })
+    const result = FacilityConfigSchema.safeParse(data)
+    expect(result.success).toBe(true)
+  })
+
+  it('rejects FacilityDirectory in standalone mode', () => {
+    const data = makeMinimalFacility({
+      deployment: { mode: 'standalone', domain: 'example.com' },
+      pages: {
+        home: {
+          enabled: true,
+          seo: {},
+          layout: ['directory'],
+          sections: {
+            directory: {
+              component: 'FacilityDirectory',
+              content: { heading: 'Locations' },
+            },
+          },
+        },
+      },
+    })
+    const result = FacilityConfigSchema.safeParse(data)
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      const messages = result.error.issues.map((i) => i.message)
+      expect(messages).toContain(
+        'FacilityDirectory is not allowed in standalone deployments'
+      )
+    }
+  })
+
+  it('accepts FacilityDirectory in subdirectory mode', () => {
+    const data = makeMinimalFacility({
+      deployment: { mode: 'subdirectory', domain: null },
+      pages: {
+        home: {
+          enabled: true,
+          seo: {},
+          layout: ['directory'],
+          sections: {
+            directory: {
+              component: 'FacilityDirectory',
+              content: { heading: 'Locations' },
+            },
+          },
+        },
+      },
+    })
+    const result = FacilityConfigSchema.safeParse(data)
     expect(result.success).toBe(true)
   })
 })
