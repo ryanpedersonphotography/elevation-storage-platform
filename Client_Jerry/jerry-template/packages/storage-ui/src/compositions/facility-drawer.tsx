@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { Box, Flex, Heading, Text, Button, Badge, ScrollArea } from '@radix-ui/themes'
-import { X, MapPin, Phone, Clock, ExternalLink } from 'lucide-react'
+import { X, MapPin, Phone, Clock, ExternalLink, Package, Shield, MessageSquare, HelpCircle, ChevronDown } from 'lucide-react'
 import Link from 'next/link'
 import type { FacilityConfig } from '@jerry/facility-config/schema'
 
@@ -156,8 +156,93 @@ export function FacilityDrawer({ facility, open, onClose }: FacilityDrawerProps)
               ))}
             </Flex>
 
+            {/* ── Units ── */}
+            {data.units.length > 0 && (
+              <Box>
+                <Flex align="center" gap="2" mb="2">
+                  <Package size={14} className="text-[var(--gray-9)]" />
+                  <Text size="2" weight="bold">Available Units</Text>
+                </Flex>
+                <Flex direction="column" gap="1">
+                  {data.units.map((unit) => (
+                    <Flex key={unit.id} justify="between" align="center" py="1" px="2"
+                      className="rounded-[var(--radius-2)] hover:bg-[var(--gray-a2)]"
+                    >
+                      <Flex align="center" gap="2">
+                        <Text size="2" weight="medium">{unit.size}</Text>
+                        <Text size="1" color="gray">{unit.sqft} sq ft</Text>
+                      </Flex>
+                      <Flex align="center" gap="2">
+                        <Text size="2" weight="bold">${unit.price}<Text as="span" size="1" color="gray">/mo</Text></Text>
+                        {unit.available !== false && (
+                          <Badge size="1" variant="soft" color="green">Open</Badge>
+                        )}
+                      </Flex>
+                    </Flex>
+                  ))}
+                </Flex>
+              </Box>
+            )}
+
+            {/* ── Amenities ── */}
+            {data.amenities.length > 0 && (
+              <Box>
+                <Flex align="center" gap="2" mb="2">
+                  <Shield size={14} className="text-[var(--gray-9)]" />
+                  <Text size="2" weight="bold">Facility Features</Text>
+                </Flex>
+                <Flex direction="column" gap="1">
+                  {data.amenities.map((amenity) => (
+                    <Flex key={amenity.id} direction="column" py="1" px="2">
+                      <Text size="2" weight="medium">{amenity.label}</Text>
+                      <Text size="1" color="gray">{amenity.description}</Text>
+                    </Flex>
+                  ))}
+                </Flex>
+              </Box>
+            )}
+
+            {/* ── FAQ ── */}
+            {data.faq && data.faq.length > 0 && (
+              <Box>
+                <Flex align="center" gap="2" mb="2">
+                  <HelpCircle size={14} className="text-[var(--gray-9)]" />
+                  <Text size="2" weight="bold">FAQ</Text>
+                </Flex>
+                <Flex direction="column" gap="1">
+                  {data.faq.map((item, i) => (
+                    <Box key={i} py="1" px="2">
+                      <Text size="2" weight="medium" as="p">{item.question}</Text>
+                      <Text size="1" color="gray" as="p" mt="1">{item.answer}</Text>
+                    </Box>
+                  ))}
+                </Flex>
+              </Box>
+            )}
+
+            {/* ── Testimonials ── */}
+            {data.testimonials.length > 0 && (
+              <Box>
+                <Flex align="center" gap="2" mb="2">
+                  <MessageSquare size={14} className="text-[var(--gray-9)]" />
+                  <Text size="2" weight="bold">Reviews</Text>
+                </Flex>
+                <Flex direction="column" gap="2">
+                  {data.testimonials.slice(0, 3).map((t, i) => (
+                    <Box key={i} py="2" px="2" className="rounded-[var(--radius-2)] bg-[var(--gray-a2)]">
+                      <Text size="1" color="amber" className="tracking-wide">
+                        {'★'.repeat(t.rating)}{'☆'.repeat(5 - t.rating)}
+                      </Text>
+                      <Text size="1" as="p" mt="1" className="italic">&ldquo;{t.text}&rdquo;</Text>
+                      <Text size="1" weight="medium" as="p" mt="1">— {t.name}</Text>
+                    </Box>
+                  ))}
+                </Flex>
+              </Box>
+            )}
+
             {/* CTA buttons */}
-            <Flex direction="column" gap="2" mt="2">
+            <Flex direction="column" gap="2" mt="2" pb="4">
               <Button size="3" variant="solid" asChild>
                 <Link href={`/${facility.slug}`}>View Full Details</Link>
               </Button>
