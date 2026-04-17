@@ -57,10 +57,11 @@ function buildJsonLd(facility: FacilityConfig, pageSlug: string, baseUrl: string
  */
 export function JsonLd({ facility, pageSlug, baseUrl }: JsonLdProps) {
   const jsonLd = buildJsonLd(facility, pageSlug, baseUrl)
+  const safeJson = JSON.stringify(jsonLd).replace(/</g, '\\u003c')
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      dangerouslySetInnerHTML={{ __html: safeJson }}
     />
   )
 }

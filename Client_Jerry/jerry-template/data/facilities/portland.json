@@ -17,7 +17,7 @@
       { "days": ["Sa", "Su"], "open": "08:00", "close": "18:00" }
     ],
     "directionsUrl": "https://www.google.com/maps/search/?api=1&query=7800+SE+Powell+Blvd+Portland+OR+97206",
-    "image": { "src": "https://picsum.photos/seed/portland-ext/852/480", "alt": "Portland Secure Storage exterior" }
+    "image": { "src": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=852&h=480&fit=crop", "alt": "Portland Secure Storage exterior" }
   },
 
   "branding": {
@@ -40,7 +40,7 @@
     "defaultTitle": "Portland Secure Storage | Self Storage in Portland, OR",
     "defaultDescription": "Secure self storage in SE Portland. Indoor units, 24-hour access, and friendly service.",
     "keywords": ["self storage portland", "storage units portland or", "se portland storage"],
-    "ogImage": "https://picsum.photos/seed/portland-og/1200/630"
+    "ogImage": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&h=630&fit=crop"
   },
 
   "analytics": {
@@ -59,7 +59,7 @@
         "title": "Portland Secure Storage | Units from $45/mo",
         "description": "Friendly, secure self storage in SE Portland.",
         "keywords": ["storage near me portland", "affordable storage portland"],
-        "ogImage": "https://picsum.photos/seed/portland-og-home/1200/630"
+        "ogImage": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&h=630&fit=crop"
       },
       "layout": ["hero", "intro", "featured-units", "why-us", "cta"],
       "sections": {
@@ -68,7 +68,7 @@
           "content": {
             "heading": "Friendly Storage in the Heart of SE Portland",
             "subtitle": "Clean, secure units starting at $45/mo",
-            "image": { "src": "https://picsum.photos/seed/portland-hero/1440/600", "alt": "Portland Secure Storage" },
+            "image": { "src": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1440&h=600&fit=crop", "alt": "Portland Secure Storage" },
             "cta": { "label": "Find Your Unit", "href": "/portland/reserve", "variant": "primary" }
           }
         },
@@ -82,7 +82,7 @@
               "We're a locally operated facility that treats every customer like a neighbor.",
               "Whether you're downsizing, renovating, or just need extra space — we've got you covered."
             ],
-            "image": { "src": "https://picsum.photos/seed/portland-inside/800/450", "alt": "Bright, clean hallway" }
+            "image": { "src": "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&h=450&fit=crop", "alt": "Bright, clean hallway" }
           }
         },
         "featured-units": {
@@ -116,7 +116,7 @@
           "content": {
             "heading": "Ready to get started?",
             "blurb": "No contracts. No surprises. Just great storage.",
-            "image": { "src": "https://picsum.photos/seed/portland-cta/1440/500", "alt": "" },
+            "image": { "src": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1440&h=500&fit=crop", "alt": "" },
             "cta": { "label": "Reserve Online", "href": "/portland/reserve", "variant": "primary" },
             "ctaSecondary": { "label": "Call (503) 555-9012", "href": "tel:5035559012", "variant": "outline" }
           }

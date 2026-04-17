@@ -17,7 +17,7 @@
       { "days": ["Sa", "Su"], "open": "08:00", "close": "19:00" }
     ],
     "directionsUrl": "https://www.google.com/maps/search/?api=1&query=4512+Stone+Way+N+Seattle+WA+98103",
-    "image": { "src": "https://picsum.photos/seed/seattle-ext/852/480", "alt": "Emerald City Storage exterior" }
+    "image": { "src": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=852&h=480&fit=crop", "alt": "Emerald City Storage exterior" }
   },
 
   "branding": {
@@ -40,7 +40,7 @@
     "defaultTitle": "Emerald City Storage | Self Storage in Seattle, WA",
     "defaultDescription": "All-indoor, moisture-protected self storage in Seattle's Wallingford neighborhood. Packing supplies on site.",
     "keywords": ["self storage seattle wa", "storage units seattle", "indoor storage seattle", "moisture-proof storage seattle wallingford"],
-    "ogImage": "https://picsum.photos/seed/seattle-og/1200/630"
+    "ogImage": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&h=630&fit=crop"
   },
 
   "analytics": {
@@ -59,7 +59,7 @@
         "title": "Emerald City Storage | Units from $55/mo",
         "description": "All-indoor, moisture-protected storage in Seattle's Wallingford neighborhood.",
         "keywords": ["storage near wallingford seattle", "dry indoor storage seattle wa"],
-        "ogImage": "https://picsum.photos/seed/seattle-og-home/1200/630"
+        "ogImage": "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1200&h=630&fit=crop"
       },
       "layout": ["hero", "intro", "featured-units", "why-us", "cta"],
       "sections": {
@@ -68,7 +68,7 @@
           "content": {
             "heading": "Seattle Storage That Keeps the Rain Out",
             "subtitle": "All-indoor, moisture-protected units from $55/mo",
-            "image": { "src": "https://picsum.photos/seed/seattle-hero/1440/600", "alt": "Emerald City Storage Seattle" },
+            "image": { "src": "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1440&h=600&fit=crop", "alt": "Emerald City Storage Seattle" },
             "cta": { "label": "Find Your Unit", "href": "/seattle/reserve", "variant": "primary" }
           }
         },
@@ -82,7 +82,7 @@
               "Seattle gets over 150 rainy days a year. At Emerald City Storage, every unit is fully indoor with moisture-barrier construction to keep your belongings bone dry.",
               "We also carry a full selection of packing supplies on site — boxes, tape, bubble wrap, and more — so you're always ready to move."
             ],
-            "image": { "src": "https://picsum.photos/seed/seattle-facility/800/450", "alt": "Bright, dry indoor storage hallway" }
+            "image": { "src": "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&h=450&fit=crop", "alt": "Bright, dry indoor storage hallway" }
           }
         },
         "featured-units": {
@@ -115,7 +115,7 @@
           "content": {
             "heading": "Keep It Dry. Keep It Safe.",
             "blurb": "Month-to-month leases with no surprise fees.",
-            "image": { "src": "https://picsum.photos/seed/seattle-cta/1440/500", "alt": "" },
+            "image": { "src": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1440&h=500&fit=crop", "alt": "" },
             "cta": { "label": "Reserve a Unit", "href": "/seattle/reserve", "variant": "primary" },
             "ctaSecondary": { "label": "Call (206) 555-3821", "href": "tel:2065553821", "variant": "outline" }
           }

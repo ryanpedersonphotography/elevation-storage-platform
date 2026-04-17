@@ -16,7 +16,10 @@ export const ImageSchema = z.object({
 
 export const CTASchema = z.object({
   label: z.string().min(1),
-  href: z.string().min(1),
+  href: z.string().min(1).refine(
+    (val) => /^(https?:|mailto:|tel:|\/|#)/.test(val),
+    'href must use http, https, mailto, tel, or be a relative/anchor path'
+  ),
   variant: z.enum(['primary', 'secondary', 'outline', 'ghost']),
 })
 
@@ -205,7 +208,10 @@ export const InfoSchema = z.object({
   email: z.string().email(),
   coordinates: CoordinatesSchema,
   hours: z.array(HoursSchema).min(1),
-  directionsUrl: z.string().url().optional(),
+  directionsUrl: z.string().url().refine(
+    (val) => /^https?:\/\//.test(val),
+    'directionsUrl must use http or https protocol'
+  ).optional(),
   image: ImageSchema.optional(),
 })
 
@@ -234,7 +240,7 @@ export const FacilitySeoSchema = z.object({
 
 export const AnalyticsSchema = z
   .object({
-    gtag: z.string().nullable().optional(),
+    gtag: z.string().regex(/^G-[A-Z0-9]+$/, 'Must be a valid Google Analytics ID (G-XXXXXXXXXX)').nullable().optional(),
     gtagEvents: z.record(z.boolean()).optional(),
   })
   .optional()

@@ -17,7 +17,7 @@
       { "days": ["Su"], "open": "08:00", "close": "18:00" }
     ],
     "directionsUrl": "https://www.google.com/maps/search/?api=1&query=401+N+Franklin+St+Tampa+FL+33602",
-    "image": { "src": "https://picsum.photos/seed/tampa-ext/852/480", "alt": "Sunshine Storage exterior" }
+    "image": { "src": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=852&h=480&fit=crop", "alt": "Sunshine Storage exterior" }
   },
 
   "branding": {
@@ -40,7 +40,7 @@
     "defaultTitle": "Sunshine Storage | Self Storage in Tampa, FL",
     "defaultDescription": "Hurricane-resistant self storage in Tampa, FL. Boat storage, indoor units, and 24/7 access.",
     "keywords": ["self storage tampa fl", "storage units tampa", "boat storage tampa florida", "hurricane storage tampa"],
-    "ogImage": "https://picsum.photos/seed/tampa-og/1200/630"
+    "ogImage": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&h=630&fit=crop"
   },
 
   "analytics": {
@@ -59,7 +59,7 @@
         "title": "Sunshine Storage | Units from $49/mo",
         "description": "Secure, hurricane-resistant storage in Tampa, FL. Boat storage available.",
         "keywords": ["storage near downtown tampa", "cheap storage tampa fl"],
-        "ogImage": "https://picsum.photos/seed/tampa-og-home/1200/630"
+        "ogImage": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&h=630&fit=crop"
       },
       "layout": ["hero", "intro", "featured-units", "why-us", "cta"],
       "sections": {
@@ -68,7 +68,7 @@
           "content": {
             "heading": "Florida-Tough Storage in the Heart of Tampa",
             "subtitle": "Hurricane-resistant units and boat storage from $49/mo",
-            "image": { "src": "https://picsum.photos/seed/tampa-hero/1440/600", "alt": "Sunshine Storage Tampa" },
+            "image": { "src": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1440&h=600&fit=crop", "alt": "Sunshine Storage Tampa" },
             "cta": { "label": "Reserve Now", "href": "/tampa/reserve", "variant": "primary" }
           }
         },
@@ -82,7 +82,7 @@
               "Sunshine Storage is engineered to withstand Florida's hurricane season with reinforced steel doors and hurricane-rated construction.",
               "Whether you need to store your boat, your business inventory, or your seasonal gear, we have the space — and the protection — you need."
             ],
-            "image": { "src": "https://picsum.photos/seed/tampa-facility/800/450", "alt": "Sunshine Storage facility" }
+            "image": { "src": "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&h=450&fit=crop", "alt": "Sunshine Storage facility" }
           }
         },
         "featured-units": {
@@ -115,7 +115,7 @@
           "content": {
             "heading": "Protect What Matters Most",
             "blurb": "Month-to-month leases. No long-term commitment required.",
-            "image": { "src": "https://picsum.photos/seed/tampa-cta/1440/500", "alt": "" },
+            "image": { "src": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1440&h=500&fit=crop", "alt": "" },
             "cta": { "label": "Reserve a Unit", "href": "/tampa/reserve", "variant": "primary" },
             "ctaSecondary": { "label": "Call (813) 555-4780", "href": "tel:8135554780", "variant": "outline" }
           }

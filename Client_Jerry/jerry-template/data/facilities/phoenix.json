@@ -16,7 +16,7 @@
       { "days": ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"], "open": "00:00", "close": "23:59" }
     ],
     "directionsUrl": "https://www.google.com/maps/search/?api=1&query=620+E+Jefferson+St+Phoenix+AZ+85004",
-    "image": { "src": "https://picsum.photos/seed/phoenix-ext/852/480", "alt": "Desert Lock Storage exterior" }
+    "image": { "src": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=852&h=480&fit=crop", "alt": "Desert Lock Storage exterior" }
   },
 
   "branding": {
@@ -39,7 +39,7 @@
     "defaultTitle": "Desert Lock Storage | Self Storage in Phoenix, AZ",
     "defaultDescription": "24/7 self storage in downtown Phoenix with extreme heat protection, RV parking, and climate-controlled units.",
     "keywords": ["self storage phoenix az", "storage units phoenix", "rv parking phoenix", "24 hour storage phoenix arizona", "climate controlled storage phoenix"],
-    "ogImage": "https://picsum.photos/seed/phoenix-og/1200/630"
+    "ogImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=630&fit=crop"
   },
 
   "analytics": {
@@ -58,7 +58,7 @@
         "title": "Desert Lock Storage | Units from $44/mo",
         "description": "24/7 access, extreme heat protection, and RV parking in downtown Phoenix.",
         "keywords": ["storage near downtown phoenix", "rv storage phoenix az"],
-        "ogImage": "https://picsum.photos/seed/phoenix-og-home/1200/630"
+        "ogImage": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&h=630&fit=crop"
       },
       "layout": ["hero", "intro", "featured-units", "why-us", "cta"],
       "sections": {
@@ -67,7 +67,7 @@
           "content": {
             "heading": "Desert-Tough Storage. Open 24/7.",
             "subtitle": "Climate-controlled units and RV parking from $44/mo",
-            "image": { "src": "https://picsum.photos/seed/phoenix-hero/1440/600", "alt": "Desert Lock Storage Phoenix" },
+            "image": { "src": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1440&h=600&fit=crop", "alt": "Desert Lock Storage Phoenix" },
             "cta": { "label": "Reserve Now", "href": "/phoenix/reserve", "variant": "primary" }
           }
         },
@@ -81,7 +81,7 @@
               "Phoenix summers can push 115°F. Our insulated, climate-controlled units keep temperatures regulated so your belongings — and your peace of mind — stay cool.",
               "With true 24/7 gate access and dedicated RV parking, Desert Lock Storage is the go-to for snowbirds, small businesses, and Phoenix locals alike."
             ],
-            "image": { "src": "https://picsum.photos/seed/phoenix-facility/800/450", "alt": "Desert Lock Storage facility" }
+            "image": { "src": "https://images.unsplash.com/photo-1600566753086-00f18f6b0d73?w=800&h=450&fit=crop", "alt": "Desert Lock Storage facility" }
           }
         },
         "featured-units": {
@@ -114,7 +114,7 @@
           "content": {
             "heading": "Your Stuff Deserves a Cool Home",
             "blurb": "No admin fees. Month-to-month flexibility.",
-            "image": { "src": "https://picsum.photos/seed/phoenix-cta/1440/500", "alt": "" },
+            "image": { "src": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1440&h=500&fit=crop", "alt": "" },
             "cta": { "label": "Reserve a Unit", "href": "/phoenix/reserve", "variant": "primary" },
             "ctaSecondary": { "label": "Call (602) 555-9147", "href": "tel:6025559147", "variant": "outline" }
           }

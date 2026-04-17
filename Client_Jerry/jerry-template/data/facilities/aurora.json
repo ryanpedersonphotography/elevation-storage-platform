@@ -17,7 +17,7 @@
       { "days": ["Su"], "open": "08:00", "close": "20:00" }
     ],
     "directionsUrl": "https://www.google.com/maps/search/?api=1&query=1550+S+Havana+St+Aurora+CO+80012",
-    "image": { "src": "https://picsum.photos/seed/aurora-ext/852/480", "alt": "Aurora Storage Depot exterior" }
+    "image": { "src": "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=852&h=480&fit=crop", "alt": "Aurora Storage Depot exterior" }
   },
 
   "branding": {
@@ -40,7 +40,7 @@
     "defaultTitle": "Aurora Storage Depot | Self Storage in Aurora, CO",
     "defaultDescription": "Secure self storage in Aurora, CO. Drive-up units, climate control, and vehicle parking.",
     "keywords": ["self storage aurora co", "storage units aurora", "drive-up storage aurora colorado"],
-    "ogImage": "https://picsum.photos/seed/aurora-og/1200/630"
+    "ogImage": "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1200&h=630&fit=crop"
   },
 
   "analytics": {
@@ -59,7 +59,7 @@
         "title": "Aurora Storage Depot | Units from $39/mo",
         "description": "Affordable, secure storage in Aurora, CO. Reserve online.",
         "keywords": ["storage near aurora", "cheap storage aurora co"],
-        "ogImage": "https://picsum.photos/seed/aurora-og-home/1200/630"
+        "ogImage": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&h=630&fit=crop"
       },
       "layout": ["hero", "intro", "featured-units", "why-us", "cta"],
       "sections": {
@@ -68,7 +68,7 @@
           "content": {
             "heading": "Reliable Storage at Mile High",
             "subtitle": "Drive-up and climate-controlled units from $39/mo",
-            "image": { "src": "https://picsum.photos/seed/aurora-hero/1440/600", "alt": "Aurora Storage Depot" },
+            "image": { "src": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1440&h=600&fit=crop", "alt": "Aurora Storage Depot" },
             "cta": { "label": "Reserve Now", "href": "/aurora/reserve", "variant": "primary" }
           }
         },
@@ -82,7 +82,7 @@
               "Serving the Aurora and East Denver metro since 2017.",
               "We offer everything from personal closets to vehicle-sized bays, all with the security you expect."
             ],
-            "image": { "src": "https://picsum.photos/seed/aurora-facility/800/450", "alt": "Facility drive-up units" }
+            "image": { "src": "https://images.unsplash.com/photo-1600566753086-00f18f6b0d73?w=800&h=450&fit=crop", "alt": "Facility drive-up units" }
           }
         },
         "featured-units": {
@@ -115,7 +115,7 @@
           "content": {
             "heading": "Lock in your rate",
             "blurb": "No admin fees. Month-to-month flexibility.",
-            "image": { "src": "https://picsum.photos/seed/aurora-cta/1440/500", "alt": "" },
+            "image": { "src": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1440&h=500&fit=crop", "alt": "" },
             "cta": { "label": "Get Started", "href": "/aurora/reserve", "variant": "primary" },
             "ctaSecondary": { "label": "Call (720) 555-2345", "href": "tel:7205552345", "variant": "outline" }
           }

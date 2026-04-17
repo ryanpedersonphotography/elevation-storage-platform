@@ -17,7 +17,7 @@
       { "days": ["Sa", "Su"], "open": "08:00", "close": "20:00" }
     ],
     "directionsUrl": "https://www.google.com/maps/search/?api=1&query=3200+N+Clark+St+Chicago+IL+60614",
-    "image": { "src": "https://picsum.photos/seed/chicago-ext/852/480", "alt": "Lakeshore Self Storage exterior" }
+    "image": { "src": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=852&h=480&fit=crop", "alt": "Lakeshore Self Storage exterior" }
   },
 
   "branding": {
@@ -40,7 +40,7 @@
     "defaultTitle": "Lakeshore Self Storage | Self Storage in Chicago, IL",
     "defaultDescription": "Heated self storage in Chicago's Lincoln Park neighborhood. Elevator access, downtown location, and flexible month-to-month leases.",
     "keywords": ["self storage chicago il", "storage units chicago", "heated storage chicago", "lincoln park storage chicago"],
-    "ogImage": "https://picsum.photos/seed/chicago-og/1200/630"
+    "ogImage": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&h=630&fit=crop"
   },
 
   "analytics": {
@@ -59,7 +59,7 @@
         "title": "Lakeshore Self Storage | Units from $59/mo",
         "description": "Heated, downtown storage in Chicago's Lincoln Park. Elevator access and flexible leasing.",
         "keywords": ["storage near lincoln park chicago", "chicago downtown self storage"],
-        "ogImage": "https://picsum.photos/seed/chicago-og-home/1200/630"
+        "ogImage": "https://images.unsplash.com/photo-1565610222536-ef125c59da2e?w=1200&h=630&fit=crop"
       },
       "layout": ["hero", "intro", "featured-units", "why-us", "cta"],
       "sections": {
@@ -68,7 +68,7 @@
           "content": {
             "heading": "Heated Storage Steps from Lake Michigan",
             "subtitle": "Downtown Chicago convenience with heated units from $59/mo",
-            "image": { "src": "https://picsum.photos/seed/chicago-hero/1440/600", "alt": "Lakeshore Self Storage Chicago" },
+            "image": { "src": "https://images.unsplash.com/photo-1565610222536-ef125c59da2e?w=1440&h=600&fit=crop", "alt": "Lakeshore Self Storage Chicago" },
             "cta": { "label": "Reserve Now", "href": "/chicago/reserve", "variant": "primary" }
           }
         },
@@ -82,7 +82,7 @@
               "We know Chicago winters. That's why every unit is heated to keep your belongings safe from freeze-thaw damage.",
               "Our multi-level facility offers elevator access for heavy loads — no stairs, no hassle."
             ],
-            "image": { "src": "https://picsum.photos/seed/chicago-facility/800/450", "alt": "Lakeshore Self Storage interior hallway" }
+            "image": { "src": "https://images.unsplash.com/photo-1600566753086-00f18f6b0d73?w=800&h=450&fit=crop", "alt": "Lakeshore Self Storage interior hallway" }
           }
         },
         "featured-units": {
@@ -115,7 +115,7 @@
           "content": {
             "heading": "Don't Let Winter Win",
             "blurb": "Flexible month-to-month leases with no long-term commitment.",
-            "image": { "src": "https://picsum.photos/seed/chicago-cta/1440/500", "alt": "" },
+            "image": { "src": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1440&h=500&fit=crop", "alt": "" },
             "cta": { "label": "Get Started", "href": "/chicago/reserve", "variant": "primary" },
             "ctaSecondary": { "label": "Call (312) 555-6310", "href": "tel:3125556310", "variant": "outline" }
           }

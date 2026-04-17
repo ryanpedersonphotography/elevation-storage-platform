@@ -18,7 +18,7 @@
       { "days": ["Su"], "open": "10:00", "close": "15:00" }
     ],
     "directionsUrl": "https://www.google.com/maps/search/?api=1&query=4500+River+Rd+Riverside+CA+92501",
-    "image": { "src": "https://picsum.photos/seed/riverside-ext/852/480", "alt": "Riverside Storage Co. exterior" }
+    "image": { "src": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=852&h=480&fit=crop", "alt": "Riverside Storage Co. exterior" }
   },
 
   "branding": {
@@ -41,7 +41,7 @@
     "defaultTitle": "Riverside Storage Co. | Affordable Self Storage in Riverside, CA",
     "defaultDescription": "Riverside's trusted self-storage provider. Drive-up and climate-controlled units with 24/7 access.",
     "keywords": ["self storage riverside", "storage units riverside ca", "drive-up storage riverside"],
-    "ogImage": "https://picsum.photos/seed/riverside-og/1200/630"
+    "ogImage": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&h=630&fit=crop"
   },
 
   "analytics": {
@@ -60,7 +60,7 @@
         "title": "Riverside Storage Co. | Units from $39/mo",
         "description": "Drive-up and climate-controlled storage in Riverside, CA. Reserve online today.",
         "keywords": ["storage near riverside", "cheap storage riverside ca"],
-        "ogImage": "https://picsum.photos/seed/riverside-og-home/1200/630"
+        "ogImage": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&h=630&fit=crop"
       },
       "layout": ["hero", "intro", "featured-units", "why-us", "cta"],
       "sections": {
@@ -69,7 +69,7 @@
           "content": {
             "heading": "Your Space, Your Way",
             "subtitle": "Drive-up and indoor units starting at $39/mo",
-            "image": { "src": "https://picsum.photos/seed/riverside-hero/1440/600", "alt": "Riverside Storage facility at sunset" },
+            "image": { "src": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1440&h=600&fit=crop", "alt": "Riverside Storage facility at sunset" },
             "cta": { "label": "Find Your Unit", "href": "/reserve", "variant": "primary" }
           }
         },
@@ -83,7 +83,7 @@
               "Family-owned and operated since 2018, we pride ourselves on clean facilities and friendly service.",
               "From college students to growing businesses, we have a unit that fits your life."
             ],
-            "image": { "src": "https://picsum.photos/seed/riverside-driveup/800/450", "alt": "Facility exterior with drive-up access" }
+            "image": { "src": "https://images.unsplash.com/photo-1600566753086-00f18f6b0d73?w=800&h=450&fit=crop", "alt": "Facility exterior with drive-up access" }
           }
         },
         "featured-units": {
@@ -117,7 +117,7 @@
           "content": {
             "heading": "Lock in your rate today",
             "blurb": "No admin fees. First month free on select units.",
-            "image": { "src": "https://picsum.photos/seed/riverside-cta/1440/500", "alt": "" },
+            "image": { "src": "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1440&h=500&fit=crop", "alt": "" },
             "cta": { "label": "Reserve Online", "href": "/reserve", "variant": "primary" },
             "ctaSecondary": { "label": "Call (951) 555-7890", "href": "tel:9515557890", "variant": "outline" }
           }
@@ -211,7 +211,7 @@
             "paragraphs": [
               "We maintain our grounds daily so your experience is always top-notch."
             ],
-            "image": { "src": "https://picsum.photos/seed/riverside-hallway/800/450", "alt": "Bright interior hallway with clean floors" }
+            "image": { "src": "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&h=450&fit=crop", "alt": "Bright interior hallway with clean floors" }
           }
         },
         "cta": {

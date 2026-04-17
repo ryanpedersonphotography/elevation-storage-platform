@@ -77,6 +77,9 @@ export function FacilityFilter({ facilities, variant = 'grid' }: FacilityFilterP
     })
   }, [facilities, search, stateFilter, featureFilters])
 
+  const [showAll, setShowAll] = useState(false)
+  const INITIAL_DISPLAY_COUNT = 6
+
   const hasActiveFilters = search || stateFilter !== 'all' || featureFilters.size > 0
 
   // ── Search-only variant (for hero card) ──
@@ -176,15 +179,22 @@ export function FacilityFilter({ facilities, variant = 'grid' }: FacilityFilterP
 
       {/* Card grid */}
       {filtered.length > 0 ? (
-        <Grid columns={{ initial: '1', sm: '2', md: '3' }} gap="5">
-          {filtered.map((facility) => (
-            <a key={facility.slug} href={`/${facility.slug}`} className="no-underline text-inherit block">
-              <Box className="facility-card-hover transition-all">
+        <>
+          <Grid columns={{ initial: '1', sm: '2', md: '3' }} gap="5">
+            {(showAll || hasActiveFilters ? filtered : filtered.slice(0, INITIAL_DISPLAY_COUNT)).map((facility) => (
+              <Box key={facility.slug} className="facility-card-hover transition-all">
                 <FacilityCard facility={facility} href={`/${facility.slug}`} />
               </Box>
-            </a>
-          ))}
-        </Grid>
+            ))}
+          </Grid>
+          {!hasActiveFilters && !showAll && filtered.length > INITIAL_DISPLAY_COUNT && (
+            <Flex justify="center" mt="6">
+              <Button size="3" variant="soft" onClick={() => setShowAll(true)}>
+                Show All {filtered.length} Locations
+              </Button>
+            </Flex>
+          )}
+        </>
       ) : (
         <Flex direction="column" align="center" gap="3" py="8">
           <Text size="4" color="gray">No facilities match your filters.</Text>

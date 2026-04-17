@@ -94,6 +94,7 @@ export function Nav({ facility }: NavProps) {
                   onClick={() => setMobileOpen(!mobileOpen)}
                   aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
                   aria-expanded={mobileOpen}
+                  display={{ initial: 'flex', lg: 'none' }}
                 >
                   {mobileOpen ? <X size={22} /> : <Menu size={22} />}
                 </IconButton>

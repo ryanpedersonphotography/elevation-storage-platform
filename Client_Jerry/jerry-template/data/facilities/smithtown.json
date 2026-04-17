@@ -17,7 +17,7 @@
       { "days": ["Sa", "Su"], "open": "08:00", "close": "18:00" }
     ],
     "directionsUrl": "https://www.google.com/maps/search/?api=1&query=123+Main+St+Smithtown+NY+11787",
-    "image": { "src": "https://picsum.photos/seed/smithtown-ext/852/480", "alt": "Smithtown Self Storage exterior" }
+    "image": { "src": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=852&h=480&fit=crop", "alt": "Smithtown Self Storage exterior" }
   },
 
   "branding": {
@@ -40,7 +40,7 @@
     "defaultTitle": "Smithtown Self Storage | Secure Units in Smithtown, NY",
     "defaultDescription": "Affordable self storage in Smithtown, NY. Climate-controlled units, 24-hour access.",
     "keywords": ["self storage smithtown", "storage units smithtown ny", "climate controlled storage"],
-    "ogImage": "https://picsum.photos/seed/smithtown-og/1200/630"
+    "ogImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=630&fit=crop"
   },
 
   "analytics": {
@@ -59,7 +59,7 @@
         "title": "Smithtown Self Storage | Units from $49/mo",
         "description": "Secure, affordable storage units in Smithtown.",
         "keywords": ["storage near me", "cheap storage smithtown"],
-        "ogImage": "https://picsum.photos/seed/smithtown-og-home/1200/630"
+        "ogImage": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&h=630&fit=crop"
       },
       "layout": ["hero", "intro", "featured-units", "why-us", "cta"],
       "sections": {
@@ -68,7 +68,7 @@
           "content": {
             "heading": "Secure Storage in Smithtown",
             "subtitle": "Climate-controlled units starting at $49/mo",
-            "image": { "src": "https://picsum.photos/seed/smithtown-hero/1440/600", "alt": "Smithtown facility exterior" },
+            "image": { "src": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1440&h=600&fit=crop", "alt": "Smithtown facility exterior" },
             "cta": { "label": "Reserve Now", "href": "/smithtown/reserve", "variant": "primary" }
           }
         },
@@ -82,7 +82,7 @@
               "We've been serving the Smithtown community since 2015.",
               "Whether you need short-term storage during a move or long-term space for your business inventory."
             ],
-            "image": { "src": "https://picsum.photos/seed/smithtown-interior/800/450", "alt": "Clean interior hallway" }
+            "image": { "src": "https://images.unsplash.com/photo-1600566753086-00f18f6b0d73?w=800&h=450&fit=crop", "alt": "Clean interior hallway" }
           }
         },
         "featured-units": {
@@ -116,7 +116,7 @@
           "content": {
             "heading": "Ready to reserve your unit?",
             "blurb": "Call us or reserve online today.",
-            "image": { "src": "https://picsum.photos/seed/smithtown-cta/1440/500", "alt": "" },
+            "image": { "src": "https://images.unsplash.com/photo-1565610222536-ef125c59da2e?w=1440&h=500&fit=crop", "alt": "" },
             "cta": { "label": "Get Started", "href": "/smithtown/reserve", "variant": "primary" },
             "ctaSecondary": { "label": "Call (631) 555-1234", "href": "tel:6315551234", "variant": "outline" }
           }
@@ -210,7 +210,7 @@
             "paragraphs": [
               "Our facility is inspected daily and maintained to the highest standards."
             ],
-            "image": { "src": "https://picsum.photos/seed/smithtown-wide/800/450", "alt": "Wide view of interior storage hallway" }
+            "image": { "src": "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&h=450&fit=crop", "alt": "Wide view of interior storage hallway" }
           }
         },
         "cta": {

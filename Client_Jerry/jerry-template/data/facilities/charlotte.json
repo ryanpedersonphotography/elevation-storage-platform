@@ -18,7 +18,7 @@
       { "days": ["Su"], "open": "09:00", "close": "17:00" }
     ],
     "directionsUrl": "https://www.google.com/maps/search/?api=1&query=3100+South+Blvd+Charlotte+NC+28209",
-    "image": { "src": "https://picsum.photos/seed/charlotte-ext/852/480", "alt": "Queen City Storage exterior" }
+    "image": { "src": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=852&h=480&fit=crop", "alt": "Queen City Storage exterior" }
   },
 
   "branding": {
@@ -41,7 +41,7 @@
     "defaultTitle": "Queen City Storage | Self Storage in Charlotte, NC",
     "defaultDescription": "Premium self storage in South End Charlotte. Climate-controlled, 24/7 access, and drive-up units.",
     "keywords": ["self storage charlotte", "storage units south end charlotte", "climate controlled storage charlotte nc"],
-    "ogImage": "https://picsum.photos/seed/charlotte-og/1200/630"
+    "ogImage": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&h=630&fit=crop"
   },
 
   "analytics": {
@@ -60,7 +60,7 @@
         "title": "Queen City Storage | Units from $42/mo",
         "description": "Premium storage in South End Charlotte. Reserve online today.",
         "keywords": ["storage near south end", "cheap storage charlotte nc"],
-        "ogImage": "https://picsum.photos/seed/charlotte-og-home/1200/630"
+        "ogImage": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&h=630&fit=crop"
       },
       "layout": ["hero", "intro", "featured-units", "why-us", "testimonials", "cta"],
       "sections": {
@@ -69,7 +69,7 @@
           "content": {
             "heading": "Premium Storage in South End",
             "subtitle": "Modern facility with units from $42/mo",
-            "image": { "src": "https://picsum.photos/seed/charlotte-hero/1440/600", "alt": "Queen City Storage facility" },
+            "image": { "src": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1440&h=600&fit=crop", "alt": "Queen City Storage facility" },
             "cta": { "label": "Reserve Now", "href": "/charlotte/reserve", "variant": "primary" }
           }
         },
@@ -83,7 +83,7 @@
               "Queen City Storage is a modern facility built for the South End lifestyle.",
               "Whether you're between apartments, running a small business, or just decluttering — we have the perfect unit."
             ],
-            "image": { "src": "https://picsum.photos/seed/charlotte-interior/800/450", "alt": "Modern interior with wide hallway" }
+            "image": { "src": "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&h=450&fit=crop", "alt": "Modern interior with wide hallway" }
           }
         },
         "featured-units": {
@@ -121,7 +121,7 @@
           "content": {
             "heading": "Ready to store smarter?",
             "blurb": "First month 50% off. No long-term contracts.",
-            "image": { "src": "https://picsum.photos/seed/charlotte-cta/1440/500", "alt": "" },
+            "image": { "src": "https://images.unsplash.com/photo-1565610222536-ef125c59da2e?w=1440&h=500&fit=crop", "alt": "" },
             "cta": { "label": "Get Started", "href": "/charlotte/reserve", "variant": "primary" },
             "ctaSecondary": { "label": "Call (704) 555-6789", "href": "tel:7045556789", "variant": "outline" }
           }

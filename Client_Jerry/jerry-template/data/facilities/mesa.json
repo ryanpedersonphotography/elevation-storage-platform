@@ -17,7 +17,7 @@
       { "days": ["Sa", "Su"], "open": "07:00", "close": "20:00" }
     ],
     "directionsUrl": "https://www.google.com/maps/search/?api=1&query=2200+E+University+Dr+Mesa+AZ+85213",
-    "image": { "src": "https://picsum.photos/seed/mesa-ext/852/480", "alt": "Mesa Valley Storage exterior" }
+    "image": { "src": "https://images.unsplash.com/photo-1565610222536-ef125c59da2e?w=852&h=480&fit=crop", "alt": "Mesa Valley Storage exterior" }
   },
 
   "branding": {
@@ -40,7 +40,7 @@
     "defaultTitle": "Mesa Valley Storage | Secure Units in Mesa, AZ",
     "defaultDescription": "Affordable self storage in Mesa, AZ. Drive-up access, climate-controlled units, and RV parking.",
     "keywords": ["self storage mesa", "storage units mesa az", "rv storage mesa"],
-    "ogImage": "https://picsum.photos/seed/mesa-og/1200/630"
+    "ogImage": "https://images.unsplash.com/photo-1565610222536-ef125c59da2e?w=1200&h=630&fit=crop"
   },
 
   "analytics": {
@@ -59,7 +59,7 @@
         "title": "Mesa Valley Storage | Units from $35/mo",
         "description": "Secure, affordable storage in Mesa, AZ with drive-up access and RV parking.",
         "keywords": ["storage near me mesa", "cheap storage mesa az"],
-        "ogImage": "https://picsum.photos/seed/mesa-og-home/1200/630"
+        "ogImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=630&fit=crop"
       },
       "layout": ["hero", "intro", "featured-units", "why-us", "cta"],
       "sections": {
@@ -68,7 +68,7 @@
           "content": {
             "heading": "Storage Built for the Desert",
             "subtitle": "Climate-controlled and drive-up units starting at $35/mo",
-            "image": { "src": "https://picsum.photos/seed/mesa-hero/1440/600", "alt": "Mesa Valley Storage facility" },
+            "image": { "src": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1440&h=600&fit=crop", "alt": "Mesa Valley Storage facility" },
             "cta": { "label": "Reserve Now", "href": "/mesa/reserve", "variant": "primary" }
           }
         },
@@ -82,7 +82,7 @@
               "Serving the East Valley since 2019, we offer units for every need — from small closets to RV-sized spaces.",
               "Our facility is fully paved, well-lit, and built to handle Arizona's extreme heat."
             ],
-            "image": { "src": "https://picsum.photos/seed/mesa-interior/800/450", "alt": "Clean facility interior" }
+            "image": { "src": "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&h=450&fit=crop", "alt": "Clean facility interior" }
           }
         },
         "featured-units": {
@@ -116,7 +116,7 @@
           "content": {
             "heading": "Ready to store with us?",
             "blurb": "First month free on select units. No long-term contracts.",
-            "image": { "src": "https://picsum.photos/seed/mesa-cta/1440/500", "alt": "" },
+            "image": { "src": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1440&h=500&fit=crop", "alt": "" },
             "cta": { "label": "Get Started", "href": "/mesa/reserve", "variant": "primary" },
             "ctaSecondary": { "label": "Call (480) 555-3456", "href": "tel:4805553456", "variant": "outline" }
           }
@@ -188,7 +188,7 @@
             "heading": "See Our Facility",
             "blurb": "Fully paved, well-lit, and always maintained.",
             "paragraphs": ["Our facility features wide aisles for easy truck access and covered RV parking areas."],
-            "image": { "src": "https://picsum.photos/seed/mesa-gallery/800/450", "alt": "Mesa Valley Storage wide aisle view" }
+            "image": { "src": "https://images.unsplash.com/photo-1600566753086-00f18f6b0d73?w=800&h=450&fit=crop", "alt": "Mesa Valley Storage wide aisle view" }
           }
         },
         "cta": {
