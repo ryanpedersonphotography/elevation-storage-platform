@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { Inter, Space_Grotesk, DM_Sans } from 'next/font/google'
-import { Theme, Container, Flex, Box } from '@radix-ui/themes'
+import { Theme, Flex, Box } from '@radix-ui/themes'
 import { loadFacility, loadSubdirectoryFacilities } from '@jerry/facility-config'
 import { FacilityProvider, resolveRadixColor, templates } from '@jerry/storage-ui'
 import { Nav } from '../../components/nav'
@@ -56,13 +56,13 @@ export default async function FacilityLayout({
         <FacilityProvider facility={facility}>
           <Nav facility={facility} />
 
-          {/* Two-column facility layout */}
+          {/* Two-column facility layout — wide container */}
           <Box className="bg-[var(--gray-a2)] min-h-screen">
-            <Container size="3" py="6">
-              <Flex direction={{ initial: 'column', md: 'row' }} gap="6">
+            <Box className="max-w-7xl mx-auto px-6 py-8">
+              <Flex direction={{ initial: 'column', lg: 'row' }} gap="8">
                 {/* Sticky sidebar */}
-                <Box className="md:w-[340px] shrink-0">
-                  <Box className="md:sticky md:top-20">
+                <Box className="lg:w-[380px] shrink-0">
+                  <Box className="lg:sticky lg:top-20">
                     <FacilitySidebar facility={facility} />
                   </Box>
                 </Box>
@@ -75,7 +75,7 @@ export default async function FacilityLayout({
                   </Box>
                 </Box>
               </Flex>
-            </Container>
+            </Box>
           </Box>
 
           <Footer facility={facility} />

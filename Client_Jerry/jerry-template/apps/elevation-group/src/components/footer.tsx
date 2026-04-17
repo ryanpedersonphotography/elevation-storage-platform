@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Container, Flex, Grid, Text, Box, Separator } from '@radix-ui/themes'
+import { Flex, Grid, Text, Box, Separator } from '@radix-ui/themes'
 import type { FacilityConfig } from '@jerry/facility-config'
 
 interface FooterProps {
@@ -19,7 +19,7 @@ export function Footer({ facility }: FooterProps) {
   return (
     <Box asChild className="bg-[var(--gray-12)] text-white">
       <footer>
-        <Container size="3" py="7">
+        <Box className="max-w-7xl mx-auto px-6" py="7">
           <Grid columns={{ initial: '1', sm: '2', md: '4' }} gap="6">
             <Flex direction="column" gap="2">
               <Text size="4" weight="bold" className="text-white">
@@ -88,7 +88,7 @@ export function Footer({ facility }: FooterProps) {
               <Text size="1" className="text-[var(--gray-9)]">Accessibility</Text>
             </Flex>
           </Flex>
-        </Container>
+        </Box>
       </footer>
     </Box>
   )
