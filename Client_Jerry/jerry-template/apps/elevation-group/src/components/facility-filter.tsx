@@ -95,11 +95,11 @@ export function FacilityFilter({ facilities, variant = 'grid' }: FacilityFilterP
             </TextField.Slot>
           </TextField.Root>
         </Box>
-        <Button size="3" variant="solid" color="red" asChild>
+        <Button size="3" variant="solid" highContrast asChild>
           <a href="#locations">Search</a>
         </Button>
         <Text size="2" color="gray" className="self-center">or</Text>
-        <Button size="3" variant="solid" color="red">
+        <Button size="3" variant="solid" highContrast>
           <MapPin size={16} /> Near Me
         </Button>
       </Flex>
@@ -170,7 +170,7 @@ export function FacilityFilter({ facilities, variant = 'grid' }: FacilityFilterP
             : `Showing ${filtered.length} of ${facilities.length} locations`}
         </Text>
         {hasActiveFilters && (
-          <Badge size="1" variant="soft" color="blue">Filtered</Badge>
+          <Badge size="1" variant="soft">Filtered</Badge>
         )}
       </Flex>
 

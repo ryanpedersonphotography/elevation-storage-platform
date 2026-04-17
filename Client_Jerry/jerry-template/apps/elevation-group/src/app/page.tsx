@@ -40,7 +40,7 @@ export default function HomePage() {
                 <Text size="2" className="text-[var(--gray-6)] hover:text-white">Contact Us</Text>
               </Link>
             </Flex>
-            <Button size="2" variant="solid" color="red" asChild>
+            <Button size="2" variant="solid" highContrast asChild>
               <Link href="#locations">Pay Now</Link>
             </Button>
           </Flex>
@@ -55,7 +55,7 @@ export default function HomePage() {
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <Box className="absolute inset-0 bg-black/30" />
+        <Box className="absolute inset-0 bg-[var(--black-a7)]" />
         <Box position="relative" py="9">
           <Container size="2">
             <Card size="4" className="mx-auto max-w-xl">

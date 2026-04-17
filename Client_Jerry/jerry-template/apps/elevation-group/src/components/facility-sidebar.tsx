@@ -34,7 +34,7 @@ export function FacilitySidebar({ facility }: FacilitySidebarProps) {
 
       {reviewCount > 0 && (
         <Flex align="center" gap="2" mb="4">
-          <Text size="2" className="text-amber-500 tracking-wide">
+          <Text size="2" color="amber" className="tracking-wide">
             {'★'.repeat(Math.round(avgRating))}{'☆'.repeat(5 - Math.round(avgRating))}
           </Text>
           <Text size="1" color="gray">
