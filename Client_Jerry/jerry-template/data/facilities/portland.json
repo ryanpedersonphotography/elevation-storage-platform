@@ -1,0 +1,253 @@
+{
+  "slug": "portland",
+  "name": "Portland Secure Storage",
+
+  "info": {
+    "address": {
+      "street": "7800 SE Powell Blvd",
+      "city": "Portland",
+      "state": "OR",
+      "zip": "97206"
+    },
+    "phone": "(503) 555-9012",
+    "email": "portland@elevationgroup.com",
+    "coordinates": { "lat": 45.497, "lng": -122.596 },
+    "hours": [
+      { "days": ["Mo", "Tu", "We", "Th", "Fr"], "open": "07:00", "close": "21:00" },
+      { "days": ["Sa", "Su"], "open": "08:00", "close": "18:00" }
+    ],
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=7800+SE+Powell+Blvd+Portland+OR+97206",
+    "image": { "src": "https://picsum.photos/seed/portland-ext/852/480", "alt": "Portland Secure Storage exterior" }
+  },
+
+  "branding": {
+    "showParent": true,
+    "template": "friendly",
+    "colors": {
+      "primary": "oklch(0.5 0.12 160)",
+      "accent": "oklch(0.6 0.18 280)"
+    },
+    "logo": "https://picsum.photos/seed/portland-logo/200/200"
+  },
+
+  "deployment": {
+    "mode": "subdirectory",
+    "domain": null
+  },
+
+  "seo": {
+    "siteName": "Portland Secure Storage",
+    "defaultTitle": "Portland Secure Storage | Self Storage in Portland, OR",
+    "defaultDescription": "Secure self storage in SE Portland. Indoor units, 24-hour access, and friendly service.",
+    "keywords": ["self storage portland", "storage units portland or", "se portland storage"],
+    "ogImage": "https://picsum.photos/seed/portland-og/1200/630"
+  },
+
+  "analytics": {
+    "gtag": "G-PORTLAND01",
+    "gtagEvents": {
+      "reserve_click": true,
+      "phone_click": true,
+      "directions_click": true
+    }
+  },
+
+  "pages": {
+    "home": {
+      "enabled": true,
+      "seo": {
+        "title": "Portland Secure Storage | Units from $45/mo",
+        "description": "Friendly, secure self storage in SE Portland.",
+        "keywords": ["storage near me portland", "affordable storage portland"],
+        "ogImage": "https://picsum.photos/seed/portland-og-home/1200/630"
+      },
+      "layout": ["hero", "intro", "featured-units", "why-us", "cta"],
+      "sections": {
+        "hero": {
+          "component": "Hero",
+          "content": {
+            "heading": "Friendly Storage in the Heart of SE Portland",
+            "subtitle": "Clean, secure units starting at $45/mo",
+            "image": { "src": "https://picsum.photos/seed/portland-hero/1440/600", "alt": "Portland Secure Storage" },
+            "cta": { "label": "Find Your Unit", "href": "/portland/reserve", "variant": "primary" }
+          }
+        },
+        "intro": {
+          "component": "ContentSection",
+          "layout": "image-right",
+          "content": {
+            "heading": "Your Neighborhood Storage Solution",
+            "blurb": "Right on Powell Blvd, just minutes from Division, Hawthorne, and Foster.",
+            "paragraphs": [
+              "We're a locally operated facility that treats every customer like a neighbor.",
+              "Whether you're downsizing, renovating, or just need extra space — we've got you covered."
+            ],
+            "image": { "src": "https://picsum.photos/seed/portland-inside/800/450", "alt": "Bright, clean hallway" }
+          }
+        },
+        "featured-units": {
+          "component": "UnitGrid",
+          "variant": "cards",
+          "layout": "3-col",
+          "content": {
+            "heading": "Popular Sizes",
+            "blurb": "Something for every need",
+            "showPricing": true,
+            "filter": ["5x5-indoor", "10x10-indoor", "10x15-indoor"]
+          }
+        },
+        "why-us": {
+          "component": "FeatureGrid",
+          "layout": "4-col",
+          "content": {
+            "heading": "Why Store With Us",
+            "blurb": "The Portland way to store",
+            "features": [
+              { "icon": "Shield", "heading": "Secure & Dry", "blurb": "Rain or shine, your stuff stays safe and dry" },
+              { "icon": "Clock", "heading": "24/7 Access", "blurb": "Your schedule, not ours" },
+              { "icon": "Camera", "heading": "HD Cameras", "blurb": "Every corner monitored around the clock" },
+              { "icon": "Heart", "heading": "Community First", "blurb": "Locally operated, customer-focused" }
+            ]
+          }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": {
+            "heading": "Ready to get started?",
+            "blurb": "No contracts. No surprises. Just great storage.",
+            "image": { "src": "https://picsum.photos/seed/portland-cta/1440/500", "alt": "" },
+            "cta": { "label": "Reserve Online", "href": "/portland/reserve", "variant": "primary" },
+            "ctaSecondary": { "label": "Call (503) 555-9012", "href": "tel:5035559012", "variant": "outline" }
+          }
+        }
+      }
+    },
+    "units": {
+      "enabled": true,
+      "seo": {
+        "title": "Unit Sizes & Pricing | Portland Secure Storage",
+        "description": "View all unit sizes and prices at Portland Secure Storage.",
+        "keywords": ["5x5 storage portland", "10x10 storage unit portland"]
+      },
+      "layout": ["page-header", "unit-table", "size-guide", "cta"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "Unit Sizes & Pricing", "blurb": "Straightforward pricing, no hidden fees", "breadcrumb": true }
+        },
+        "unit-table": {
+          "component": "UnitGrid",
+          "variant": "table",
+          "layout": "full-width",
+          "content": { "heading": "All Units", "showPricing": true, "showFeatures": true }
+        },
+        "size-guide": {
+          "component": "SizeGuide",
+          "variant": "visual",
+          "content": {
+            "heading": "What Fits?",
+            "guides": [
+              { "size": "5x5", "description": "Small closet, seasonal gear", "fits": ["20 boxes", "Skis and bikes", "Small dresser"] },
+              { "size": "10x10", "description": "One-bedroom apartment", "fits": ["Queen bed", "Couch", "50+ boxes"] },
+              { "size": "10x15", "description": "Two-bedroom apartment", "fits": ["Full bedroom sets", "Appliances", "75+ boxes"] }
+            ]
+          }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": { "heading": "Found your fit?", "cta": { "label": "Reserve Now", "href": "/portland/reserve", "variant": "primary" } }
+        }
+      }
+    },
+    "reserve": {
+      "enabled": true,
+      "seo": {
+        "title": "Reserve a Unit | Portland Secure Storage",
+        "description": "Reserve your storage unit online.",
+        "keywords": ["reserve storage portland", "rent storage unit portland"]
+      },
+      "layout": ["page-header", "form", "info"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "Reserve a Unit", "blurb": "Quick and easy — we'll confirm within 24 hours", "breadcrumb": true }
+        },
+        "form": {
+          "component": "ContactForm",
+          "variant": "standard",
+          "content": {
+            "heading": "Start Your Reservation",
+            "fields": ["name", "email", "phone", "unitSize", "moveInDate", "message"],
+            "submitLabel": "Submit Reservation",
+            "successMessage": "Thank you! We'll reach out within 24 hours."
+          }
+        },
+        "info": {
+          "component": "ContentSection",
+          "layout": "stacked",
+          "content": {
+            "heading": "Rather talk to a person?",
+            "paragraphs": ["Give us a call at (503) 555-9012 — we're happy to help."]
+          }
+        }
+      }
+    },
+    "faq": {
+      "enabled": true,
+      "seo": {
+        "title": "FAQ | Portland Secure Storage",
+        "description": "Common questions about Portland Secure Storage.",
+        "keywords": ["storage faq portland"]
+      },
+      "layout": ["page-header", "faq-section"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "Frequently Asked Questions", "blurb": "What people usually want to know", "breadcrumb": true }
+        },
+        "faq-section": {
+          "component": "FAQ",
+          "variant": "accordion",
+          "content": { "heading": "Common Questions" }
+        }
+      }
+    },
+    "reviews": {
+      "enabled": false,
+      "seo": {},
+      "layout": [],
+      "sections": {}
+    }
+  },
+
+  "data": {
+    "units": [
+      { "id": "5x5-indoor", "size": "5x5", "sqft": 25, "price": 45, "features": ["indoor"], "available": true },
+      { "id": "5x10-indoor", "size": "5x10", "sqft": 50, "price": 65, "features": ["indoor"], "available": true },
+      { "id": "10x10-indoor", "size": "10x10", "sqft": 100, "price": 99, "features": ["indoor"], "available": true },
+      { "id": "10x15-indoor", "size": "10x15", "sqft": 150, "price": 135, "features": ["indoor"], "available": true },
+      { "id": "10x20-indoor", "size": "10x20", "sqft": 200, "price": 169, "features": ["indoor"], "available": false }
+    ],
+    "amenities": [
+      { "id": "24hr-access", "label": "24/7 Access", "icon": "Clock", "description": "Come and go whenever you need" },
+      { "id": "security", "label": "HD Security Cameras", "icon": "Camera", "description": "Full coverage, always recording" },
+      { "id": "indoor", "label": "All Indoor", "icon": "Shield", "description": "Protected from Portland rain" },
+      { "id": "packing", "label": "Packing Supplies", "icon": "Package", "description": "Boxes, tape, and locks on site" }
+    ],
+    "testimonials": [
+      { "name": "Sarah W.", "rating": 5, "text": "Love this place. Staff is so friendly and the units are spotless." },
+      { "name": "Mike T.", "rating": 5, "text": "Been storing here for 2 years. Never had an issue. Highly recommend." },
+      { "name": "Lisa R.", "rating": 4, "text": "Great location on Powell. Easy to get to from anywhere in SE." },
+      { "name": "James H.", "rating": 5, "text": "The 24-hour access is a lifesaver for my small business." }
+    ],
+    "faq": [
+      { "question": "Are your units weatherproof?", "answer": "Absolutely. All our units are fully indoor with concrete floors and sealed doors. Your belongings stay dry year-round." },
+      { "question": "Do you sell packing supplies?", "answer": "Yes! We stock boxes, packing tape, bubble wrap, and padlocks at the front office." },
+      { "question": "Can I access my unit at night?", "answer": "Yes, we offer true 24/7 access. Your personal code works any time, day or night." }
+    ]
+  },
+
+  "integrations": {}
+}

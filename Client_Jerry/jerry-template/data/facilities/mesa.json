@@ -1,0 +1,336 @@
+{
+  "slug": "mesa",
+  "name": "Mesa Valley Storage",
+
+  "info": {
+    "address": {
+      "street": "2200 E University Dr",
+      "city": "Mesa",
+      "state": "AZ",
+      "zip": "85213"
+    },
+    "phone": "(480) 555-3456",
+    "email": "mesa@elevationgroup.com",
+    "coordinates": { "lat": 33.421, "lng": -111.788 },
+    "hours": [
+      { "days": ["Mo", "Tu", "We", "Th", "Fr"], "open": "06:00", "close": "22:00" },
+      { "days": ["Sa", "Su"], "open": "07:00", "close": "20:00" }
+    ],
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=2200+E+University+Dr+Mesa+AZ+85213",
+    "image": { "src": "https://picsum.photos/seed/mesa-ext/852/480", "alt": "Mesa Valley Storage exterior" }
+  },
+
+  "branding": {
+    "showParent": true,
+    "template": "bold",
+    "colors": {
+      "primary": "oklch(0.5 0.2 30)",
+      "accent": "oklch(0.65 0.15 60)"
+    },
+    "logo": "https://picsum.photos/seed/mesa-logo/200/200"
+  },
+
+  "deployment": {
+    "mode": "subdirectory",
+    "domain": null
+  },
+
+  "seo": {
+    "siteName": "Mesa Valley Storage",
+    "defaultTitle": "Mesa Valley Storage | Secure Units in Mesa, AZ",
+    "defaultDescription": "Affordable self storage in Mesa, AZ. Drive-up access, climate-controlled units, and RV parking.",
+    "keywords": ["self storage mesa", "storage units mesa az", "rv storage mesa"],
+    "ogImage": "https://picsum.photos/seed/mesa-og/1200/630"
+  },
+
+  "analytics": {
+    "gtag": "G-MESA000001",
+    "gtagEvents": {
+      "reserve_click": true,
+      "phone_click": true,
+      "directions_click": true
+    }
+  },
+
+  "pages": {
+    "home": {
+      "enabled": true,
+      "seo": {
+        "title": "Mesa Valley Storage | Units from $35/mo",
+        "description": "Secure, affordable storage in Mesa, AZ with drive-up access and RV parking.",
+        "keywords": ["storage near me mesa", "cheap storage mesa az"],
+        "ogImage": "https://picsum.photos/seed/mesa-og-home/1200/630"
+      },
+      "layout": ["hero", "intro", "featured-units", "why-us", "cta"],
+      "sections": {
+        "hero": {
+          "component": "Hero",
+          "content": {
+            "heading": "Storage Built for the Desert",
+            "subtitle": "Climate-controlled and drive-up units starting at $35/mo",
+            "image": { "src": "https://picsum.photos/seed/mesa-hero/1440/600", "alt": "Mesa Valley Storage facility" },
+            "cta": { "label": "Reserve Now", "href": "/mesa/reserve", "variant": "primary" }
+          }
+        },
+        "intro": {
+          "component": "ContentSection",
+          "layout": "image-right",
+          "content": {
+            "heading": "Welcome to Mesa Valley Storage",
+            "blurb": "Located on University Dr with easy freeway access from the 60 and 202.",
+            "paragraphs": [
+              "Serving the East Valley since 2019, we offer units for every need — from small closets to RV-sized spaces.",
+              "Our facility is fully paved, well-lit, and built to handle Arizona's extreme heat."
+            ],
+            "image": { "src": "https://picsum.photos/seed/mesa-interior/800/450", "alt": "Clean facility interior" }
+          }
+        },
+        "featured-units": {
+          "component": "UnitGrid",
+          "variant": "cards",
+          "layout": "3-col",
+          "content": {
+            "heading": "Popular Sizes",
+            "blurb": "Our most requested unit sizes",
+            "showPricing": true,
+            "filter": ["5x10-climate", "10x10-driveup", "10x20-climate"]
+          }
+        },
+        "why-us": {
+          "component": "FeatureGrid",
+          "layout": "4-col",
+          "content": {
+            "heading": "Why Mesa Valley?",
+            "blurb": "Built different for the Arizona climate",
+            "features": [
+              { "icon": "Thermometer", "heading": "Desert-Ready", "blurb": "Insulated and climate-controlled to beat the heat" },
+              { "icon": "Truck", "heading": "Wide Drive Aisles", "blurb": "Easy access for trucks, trailers, and RVs" },
+              { "icon": "Shield", "heading": "24/7 Monitoring", "blurb": "Live security cameras and coded gate entry" },
+              { "icon": "Clock", "heading": "Extended Hours", "blurb": "Gate access 6am–10pm, 7 days a week" }
+            ]
+          }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": {
+            "heading": "Ready to store with us?",
+            "blurb": "First month free on select units. No long-term contracts.",
+            "image": { "src": "https://picsum.photos/seed/mesa-cta/1440/500", "alt": "" },
+            "cta": { "label": "Get Started", "href": "/mesa/reserve", "variant": "primary" },
+            "ctaSecondary": { "label": "Call (480) 555-3456", "href": "tel:4805553456", "variant": "outline" }
+          }
+        }
+      }
+    },
+    "units": {
+      "enabled": true,
+      "seo": {
+        "title": "Unit Sizes & Pricing | Mesa Valley Storage",
+        "description": "Compare storage unit sizes from 5x5 to 12x30 at Mesa Valley Storage.",
+        "keywords": ["5x10 storage mesa", "10x20 storage unit price mesa"]
+      },
+      "layout": ["page-header", "unit-table", "size-guide", "cta"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "Unit Sizes & Pricing", "blurb": "Transparent pricing, no hidden fees", "breadcrumb": true }
+        },
+        "unit-table": {
+          "component": "UnitGrid",
+          "variant": "table",
+          "layout": "full-width",
+          "content": { "heading": "All Available Units", "blurb": "Compare sizes, features, and rates", "showPricing": true, "showFeatures": true }
+        },
+        "size-guide": {
+          "component": "SizeGuide",
+          "variant": "visual",
+          "content": {
+            "heading": "What Fits?",
+            "blurb": "A quick guide to choosing the right size",
+            "guides": [
+              { "size": "5x10", "description": "Studio apartment or seasonal items", "fits": ["30 boxes", "Desk and chair", "Bicycle"] },
+              { "size": "10x10", "description": "One-bedroom apartment", "fits": ["Queen bed", "Sofa", "50+ boxes"] },
+              { "size": "10x20", "description": "Multi-bedroom home or vehicle", "fits": ["Full household", "Car or boat", "Business inventory"] }
+            ]
+          }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": { "heading": "Found your size?", "cta": { "label": "Reserve Now", "href": "/mesa/reserve", "variant": "primary" } }
+        }
+      }
+    },
+    "amenities": {
+      "enabled": true,
+      "seo": {
+        "title": "Amenities | Mesa Valley Storage",
+        "description": "Drive-up access, climate control, RV parking, and more at Mesa Valley Storage.",
+        "keywords": ["climate controlled storage mesa", "rv storage mesa az"]
+      },
+      "layout": ["page-header", "features", "gallery", "cta"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "Amenities & Features", "blurb": "Everything you need in a desert storage facility", "breadcrumb": true }
+        },
+        "features": {
+          "component": "FeatureGrid",
+          "layout": "3-col",
+          "variant": "cards",
+          "content": { "heading": "Our Facility", "blurb": "Built for Arizona conditions" }
+        },
+        "gallery": {
+          "component": "ContentSection",
+          "layout": "image-left",
+          "content": {
+            "heading": "See Our Facility",
+            "blurb": "Fully paved, well-lit, and always maintained.",
+            "paragraphs": ["Our facility features wide aisles for easy truck access and covered RV parking areas."],
+            "image": { "src": "https://picsum.photos/seed/mesa-gallery/800/450", "alt": "Mesa Valley Storage wide aisle view" }
+          }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": {
+            "heading": "Come see for yourself",
+            "cta": { "label": "Reserve a Unit", "href": "/mesa/reserve", "variant": "primary" },
+            "ctaSecondary": { "label": "Get Directions", "href": "/mesa/directions", "variant": "outline" }
+          }
+        }
+      }
+    },
+    "reserve": {
+      "enabled": true,
+      "seo": {
+        "title": "Reserve a Unit | Mesa Valley Storage",
+        "description": "Reserve your storage unit online at Mesa Valley Storage.",
+        "keywords": ["reserve storage mesa", "rent storage mesa az"]
+      },
+      "layout": ["page-header", "form", "info"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "Reserve a Unit", "blurb": "Fill out the form and we'll confirm within 24 hours", "breadcrumb": true }
+        },
+        "form": {
+          "component": "ContactForm",
+          "variant": "standard",
+          "content": {
+            "heading": "Request a Reservation",
+            "blurb": "Tell us what you need.",
+            "fields": ["name", "email", "phone", "unitSize", "moveInDate", "message"],
+            "submitLabel": "Request Reservation",
+            "successMessage": "Thanks! We'll contact you within 24 hours."
+          }
+        },
+        "info": {
+          "component": "ContentSection",
+          "layout": "stacked",
+          "content": {
+            "heading": "Prefer to call?",
+            "paragraphs": ["Call us at (480) 555-3456 or email mesa@elevationgroup.com."]
+          }
+        }
+      }
+    },
+    "directions": {
+      "enabled": true,
+      "seo": {
+        "title": "Directions & Hours | Mesa Valley Storage",
+        "description": "Find directions to Mesa Valley Storage on University Dr.",
+        "keywords": ["storage near me mesa", "mesa storage directions"]
+      },
+      "layout": ["page-header", "map", "hours-info"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "Directions & Hours", "blurb": "Easy to find on University Dr", "breadcrumb": true }
+        },
+        "map": {
+          "component": "MapSection",
+          "variant": "embedded",
+          "content": {
+            "heading": "Find Us",
+            "blurb": "2200 E University Dr, Mesa, AZ 85213",
+            "directions": [
+              { "from": "From the 60 East", "steps": "Exit at Higley Rd, head north. Turn right on University Dr. Facility is 0.3 miles on the right." },
+              { "from": "From the 202 South", "steps": "Exit at University Dr, head east. Facility is 1 mile on the left." }
+            ]
+          }
+        },
+        "hours-info": {
+          "component": "ContentSection",
+          "layout": "stacked",
+          "content": {
+            "heading": "Office & Gate Hours",
+            "blurb": "Gate access available 6am–10pm daily.",
+            "paragraphs": [
+              "Office: Monday–Friday 8am–6pm, Saturday 8am–4pm, Sunday 10am–2pm.",
+              "Gate: 6am–10pm, 7 days a week."
+            ]
+          }
+        }
+      }
+    },
+    "faq": {
+      "enabled": true,
+      "seo": {
+        "title": "FAQ | Mesa Valley Storage",
+        "description": "Frequently asked questions about Mesa Valley Storage.",
+        "keywords": ["storage faq mesa", "self storage questions"]
+      },
+      "layout": ["page-header", "faq-section"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "Frequently Asked Questions", "blurb": "Answers to common questions", "breadcrumb": true }
+        },
+        "faq-section": {
+          "component": "FAQ",
+          "variant": "accordion",
+          "content": { "heading": "Common Questions" }
+        }
+      }
+    },
+    "reviews": {
+      "enabled": false,
+      "seo": {},
+      "layout": [],
+      "sections": {}
+    }
+  },
+
+  "data": {
+    "units": [
+      { "id": "5x5-indoor", "size": "5x5", "sqft": 25, "price": 35, "features": ["indoor"], "available": true },
+      { "id": "5x10-climate", "size": "5x10", "sqft": 50, "price": 55, "features": ["indoor", "climate-controlled"], "available": true },
+      { "id": "10x10-driveup", "size": "10x10", "sqft": 100, "price": 79, "features": ["drive-up"], "available": true },
+      { "id": "10x10-climate", "size": "10x10", "sqft": 100, "price": 95, "features": ["indoor", "climate-controlled"], "available": true },
+      { "id": "10x20-climate", "size": "10x20", "sqft": 200, "price": 149, "features": ["indoor", "climate-controlled"], "available": true },
+      { "id": "10x20-driveup", "size": "10x20", "sqft": 200, "price": 129, "features": ["drive-up"], "available": false },
+      { "id": "12x30-rv", "size": "12x30", "sqft": 360, "price": 199, "features": ["drive-up", "rv-parking"], "available": true }
+    ],
+    "amenities": [
+      { "id": "climate-control", "label": "Climate Controlled", "icon": "Thermometer", "description": "Beat the Arizona heat with temp-regulated units" },
+      { "id": "drive-up", "label": "Drive-Up Access", "icon": "Truck", "description": "Pull right up to your unit door" },
+      { "id": "rv-parking", "label": "RV & Boat Parking", "icon": "Car", "description": "Covered and uncovered spaces for vehicles" },
+      { "id": "security", "label": "24/7 Security", "icon": "Shield", "description": "Live cameras and coded gate entry" },
+      { "id": "extended-hours", "label": "Extended Hours", "icon": "Clock", "description": "Gate access 6am–10pm every day" }
+    ],
+    "testimonials": [
+      { "name": "Carlos M.", "rating": 5, "text": "Perfect for storing my boat during the summer. Wide aisles and easy access." },
+      { "name": "Jennifer K.", "rating": 5, "text": "Climate control is a must in Arizona. My furniture stayed in perfect condition." },
+      { "name": "David P.", "rating": 4, "text": "Great prices and the staff is super friendly. Recommended to all my neighbors." }
+    ],
+    "faq": [
+      { "question": "Do you have RV and boat parking?", "answer": "Yes! We offer both covered and uncovered parking spaces for RVs, boats, and trailers up to 35 feet." },
+      { "question": "How hot do units get in summer?", "answer": "Our climate-controlled units stay between 55–80°F year-round. Standard units are insulated but not temperature-regulated." },
+      { "question": "Is there a move-in special?", "answer": "Yes! First month free on select units with no admin fees. Ask about current promotions when you call." }
+    ]
+  },
+
+  "integrations": {}
+}

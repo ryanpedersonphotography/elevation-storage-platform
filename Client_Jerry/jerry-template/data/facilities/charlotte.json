@@ -1,0 +1,262 @@
+{
+  "slug": "charlotte",
+  "name": "Queen City Storage",
+
+  "info": {
+    "address": {
+      "street": "3100 South Blvd",
+      "city": "Charlotte",
+      "state": "NC",
+      "zip": "28209"
+    },
+    "phone": "(704) 555-6789",
+    "email": "charlotte@elevationgroup.com",
+    "coordinates": { "lat": 35.197, "lng": -80.858 },
+    "hours": [
+      { "days": ["Mo", "Tu", "We", "Th", "Fr"], "open": "06:00", "close": "21:00" },
+      { "days": ["Sa"], "open": "07:00", "close": "19:00" },
+      { "days": ["Su"], "open": "09:00", "close": "17:00" }
+    ],
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=3100+South+Blvd+Charlotte+NC+28209",
+    "image": { "src": "https://picsum.photos/seed/charlotte-ext/852/480", "alt": "Queen City Storage exterior" }
+  },
+
+  "branding": {
+    "showParent": true,
+    "template": "trojan",
+    "colors": {
+      "primary": "oklch(0.35 0.12 250)",
+      "accent": "oklch(0.55 0.2 25)"
+    },
+    "logo": "https://picsum.photos/seed/charlotte-logo/200/200"
+  },
+
+  "deployment": {
+    "mode": "subdirectory",
+    "domain": null
+  },
+
+  "seo": {
+    "siteName": "Queen City Storage",
+    "defaultTitle": "Queen City Storage | Self Storage in Charlotte, NC",
+    "defaultDescription": "Premium self storage in South End Charlotte. Climate-controlled, 24/7 access, and drive-up units.",
+    "keywords": ["self storage charlotte", "storage units south end charlotte", "climate controlled storage charlotte nc"],
+    "ogImage": "https://picsum.photos/seed/charlotte-og/1200/630"
+  },
+
+  "analytics": {
+    "gtag": "G-CHARLOTTE1",
+    "gtagEvents": {
+      "reserve_click": true,
+      "phone_click": true,
+      "directions_click": true
+    }
+  },
+
+  "pages": {
+    "home": {
+      "enabled": true,
+      "seo": {
+        "title": "Queen City Storage | Units from $42/mo",
+        "description": "Premium storage in South End Charlotte. Reserve online today.",
+        "keywords": ["storage near south end", "cheap storage charlotte nc"],
+        "ogImage": "https://picsum.photos/seed/charlotte-og-home/1200/630"
+      },
+      "layout": ["hero", "intro", "featured-units", "why-us", "testimonials", "cta"],
+      "sections": {
+        "hero": {
+          "component": "Hero",
+          "content": {
+            "heading": "Premium Storage in South End",
+            "subtitle": "Modern facility with units from $42/mo",
+            "image": { "src": "https://picsum.photos/seed/charlotte-hero/1440/600", "alt": "Queen City Storage facility" },
+            "cta": { "label": "Reserve Now", "href": "/charlotte/reserve", "variant": "primary" }
+          }
+        },
+        "intro": {
+          "component": "ContentSection",
+          "layout": "image-right",
+          "content": {
+            "heading": "Storage That Matches Your Standards",
+            "blurb": "Steps from the LYNX light rail on South Blvd — the most convenient storage in Charlotte.",
+            "paragraphs": [
+              "Queen City Storage is a modern facility built for the South End lifestyle.",
+              "Whether you're between apartments, running a small business, or just decluttering — we have the perfect unit."
+            ],
+            "image": { "src": "https://picsum.photos/seed/charlotte-interior/800/450", "alt": "Modern interior with wide hallway" }
+          }
+        },
+        "featured-units": {
+          "component": "UnitGrid",
+          "variant": "cards",
+          "layout": "3-col",
+          "content": {
+            "heading": "Most Popular",
+            "blurb": "Our top picks for South End residents",
+            "showPricing": true,
+            "filter": ["5x5-climate", "10x10-climate", "10x20-driveup"]
+          }
+        },
+        "why-us": {
+          "component": "FeatureGrid",
+          "layout": "4-col",
+          "content": {
+            "heading": "The Queen City Difference",
+            "features": [
+              { "icon": "Train", "heading": "Light Rail Access", "blurb": "Steps from the LYNX Blue Line" },
+              { "icon": "Thermometer", "heading": "Climate Controlled", "blurb": "Humidity and temp regulated year-round" },
+              { "icon": "Shield", "heading": "Premium Security", "blurb": "Biometric entry and HD cameras" },
+              { "icon": "Clock", "heading": "24/7 Access", "blurb": "Your unit, your schedule" }
+            ]
+          }
+        },
+        "testimonials": {
+          "component": "TestimonialGrid",
+          "variant": "featured",
+          "content": { "heading": "What Our Customers Say" }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": {
+            "heading": "Ready to store smarter?",
+            "blurb": "First month 50% off. No long-term contracts.",
+            "image": { "src": "https://picsum.photos/seed/charlotte-cta/1440/500", "alt": "" },
+            "cta": { "label": "Get Started", "href": "/charlotte/reserve", "variant": "primary" },
+            "ctaSecondary": { "label": "Call (704) 555-6789", "href": "tel:7045556789", "variant": "outline" }
+          }
+        }
+      }
+    },
+    "units": {
+      "enabled": true,
+      "seo": {
+        "title": "Unit Sizes & Pricing | Queen City Storage",
+        "description": "Compare storage unit sizes and prices at Queen City Storage in Charlotte.",
+        "keywords": ["storage unit prices charlotte", "10x10 storage charlotte nc"]
+      },
+      "layout": ["page-header", "unit-table", "size-guide", "cta"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "Unit Sizes & Pricing", "blurb": "Transparent pricing for every budget", "breadcrumb": true }
+        },
+        "unit-table": {
+          "component": "UnitGrid",
+          "variant": "table",
+          "layout": "full-width",
+          "content": { "heading": "All Available Units", "showPricing": true, "showFeatures": true }
+        },
+        "size-guide": {
+          "component": "SizeGuide",
+          "variant": "visual",
+          "content": {
+            "heading": "Size Guide",
+            "guides": [
+              { "size": "5x5", "description": "Walk-in closet", "fits": ["20 boxes", "Small furniture", "Seasonal gear"] },
+              { "size": "10x10", "description": "One-bedroom apartment", "fits": ["Queen bed set", "Couch", "50+ boxes"] },
+              { "size": "10x20", "description": "Full house or vehicle", "fits": ["Multi-room home", "Car or SUV", "Business inventory"] }
+            ]
+          }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": { "heading": "Found your size?", "cta": { "label": "Reserve Now", "href": "/charlotte/reserve", "variant": "primary" } }
+        }
+      }
+    },
+    "reserve": {
+      "enabled": true,
+      "seo": {
+        "title": "Reserve | Queen City Storage",
+        "description": "Reserve your storage unit at Queen City Storage.",
+        "keywords": ["reserve storage charlotte", "rent unit south end"]
+      },
+      "layout": ["page-header", "form", "info"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "Reserve a Unit", "blurb": "Online reservations confirmed within 24 hours", "breadcrumb": true }
+        },
+        "form": {
+          "component": "ContactForm",
+          "variant": "standard",
+          "content": {
+            "heading": "Request a Reservation",
+            "fields": ["name", "email", "phone", "unitSize", "moveInDate", "message"],
+            "submitLabel": "Reserve My Unit",
+            "successMessage": "Done! We'll confirm your reservation within 24 hours."
+          }
+        },
+        "info": {
+          "component": "ContentSection",
+          "layout": "stacked",
+          "content": {
+            "heading": "Questions?",
+            "paragraphs": ["Call (704) 555-6789 or email charlotte@elevationgroup.com."]
+          }
+        }
+      }
+    },
+    "faq": {
+      "enabled": true,
+      "seo": {
+        "title": "FAQ | Queen City Storage",
+        "description": "Common questions about Queen City Storage in Charlotte.",
+        "keywords": ["storage faq charlotte"]
+      },
+      "layout": ["page-header", "faq-section"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "FAQ", "blurb": "Everything you need to know", "breadcrumb": true }
+        },
+        "faq-section": {
+          "component": "FAQ",
+          "variant": "accordion",
+          "content": { "heading": "Frequently Asked Questions" }
+        }
+      }
+    },
+    "reviews": {
+      "enabled": false,
+      "seo": {},
+      "layout": [],
+      "sections": {}
+    }
+  },
+
+  "data": {
+    "units": [
+      { "id": "5x5-climate", "size": "5x5", "sqft": 25, "price": 42, "features": ["indoor", "climate-controlled"], "available": true },
+      { "id": "5x10-climate", "size": "5x10", "sqft": 50, "price": 62, "features": ["indoor", "climate-controlled"], "available": true },
+      { "id": "10x10-climate", "size": "10x10", "sqft": 100, "price": 105, "features": ["indoor", "climate-controlled"], "available": true },
+      { "id": "10x15-climate", "size": "10x15", "sqft": 150, "price": 145, "features": ["indoor", "climate-controlled"], "available": true },
+      { "id": "10x20-driveup", "size": "10x20", "sqft": 200, "price": 159, "features": ["drive-up"], "available": true },
+      { "id": "10x20-climate", "size": "10x20", "sqft": 200, "price": 185, "features": ["indoor", "climate-controlled"], "available": false }
+    ],
+    "amenities": [
+      { "id": "climate-control", "label": "Climate Controlled", "icon": "Thermometer", "description": "Humidity and temperature regulated" },
+      { "id": "24hr-access", "label": "24/7 Access", "icon": "Clock", "description": "Access your unit any time" },
+      { "id": "security", "label": "Biometric Entry", "icon": "Shield", "description": "Fingerprint access for maximum security" },
+      { "id": "cameras", "label": "HD Cameras", "icon": "Camera", "description": "Every corner monitored 24/7" },
+      { "id": "transit", "label": "Light Rail Access", "icon": "Train", "description": "Steps from the LYNX Blue Line" }
+    ],
+    "testimonials": [
+      { "name": "Amanda B.", "rating": 5, "text": "Best storage in South End, hands down. Modern, clean, and the staff is amazing." },
+      { "name": "Tyler G.", "rating": 5, "text": "I can take the light rail to my unit. Game changer for someone without a car." },
+      { "name": "Rachel M.", "rating": 4, "text": "Climate control keeps everything perfect even in summer. Great facility." },
+      { "name": "Chris D.", "rating": 5, "text": "Used them for my small business inventory. Biometric entry gives me peace of mind." },
+      { "name": "Megan S.", "rating": 5, "text": "Moved from NYC and needed somewhere to store my stuff. This place is a gem." }
+    ],
+    "faq": [
+      { "question": "Can I get to the facility by light rail?", "answer": "Yes! We're a 2-minute walk from the New Bern LYNX Blue Line station on South Blvd." },
+      { "question": "What is biometric entry?", "answer": "Instead of a key or code, you use your fingerprint to access the facility. It's faster and more secure." },
+      { "question": "Do you offer business storage?", "answer": "Absolutely. Many of our customers use units for inventory, documents, and equipment. We can set up multiple access codes for your team." },
+      { "question": "Is there a move-in discount?", "answer": "Yes! First month is 50% off on all units. No admin fees, no long-term contracts." }
+    ]
+  },
+
+  "integrations": {}
+}

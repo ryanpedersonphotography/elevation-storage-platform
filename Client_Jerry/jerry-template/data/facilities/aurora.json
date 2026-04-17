@@ -1,0 +1,245 @@
+{
+  "slug": "aurora",
+  "name": "Aurora Storage Depot",
+
+  "info": {
+    "address": {
+      "street": "1550 S Havana St",
+      "city": "Aurora",
+      "state": "CO",
+      "zip": "80012"
+    },
+    "phone": "(720) 555-2345",
+    "email": "aurora@elevationgroup.com",
+    "coordinates": { "lat": 39.693, "lng": -104.830 },
+    "hours": [
+      { "days": ["Mo", "Tu", "We", "Th", "Fr", "Sa"], "open": "06:00", "close": "22:00" },
+      { "days": ["Su"], "open": "08:00", "close": "20:00" }
+    ],
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=1550+S+Havana+St+Aurora+CO+80012",
+    "image": { "src": "https://picsum.photos/seed/aurora-ext/852/480", "alt": "Aurora Storage Depot exterior" }
+  },
+
+  "branding": {
+    "showParent": true,
+    "template": "modern",
+    "colors": {
+      "primary": "oklch(0.45 0.15 230)",
+      "accent": "oklch(0.6 0.2 140)"
+    },
+    "logo": "https://picsum.photos/seed/aurora-logo/200/200"
+  },
+
+  "deployment": {
+    "mode": "subdirectory",
+    "domain": null
+  },
+
+  "seo": {
+    "siteName": "Aurora Storage Depot",
+    "defaultTitle": "Aurora Storage Depot | Self Storage in Aurora, CO",
+    "defaultDescription": "Secure self storage in Aurora, CO. Drive-up units, climate control, and vehicle parking.",
+    "keywords": ["self storage aurora co", "storage units aurora", "drive-up storage aurora colorado"],
+    "ogImage": "https://picsum.photos/seed/aurora-og/1200/630"
+  },
+
+  "analytics": {
+    "gtag": "G-AURORA0001",
+    "gtagEvents": {
+      "reserve_click": true,
+      "phone_click": true,
+      "directions_click": true
+    }
+  },
+
+  "pages": {
+    "home": {
+      "enabled": true,
+      "seo": {
+        "title": "Aurora Storage Depot | Units from $39/mo",
+        "description": "Affordable, secure storage in Aurora, CO. Reserve online.",
+        "keywords": ["storage near aurora", "cheap storage aurora co"],
+        "ogImage": "https://picsum.photos/seed/aurora-og-home/1200/630"
+      },
+      "layout": ["hero", "intro", "featured-units", "why-us", "cta"],
+      "sections": {
+        "hero": {
+          "component": "Hero",
+          "content": {
+            "heading": "Reliable Storage at Mile High",
+            "subtitle": "Drive-up and climate-controlled units from $39/mo",
+            "image": { "src": "https://picsum.photos/seed/aurora-hero/1440/600", "alt": "Aurora Storage Depot" },
+            "cta": { "label": "Reserve Now", "href": "/aurora/reserve", "variant": "primary" }
+          }
+        },
+        "intro": {
+          "component": "ContentSection",
+          "layout": "image-right",
+          "content": {
+            "heading": "Welcome to Aurora Storage Depot",
+            "blurb": "Conveniently located on Havana St with easy access from I-225.",
+            "paragraphs": [
+              "Serving the Aurora and East Denver metro since 2017.",
+              "We offer everything from personal closets to vehicle-sized bays, all with the security you expect."
+            ],
+            "image": { "src": "https://picsum.photos/seed/aurora-facility/800/450", "alt": "Facility drive-up units" }
+          }
+        },
+        "featured-units": {
+          "component": "UnitGrid",
+          "variant": "cards",
+          "layout": "3-col",
+          "content": {
+            "heading": "Top Picks",
+            "blurb": "Our most popular units",
+            "showPricing": true,
+            "filter": ["5x10-indoor", "10x10-driveup", "10x20-driveup"]
+          }
+        },
+        "why-us": {
+          "component": "FeatureGrid",
+          "layout": "4-col",
+          "content": {
+            "heading": "Why Aurora Storage Depot",
+            "features": [
+              { "icon": "Truck", "heading": "Wide Drive-Up Aisles", "blurb": "Easy access for trucks and trailers" },
+              { "icon": "Thermometer", "heading": "Climate Options", "blurb": "Protect your stuff from Colorado extremes" },
+              { "icon": "Shield", "heading": "Fenced & Gated", "blurb": "Coded entry and perimeter fencing" },
+              { "icon": "Clock", "heading": "Extended Hours", "blurb": "Open 6am–10pm, 6 days a week" }
+            ]
+          }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": {
+            "heading": "Lock in your rate",
+            "blurb": "No admin fees. Month-to-month flexibility.",
+            "image": { "src": "https://picsum.photos/seed/aurora-cta/1440/500", "alt": "" },
+            "cta": { "label": "Get Started", "href": "/aurora/reserve", "variant": "primary" },
+            "ctaSecondary": { "label": "Call (720) 555-2345", "href": "tel:7205552345", "variant": "outline" }
+          }
+        }
+      }
+    },
+    "units": {
+      "enabled": true,
+      "seo": {
+        "title": "Units & Pricing | Aurora Storage Depot",
+        "description": "Storage unit sizes and prices at Aurora Storage Depot.",
+        "keywords": ["storage unit prices aurora", "10x10 storage aurora co"]
+      },
+      "layout": ["page-header", "unit-table", "cta"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "Unit Sizes & Pricing", "blurb": "No hidden fees, ever", "breadcrumb": true }
+        },
+        "unit-table": {
+          "component": "UnitGrid",
+          "variant": "table",
+          "layout": "full-width",
+          "content": { "heading": "All Units", "showPricing": true, "showFeatures": true }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": { "heading": "Ready?", "cta": { "label": "Reserve Now", "href": "/aurora/reserve", "variant": "primary" } }
+        }
+      }
+    },
+    "reserve": {
+      "enabled": true,
+      "seo": {
+        "title": "Reserve | Aurora Storage Depot",
+        "description": "Reserve a storage unit at Aurora Storage Depot.",
+        "keywords": ["reserve storage aurora", "rent storage aurora co"]
+      },
+      "layout": ["page-header", "form", "info"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "Reserve a Unit", "blurb": "We'll confirm within one business day", "breadcrumb": true }
+        },
+        "form": {
+          "component": "ContactForm",
+          "variant": "standard",
+          "content": {
+            "heading": "Request a Reservation",
+            "fields": ["name", "email", "phone", "unitSize", "moveInDate", "message"],
+            "submitLabel": "Submit Reservation",
+            "successMessage": "Thanks! We'll be in touch within 24 hours."
+          }
+        },
+        "info": {
+          "component": "ContentSection",
+          "layout": "stacked",
+          "content": {
+            "heading": "Prefer to call?",
+            "paragraphs": ["Reach us at (720) 555-2345 or aurora@elevationgroup.com."]
+          }
+        }
+      }
+    },
+    "faq": {
+      "enabled": true,
+      "seo": {
+        "title": "FAQ | Aurora Storage Depot",
+        "description": "Common questions about Aurora Storage Depot.",
+        "keywords": ["storage faq aurora"]
+      },
+      "layout": ["page-header", "faq-section"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "FAQ", "blurb": "Quick answers to common questions", "breadcrumb": true }
+        },
+        "faq-section": {
+          "component": "FAQ",
+          "variant": "accordion",
+          "content": { "heading": "Frequently Asked Questions" }
+        }
+      }
+    },
+    "reviews": {
+      "enabled": false,
+      "seo": {},
+      "layout": [],
+      "sections": {}
+    }
+  },
+
+  "data": {
+    "units": [
+      { "id": "5x5-indoor", "size": "5x5", "sqft": 25, "price": 39, "features": ["indoor"], "available": true },
+      { "id": "5x10-indoor", "size": "5x10", "sqft": 50, "price": 55, "features": ["indoor"], "available": true },
+      { "id": "10x10-driveup", "size": "10x10", "sqft": 100, "price": 85, "features": ["drive-up"], "available": true },
+      { "id": "10x10-climate", "size": "10x10", "sqft": 100, "price": 99, "features": ["indoor", "climate-controlled"], "available": true },
+      { "id": "10x15-driveup", "size": "10x15", "sqft": 150, "price": 119, "features": ["drive-up"], "available": true },
+      { "id": "10x20-driveup", "size": "10x20", "sqft": 200, "price": 145, "features": ["drive-up"], "available": true },
+      { "id": "10x20-climate", "size": "10x20", "sqft": 200, "price": 169, "features": ["indoor", "climate-controlled"], "available": false },
+      { "id": "10x30-vehicle", "size": "10x30", "sqft": 300, "price": 195, "features": ["drive-up", "vehicle"], "available": true }
+    ],
+    "amenities": [
+      { "id": "drive-up", "label": "Drive-Up Access", "icon": "Truck", "description": "Wide aisles for trucks and trailers" },
+      { "id": "climate-control", "label": "Climate Controlled", "icon": "Thermometer", "description": "Protection from Colorado's temperature swings" },
+      { "id": "security", "label": "Fenced & Gated", "icon": "Shield", "description": "Perimeter fencing with coded entry" },
+      { "id": "extended-hours", "label": "Extended Hours", "icon": "Clock", "description": "Open 6am–10pm Mon–Sat, 8am–8pm Sunday" },
+      { "id": "vehicle", "label": "Vehicle Storage", "icon": "Car", "description": "Spaces for cars, trucks, and recreational vehicles" }
+    ],
+    "testimonials": [
+      { "name": "Brandon T.", "rating": 5, "text": "Stored my truck here over winter. Easy access and great security." },
+      { "name": "Priya S.", "rating": 5, "text": "Climate control is essential in Colorado. My antiques are in perfect shape." },
+      { "name": "Marcus J.", "rating": 4, "text": "Good prices and the location off I-225 is really convenient." },
+      { "name": "Emily R.", "rating": 5, "text": "Staff helped me pick the right size. Saved me money. Will be back." }
+    ],
+    "faq": [
+      { "question": "Do you offer vehicle storage?", "answer": "Yes! We have 10x30 drive-up bays that fit cars, trucks, and small recreational vehicles. Larger outdoor parking is also available." },
+      { "question": "How cold do units get in winter?", "answer": "Climate-controlled units stay between 50–80°F year-round. Standard drive-up units are not heated but are fully enclosed." },
+      { "question": "Can I access my unit on Sundays?", "answer": "Yes, we're open 8am–8pm on Sundays. Gate access requires your personal entry code." },
+      { "question": "Do you have a military discount?", "answer": "Yes! Active duty and veterans receive 10% off monthly rates. Just bring your military ID when you sign up." }
+    ]
+  },
+
+  "integrations": {}
+}
