@@ -83,7 +83,7 @@
               "Family-owned and operated since 2018, we pride ourselves on clean facilities and friendly service.",
               "From college students to growing businesses, we have a unit that fits your life."
             ],
-            "image": { "src": "https://images.unsplash.com/photo-1600566753086-00f18f6b0d73?w=800&h=450&fit=crop", "alt": "Facility exterior with drive-up access" }
+            "image": { "src": "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&h=450&fit=crop", "alt": "Facility exterior with drive-up access" }
           }
         },
         "featured-units": {
@@ -117,7 +117,7 @@
           "content": {
             "heading": "Lock in your rate today",
             "blurb": "No admin fees. First month free on select units.",
-            "image": { "src": "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1440&h=500&fit=crop", "alt": "" },
+            "image": { "src": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1440&h=500&fit=crop", "alt": "" },
             "cta": { "label": "Reserve Online", "href": "/reserve", "variant": "primary" },
             "ctaSecondary": { "label": "Call (951) 555-7890", "href": "tel:9515557890", "variant": "outline" }
           }
