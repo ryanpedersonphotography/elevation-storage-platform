@@ -1,8 +1,8 @@
 'use client'
 import React, { useState } from 'react'
 import Link from 'next/link'
-import { Flex, Text, Button, Box, IconButton } from '@radix-ui/themes'
-import type { FacilityConfig } from '@jerry/facility-config'
+import { Flex, Text, Button, Box, IconButton, Container } from '@radix-ui/themes'
+import type { FacilityConfig } from '@jerry/facility-config/schema'
 import { Menu, X, Phone } from 'lucide-react'
 
 interface NavProps {
@@ -18,60 +18,59 @@ export function Nav({ facility }: NavProps) {
   return (
     <Box asChild className="sticky top-0 z-50 bg-[var(--color-background)] shadow-sm">
       <nav>
-        <Flex
-          justify="between"
-          align="center"
-          px="5"
-          py="3"
-          className="max-w-[1200px] mx-auto"
-        >
-          <Flex align="center" gap="3">
-            <Link href={`/${facility.slug}`} className="no-underline text-inherit">
-              <Text size="5" weight="bold">{facility.name}</Text>
-            </Link>
-            {facility.branding.showParent && (
-              <Box display={{ initial: 'none', md: 'block' }}>
-                <Text size="1" color="gray">
+        <Container size="3">
+          <Flex justify="between" align="center" py="3" gap="4">
+            {/* Logo */}
+            <Flex align="center" gap="3" className="shrink-0">
+              <Link href={`/${facility.slug}`} className="no-underline text-inherit">
+                <Text size="5" weight="bold">{facility.name}</Text>
+              </Link>
+              {facility.branding.showParent && (
+                <Text size="1" color="gray" className="hidden sm:block">
                   An Elevation Group Property
                 </Text>
-              </Box>
-            )}
-          </Flex>
-
-          <Flex gap="1" align="center" display={{ initial: 'none', md: 'flex' }}>
-            {enabledPages.map(([slug]) => {
-              const href = slug === 'home' ? `/${facility.slug}` : `/${facility.slug}/${slug}`
-              const label = slug.charAt(0).toUpperCase() + slug.slice(1)
-              return (
-                <Button key={slug} asChild variant="ghost" size="2">
-                  <Link href={href}>{label}</Link>
-                </Button>
-              )
-            })}
-          </Flex>
-
-          <Flex gap="3" align="center" display={{ initial: 'none', md: 'flex' }}>
-            <Flex asChild align="center" gap="1">
-              <a href={`tel:${facility.info.phone}`} className="no-underline text-inherit">
-                <Phone size={14} />
-                <Text size="2" weight="medium">{facility.info.phone}</Text>
-              </a>
+              )}
             </Flex>
-            <Button size="2" variant="solid" asChild>
-              <Link href={`/${facility.slug}/reserve`}>Reserve Now</Link>
-            </Button>
+
+            {/* Desktop nav links */}
+            <Flex gap="1" align="center" className="hidden sm:flex">
+              {enabledPages.map(([slug]) => {
+                const href = slug === 'home' ? `/${facility.slug}` : `/${facility.slug}/${slug}`
+                const label = slug.charAt(0).toUpperCase() + slug.slice(1)
+                return (
+                  <Button key={slug} asChild variant="ghost" size="2">
+                    <Link href={href}>{label}</Link>
+                  </Button>
+                )
+              })}
+            </Flex>
+
+            {/* Desktop phone + CTA */}
+            <Flex gap="3" align="center" className="hidden sm:flex shrink-0">
+              <Flex asChild align="center" gap="1">
+                <a href={`tel:${facility.info.phone}`} className="no-underline text-inherit">
+                  <Phone size={14} />
+                  <Text size="2" weight="medium">{facility.info.phone}</Text>
+                </a>
+              </Flex>
+              <Button size="2" variant="solid" asChild>
+                <Link href={`/${facility.slug}/reserve`}>Reserve Now</Link>
+              </Button>
+            </Flex>
+
+            {/* Mobile hamburger */}
+            <Box className="block sm:hidden">
+              <IconButton variant="ghost" size="3" onClick={() => setMobileOpen(!mobileOpen)}>
+                {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+              </IconButton>
+            </Box>
           </Flex>
+        </Container>
 
-          <Box display={{ initial: 'block', md: 'none' }}>
-            <IconButton variant="ghost" size="3" onClick={() => setMobileOpen(!mobileOpen)}>
-              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-            </IconButton>
-          </Box>
-        </Flex>
-
+        {/* Mobile drawer */}
         {mobileOpen && (
-          <Box px="5" pb="4" display={{ initial: 'block', md: 'none' }}>
-            <Flex direction="column" gap="2">
+          <Box px="5" pb="4" className="block sm:hidden border-t border-[var(--gray-a4)]">
+            <Flex direction="column" gap="2" pt="3">
               {enabledPages.map(([slug]) => {
                 const href = slug === 'home' ? `/${facility.slug}` : `/${facility.slug}/${slug}`
                 const label = slug.charAt(0).toUpperCase() + slug.slice(1)
@@ -81,9 +80,12 @@ export function Nav({ facility }: NavProps) {
                   </Button>
                 )
               })}
-              <a href={`tel:${facility.info.phone}`} className="no-underline text-inherit py-2">
-                <Text size="2" weight="bold">{facility.info.phone}</Text>
-              </a>
+              <Flex asChild align="center" gap="1" py="2">
+                <a href={`tel:${facility.info.phone}`} className="no-underline text-inherit">
+                  <Phone size={14} />
+                  <Text size="2" weight="bold">{facility.info.phone}</Text>
+                </a>
+              </Flex>
               <Button size="2" variant="solid" asChild>
                 <Link href={`/${facility.slug}/reserve`}>Reserve Now</Link>
               </Button>
