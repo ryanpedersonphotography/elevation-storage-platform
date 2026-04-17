@@ -188,63 +188,20 @@ export default function HomePage() {
         </Container>
       )}
 
-      {/* ── Locations Near You (map-style background section) ── */}
+      {/* ── Locations (merged: map-bg + full filter grid) ── */}
       <Box className="map-bg" id="locations">
         <Box py="9">
-          <Container size="3">
-            <Flex direction="column" align="center" gap="3" mb="7" className="text-center">
-              <Heading size="8">Elevation Group Locations Near You</Heading>
+          <div className="max-w-7xl mx-auto px-6">
+            <Flex direction="column" align="center" gap="3" mb="8" className="text-center">
+              <Heading size="8">Elevation Group Locations</Heading>
               <Text size="4" color="gray" as="p">
-                With {facilities.length} locations and counting, we&apos;re always
-                just around the corner — including these in your neighborhood:
+                With {facilities.length} locations and counting, find the facility that&apos;s
+                right for you — search by city, state, or feature below.
               </Text>
             </Flex>
-
-            {/* Featured facility cards — first 3 */}
-            <Grid columns={{ initial: '1', sm: '2', md: '3' }} gap="5" mb="7">
-              {facilities.slice(0, 3).map((f) => (
-                <Link key={f.slug} href={`/${f.slug}`} className="no-underline text-inherit">
-                  <Card size="3" className="facility-card-hover transition-all bg-[var(--color-background)]">
-                    {f.info.image && (
-                      <Box mx="-4" mt="-4" mb="3" className="overflow-hidden rounded-t-[var(--radius-3)]">
-                        <img
-                          src={f.info.image.src}
-                          alt={f.info.image.alt}
-                          className="w-full aspect-video object-cover"
-                          loading="lazy"
-                        />
-                      </Box>
-                    )}
-                    <Heading as="h3" size="4" mb="1">Self Storage Near</Heading>
-                    <Text size="2" color="blue" as="p">
-                      {f.info.address.street}
-                    </Text>
-                    <Text size="2" color="blue" as="p" mb="2">
-                      {f.info.address.city} {f.info.address.state} {f.info.address.zip}
-                    </Text>
-                    <Text size="1" color="gray">{f.data.units.length} units available</Text>
-                  </Card>
-                </Link>
-              ))}
-            </Grid>
-
-            <Flex justify="center">
-              <Button size="4" variant="solid" color="orange" asChild>
-                <a href="#all-locations">See More Nearby</a>
-              </Button>
-            </Flex>
-          </Container>
+            <FacilityFilter facilities={facilities} variant="grid" />
+          </div>
         </Box>
-      </Box>
-
-      <Separator size="4" />
-
-      {/* ── All Locations (full filter grid) ── */}
-      <Box id="all-locations">
-        <Container size="3" py="8">
-          <Heading size="6" mb="5">All Locations</Heading>
-          <FacilityFilter facilities={facilities} variant="grid" />
-        </Container>
       </Box>
 
       {/* ── Footer ── */}
