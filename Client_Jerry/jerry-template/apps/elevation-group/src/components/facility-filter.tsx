@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useMemo } from 'react'
 import { Flex, Text, Box, Grid, Badge, Button, TextField, Select } from '@radix-ui/themes'
-import { FacilityCard } from '@jerry/storage-ui'
+import { FacilityCard, FacilityDrawer } from '@jerry/storage-ui'
 import { Search, X, MapPin } from 'lucide-react'
 import type { FacilityConfig } from '@jerry/facility-config/schema'
 
@@ -39,6 +39,7 @@ export function FacilityFilter({ facilities, variant = 'grid' }: FacilityFilterP
   const [search, setSearch] = useState('')
   const [stateFilter, setStateFilter] = useState<string>('all')
   const [featureFilters, setFeatureFilters] = useState<Set<string>>(new Set())
+  const [selectedFacility, setSelectedFacility] = useState<FacilityConfig | null>(null)
 
   const states = useMemo(() => getStates(facilities), [facilities])
   const allFeatures = useMemo(() => getFeatures(facilities), [facilities])
@@ -182,8 +183,13 @@ export function FacilityFilter({ facilities, variant = 'grid' }: FacilityFilterP
         <>
           <Grid columns={{ initial: '1', sm: '2', md: '3' }} gap="5">
             {(showAll || hasActiveFilters ? filtered : filtered.slice(0, INITIAL_DISPLAY_COUNT)).map((facility) => (
-              <Box key={facility.slug} className="facility-card-hover transition-all">
+              <Box key={facility.slug} className="facility-card-hover transition-all relative">
                 <FacilityCard facility={facility} href={`/${facility.slug}`} />
+                {/* Desktop click overlay — captures click to open drawer instead of navigating */}
+                <Box
+                  className="hidden lg:block absolute inset-0 cursor-pointer z-10"
+                  onClick={() => setSelectedFacility(facility)}
+                />
               </Box>
             ))}
           </Grid>
@@ -201,6 +207,12 @@ export function FacilityFilter({ facilities, variant = 'grid' }: FacilityFilterP
           <Button variant="soft" size="2" onClick={clearFilters}>Clear Filters</Button>
         </Flex>
       )}
+
+      <FacilityDrawer
+        facility={selectedFacility}
+        open={selectedFacility !== null}
+        onClose={() => setSelectedFacility(null)}
+      />
     </>
   )
 }
