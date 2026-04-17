@@ -47,7 +47,6 @@ function formatFeature(feature: string): string {
     .join(' ')
 }
 
-/** Inline facility card — avoids importing from @jerry/storage-ui barrel */
 function FacilityCardInline({ facility, href }: { facility: SerializedFacility; href: string }) {
   const { info, data } = facility
   const addr = info.address
@@ -57,17 +56,14 @@ function FacilityCardInline({ facility, href }: { facility: SerializedFacility; 
     `https://www.google.com/maps/search/?api=1&query=${addr.street}+${addr.city}+${addr.state}+${addr.zip}`
 
   return (
-    <a
-      href={href}
-      style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
-    >
-      <Card style={{ overflow: 'hidden', cursor: 'pointer', transition: 'box-shadow 0.15s, transform 0.15s' }} className="facility-card-hover">
+    <a href={href} className="no-underline text-inherit block">
+      <Card className="facility-card-hover overflow-hidden cursor-pointer transition-all">
         {info.image && (
           <img
             src={info.image.src}
             alt={info.image.alt}
             loading="lazy"
-            style={{ width: '100%', height: 'auto', objectFit: 'cover', aspectRatio: '16/9' }}
+            className="w-full h-auto object-cover aspect-video"
           />
         )}
         <Box p="4">
@@ -77,13 +73,15 @@ function FacilityCardInline({ facility, href }: { facility: SerializedFacility; 
             <Text as="p" size="2" color="gray">{addr.city}, {addr.state} {addr.zip}</Text>
           </Flex>
           <Box mb="3">
-            <span
-              onClick={(e) => { e.preventDefault(); e.stopPropagation(); window.location.href = `tel:${info.phone}` }}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem', cursor: 'pointer' }}
-            >
-              <Phone size={12} />
-              <Text as="span" size="2" weight="bold">{info.phone}</Text>
-            </span>
+            <Flex asChild align="center" gap="1" display="inline-flex">
+              <span
+                onClick={(e) => { e.preventDefault(); e.stopPropagation(); window.location.href = `tel:${info.phone}` }}
+                className="cursor-pointer"
+              >
+                <Phone size={12} />
+                <Text as="span" size="2" weight="bold">{info.phone}</Text>
+              </span>
+            </Flex>
           </Box>
           <Flex gap="2" mb="3" wrap="wrap">
             <Button variant="outline" size="2" asChild>
@@ -102,7 +100,7 @@ function FacilityCardInline({ facility, href }: { facility: SerializedFacility; 
               <Badge size="1" variant="soft">Reviews ({reviewCount})</Badge>
             )}
             {unitCount > 0 && (
-              <Text as="span" size="2" weight="bold" style={{ color: 'var(--accent-9)' }}>
+              <Text as="span" size="2" weight="bold" color="blue">
                 Available Units
               </Text>
             )}
@@ -180,18 +178,10 @@ export function FacilityFilter({ facilities }: FacilityFilterProps) {
   return (
     <>
       {/* Filter Bar */}
-      <Box
-        mb="5"
-        p="4"
-        style={{
-          backgroundColor: 'var(--gray-2)',
-          borderRadius: 'var(--radius-3)',
-          border: '1px solid var(--gray-a4)',
-        }}
-      >
+      <Box mb="5" p="4" className="bg-[var(--gray-2)] rounded-[var(--radius-3)] border border-[var(--gray-a4)]">
         <Flex gap="3" wrap="wrap" align="end">
-          <Box style={{ flex: '1 1 200px', minWidth: '200px' }}>
-            <Text as="label" size="1" weight="medium" mb="1" style={{ display: 'block' }}>
+          <Box className="flex-[1_1_200px] min-w-[200px]">
+            <Text as="label" size="1" weight="medium" mb="1" className="block">
               Search
             </Text>
             <TextField.Root
@@ -206,8 +196,8 @@ export function FacilityFilter({ facilities }: FacilityFilterProps) {
             </TextField.Root>
           </Box>
 
-          <Box style={{ minWidth: '140px' }}>
-            <Text as="label" size="1" weight="medium" mb="1" style={{ display: 'block' }}>
+          <Box className="min-w-[140px]">
+            <Text as="label" size="1" weight="medium" mb="1" className="block">
               State
             </Text>
             <Select.Root value={stateFilter} onValueChange={setStateFilter} size="2">
@@ -222,14 +212,14 @@ export function FacilityFilter({ facilities }: FacilityFilterProps) {
           </Box>
 
           {hasActiveFilters && (
-            <Button variant="ghost" size="2" onClick={clearFilters} style={{ alignSelf: 'end' }}>
+            <Button variant="ghost" size="2" onClick={clearFilters} className="self-end">
               <X size={14} /> Clear
             </Button>
           )}
         </Flex>
 
         <Flex gap="2" mt="3" wrap="wrap">
-          <Text size="1" weight="medium" style={{ alignSelf: 'center' }}>Features:</Text>
+          <Text size="1" weight="medium" className="self-center">Features:</Text>
           {allFeatures.map((feature) => {
             const active = featureFilters.has(feature)
             return (
@@ -237,7 +227,7 @@ export function FacilityFilter({ facilities }: FacilityFilterProps) {
                 key={feature}
                 size="2"
                 variant={active ? 'solid' : 'outline'}
-                style={{ cursor: 'pointer' }}
+                className="cursor-pointer"
                 onClick={() => toggleFeature(feature)}
               >
                 {formatFeature(feature)}
@@ -270,7 +260,7 @@ export function FacilityFilter({ facilities }: FacilityFilterProps) {
           ))}
         </Grid>
       ) : (
-        <Box py="8" style={{ textAlign: 'center' }}>
+        <Box py="8" className="text-center">
           <Text size="4" color="gray">No facilities match your filters.</Text>
           <Box mt="3">
             <Button variant="soft" size="2" onClick={clearFilters}>Clear Filters</Button>

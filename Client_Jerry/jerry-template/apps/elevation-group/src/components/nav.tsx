@@ -16,26 +16,17 @@ export function Nav({ facility }: NavProps) {
   )
 
   return (
-    <Box
-      asChild
-      style={{
-        position: 'sticky',
-        top: 0,
-        zIndex: 50,
-        backgroundColor: 'white',
-        boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
-      }}
-    >
+    <Box asChild className="sticky top-0 z-50 bg-[var(--color-background)] shadow-sm">
       <nav>
         <Flex
           justify="between"
           align="center"
           px="5"
           py="3"
-          style={{ maxWidth: '1200px', margin: '0 auto' }}
+          className="max-w-[1200px] mx-auto"
         >
           <Flex align="center" gap="3">
-            <Link href={`/${facility.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Link href={`/${facility.slug}`} className="no-underline text-inherit">
               <Text size="5" weight="bold">{facility.name}</Text>
             </Link>
             {facility.branding.showParent && (
@@ -60,10 +51,12 @@ export function Nav({ facility }: NavProps) {
           </Flex>
 
           <Flex gap="3" align="center" display={{ initial: 'none', md: 'flex' }}>
-            <a href={`tel:${facility.info.phone}`} style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-              <Phone size={14} />
-              <Text size="2" weight="medium">{facility.info.phone}</Text>
-            </a>
+            <Flex asChild align="center" gap="1">
+              <a href={`tel:${facility.info.phone}`} className="no-underline text-inherit">
+                <Phone size={14} />
+                <Text size="2" weight="medium">{facility.info.phone}</Text>
+              </a>
+            </Flex>
             <Button size="2" variant="solid" asChild>
               <Link href={`/${facility.slug}/reserve`}>Reserve Now</Link>
             </Button>
@@ -88,7 +81,7 @@ export function Nav({ facility }: NavProps) {
                   </Button>
                 )
               })}
-              <a href={`tel:${facility.info.phone}`} style={{ textDecoration: 'none', color: 'inherit', padding: '0.5rem 0' }}>
+              <a href={`tel:${facility.info.phone}`} className="no-underline text-inherit py-2">
                 <Text size="2" weight="bold">{facility.info.phone}</Text>
               </a>
               <Button size="2" variant="solid" asChild>

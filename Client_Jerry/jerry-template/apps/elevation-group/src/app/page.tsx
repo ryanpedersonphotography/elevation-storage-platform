@@ -6,7 +6,6 @@ import { FacilityFilter, type SerializedFacility } from '../components/facility-
 export default function HomePage() {
   const facilities = loadSubdirectoryFacilities()
 
-  // Serialize for the client filter component (avoids node:fs in client bundle)
   const serialized: SerializedFacility[] = facilities.map((f) => ({
     slug: f.slug,
     name: f.name,
@@ -40,12 +39,12 @@ export default function HomePage() {
   return (
     <>
       {/* Hero */}
-      <Box py="9" style={{ backgroundColor: 'var(--accent-9)', color: 'white', textAlign: 'center' }}>
+      <Box py="9" className="bg-[var(--accent-9)] text-white text-center">
         <Container size="2">
-          <Heading size="8" style={{ color: 'white' }} mb="3">
+          <Heading size="8" className="text-white" mb="3">
             Affordable Self Storage Near You
           </Heading>
-          <Text size="4" style={{ color: 'rgba(255,255,255,0.9)' }}>
+          <Text size="4" className="text-white/90">
             Find storage now across {facilities.length} locations
           </Text>
         </Container>
@@ -58,7 +57,7 @@ export default function HomePage() {
       </Container>
 
       {/* What We Offer */}
-      <Box py="8" style={{ backgroundColor: 'var(--gray-2)' }}>
+      <Box py="8" className="bg-[var(--gray-2)]">
         <Container size="3">
           <Heading size="6" align="center" mb="2">What We Offer</Heading>
           <Text size="3" color="gray" align="center" as="p" mb="6">
@@ -66,7 +65,7 @@ export default function HomePage() {
           </Text>
           <Grid columns={{ initial: '1', sm: '2', md: '4' }} gap="5">
             {features.map((f) => (
-              <Flex key={f.heading} direction="column" align="center" gap="3" style={{ textAlign: 'center' }}>
+              <Flex key={f.heading} direction="column" align="center" gap="3" className="text-center">
                 <f.icon size={32} />
                 <Heading as="h3" size="4">{f.heading}</Heading>
                 <Text size="2" color="gray">{f.blurb}</Text>
@@ -85,8 +84,8 @@ export default function HomePage() {
               {totalReviews} reviews across all locations
             </Text>
           )}
-          <Box style={{ textAlign: 'center', padding: '2rem 0' }}>
-            <Text as="p" size="5" style={{ fontStyle: 'italic', lineHeight: 1.6 }}>
+          <Box py="5" className="text-center">
+            <Text as="p" size="5" className="italic leading-relaxed">
               &ldquo;{bestReview.text}&rdquo;
             </Text>
             <Text as="p" size="3" mt="4" weight="bold">{bestReview.name}</Text>
@@ -98,12 +97,12 @@ export default function HomePage() {
       )}
 
       {/* CTA */}
-      <Box py="7" style={{ background: 'linear-gradient(135deg, var(--accent-9), var(--accent-11))', color: 'white', textAlign: 'center' }}>
+      <Box py="7" className="bg-gradient-to-br from-[var(--accent-9)] to-[var(--accent-11)] text-white text-center">
         <Container size="2">
-          <Heading size="6" style={{ color: 'white' }} mb="2">
+          <Heading size="6" className="text-white" mb="2">
             Ready to Reserve Your Unit?
           </Heading>
-          <Text size="3" style={{ color: 'rgba(255,255,255,0.9)' }} as="p" mb="4">
+          <Text size="3" className="text-white/90" as="p" mb="4">
             Browse our locations and find the perfect space for your needs.
           </Text>
         </Container>
