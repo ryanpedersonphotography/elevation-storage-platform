@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react'
 import { Inter, Space_Grotesk, DM_Sans } from 'next/font/google'
-import { Theme, Flex, Box } from '@radix-ui/themes'
+import { Theme, Flex, Box, Text } from '@radix-ui/themes'
+import Link from 'next/link'
+import { ChevronLeft } from 'lucide-react'
 import { loadFacility, loadSubdirectoryFacilities } from '@jerry/facility-config'
 import { FacilityProvider, resolveRadixColor, templates } from '@jerry/storage-ui'
 import { Nav } from '../../components/nav'
@@ -58,7 +60,18 @@ export default async function FacilityLayout({
 
           {/* Two-column facility layout — wide container */}
           <Box className="bg-[var(--gray-a2)] min-h-screen">
-            <Box className="max-w-7xl mx-auto px-6 py-8">
+            <Box className="max-w-7xl mx-auto px-6 pt-4 pb-8">
+              {/* Breadcrumb */}
+              <Flex align="center" gap="1" mb="4">
+                <ChevronLeft size={14} className="text-[var(--gray-9)]" />
+                <Link href="/#locations" className="no-underline">
+                  <Text size="2" color="gray" className="hover:text-[var(--gray-12)] transition-colors">
+                    All Locations
+                  </Text>
+                </Link>
+                <Text size="2" color="gray" className="mx-1">/</Text>
+                <Text size="2" weight="medium">{facility.name}</Text>
+              </Flex>
               <Flex direction={{ initial: 'column', lg: 'row' }} gap="8">
                 {/* Sticky sidebar */}
                 <Box className="lg:w-[380px] shrink-0">
