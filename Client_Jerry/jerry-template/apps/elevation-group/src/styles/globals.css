@@ -26,3 +26,15 @@
   from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Map-like background pattern for the locations section */
+.map-bg {
+  background-color: var(--gray-3);
+  background-image:
+    radial-gradient(circle at 20% 50%, var(--accent-a3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, var(--accent-a2) 0%, transparent 40%),
+    radial-gradient(circle at 60% 80%, var(--gray-a3) 0%, transparent 45%),
+    linear-gradient(var(--gray-a2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--gray-a2) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+}
