@@ -5,6 +5,7 @@ import { ContentCard } from '../content-card'
 import { MediaBlock } from '../media-block'
 import { FeatureItem } from '../feature-item'
 import { CTAGroup } from '../cta-group'
+import { FacilityCard } from '../facility-card'
 
 // Mock lucide-react to avoid SVG rendering complexity in jsdom
 vi.mock('lucide-react', () => {
@@ -200,5 +201,60 @@ describe('CTAGroup', () => {
     // Since we use asChild, buttons become <a> tags
     expect(screen.getByText('Primary')).toBeInTheDocument()
     expect(screen.getByText('Secondary')).toBeInTheDocument()
+  })
+})
+
+describe('FacilityCard', () => {
+  const baseFacility = {
+    slug: 'test',
+    name: 'Test Storage',
+    info: {
+      address: { street: '123 Main St', city: 'Testville', state: 'TX', zip: '75001' },
+      phone: '(555) 123-4567',
+      image: { src: '/test.jpg', alt: 'Test facility' },
+      directionsUrl: 'https://maps.google.com/test',
+    },
+    data: {
+      units: [{ id: 'u1' }, { id: 'u2' }, { id: 'u3' }],
+      testimonials: [{ name: 'A', rating: 5, text: 'Great' }, { name: 'B', rating: 4, text: 'Good' }],
+    },
+  }
+
+  it('renders facility name as heading', () => {
+    render(<FacilityCard facility={baseFacility as any} href="/test" />)
+    expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent('Test Storage')
+  })
+
+  it('renders full address', () => {
+    render(<FacilityCard facility={baseFacility as any} href="/test" />)
+    expect(screen.getByText('123 Main St')).toBeInTheDocument()
+    expect(screen.getByText(/Testville, TX 75001/)).toBeInTheDocument()
+  })
+
+  it('renders phone as clickable tel link', () => {
+    render(<FacilityCard facility={baseFacility as any} href="/test" />)
+    const phoneLink = screen.getByText('(555) 123-4567')
+    expect(phoneLink.closest('a')).toHaveAttribute('href', 'tel:(555) 123-4567')
+  })
+
+  it('renders Get Directions and View Facility buttons', () => {
+    render(<FacilityCard facility={baseFacility as any} href="/test" />)
+    expect(screen.getByText('Get Directions')).toBeInTheDocument()
+    expect(screen.getByText('View Facility')).toBeInTheDocument()
+  })
+
+  it('renders facility image when present', () => {
+    render(<FacilityCard facility={baseFacility as any} href="/test" />)
+    expect(screen.getByAltText('Test facility')).toBeInTheDocument()
+  })
+
+  it('shows review count when testimonials exist', () => {
+    render(<FacilityCard facility={baseFacility as any} href="/test" />)
+    expect(screen.getByText('Reviews (2)')).toBeInTheDocument()
+  })
+
+  it('shows available units count', () => {
+    render(<FacilityCard facility={baseFacility as any} href="/test" />)
+    expect(screen.getByText('Available Units')).toBeInTheDocument()
   })
 })
