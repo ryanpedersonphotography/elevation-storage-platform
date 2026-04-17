@@ -2,7 +2,27 @@
 @import "@radix-ui/themes/styles.css";
 @source "../../../../packages/storage-ui/src";
 
+/* Facility card hover lift */
 .facility-card-hover:hover {
   box-shadow: var(--shadow-4);
   transform: translateY(-2px);
+}
+
+/* Tighten section spacing when rendered inside facility content area */
+.facility-content section {
+  padding-block: var(--space-5);
+}
+
+.facility-content section:first-child {
+  padding-block-start: 0;
+}
+
+/* Smooth page transitions */
+.facility-content {
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
 }

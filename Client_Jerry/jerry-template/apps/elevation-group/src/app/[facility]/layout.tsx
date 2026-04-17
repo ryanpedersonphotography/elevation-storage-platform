@@ -55,19 +55,29 @@ export default async function FacilityLayout({
       >
         <FacilityProvider facility={facility}>
           <Nav facility={facility} />
-          <Container size="3" py="6">
-            <Flex direction={{ initial: 'column', md: 'row' }} gap="6">
-              {/* Sidebar */}
-              <Box className="md:w-80 shrink-0">
-                <FacilitySidebar facility={facility} />
-              </Box>
-              {/* Main content with tabs */}
-              <Box flexGrow="1" className="min-w-0">
-                <FacilityTabs facility={facility} />
-                {children}
-              </Box>
-            </Flex>
-          </Container>
+
+          {/* Two-column facility layout */}
+          <Box className="bg-[var(--gray-a2)] min-h-screen">
+            <Container size="3" py="6">
+              <Flex direction={{ initial: 'column', md: 'row' }} gap="6">
+                {/* Sticky sidebar */}
+                <Box className="md:w-[340px] shrink-0">
+                  <Box className="md:sticky md:top-20">
+                    <FacilitySidebar facility={facility} />
+                  </Box>
+                </Box>
+
+                {/* Main content */}
+                <Box flexGrow="1" className="min-w-0">
+                  <FacilityTabs facility={facility} />
+                  <Box className="facility-content">
+                    {children}
+                  </Box>
+                </Box>
+              </Flex>
+            </Container>
+          </Box>
+
           <Footer facility={facility} />
         </FacilityProvider>
       </Theme>
