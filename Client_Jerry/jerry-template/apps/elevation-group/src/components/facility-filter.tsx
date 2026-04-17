@@ -2,11 +2,13 @@
 import React, { useState, useMemo } from 'react'
 import { Flex, Text, Box, Grid, Badge, Button, TextField, Select } from '@radix-ui/themes'
 import { FacilityCard } from '@jerry/storage-ui'
-import { Search, X } from 'lucide-react'
+import { Search, X, MapPin } from 'lucide-react'
 import type { FacilityConfig } from '@jerry/facility-config/schema'
 
 interface FacilityFilterProps {
   facilities: FacilityConfig[]
+  /** "search" renders just the search input row (for hero card). "grid" renders the full filter + card grid. */
+  variant?: 'search' | 'grid'
 }
 
 function getStates(facilities: FacilityConfig[]): string[] {
@@ -33,7 +35,7 @@ function formatFeature(feature: string): string {
     .join(' ')
 }
 
-export function FacilityFilter({ facilities }: FacilityFilterProps) {
+export function FacilityFilter({ facilities, variant = 'grid' }: FacilityFilterProps) {
   const [search, setSearch] = useState('')
   const [stateFilter, setStateFilter] = useState<string>('all')
   const [featureFilters, setFeatureFilters] = useState<Set<string>>(new Set())
@@ -44,11 +46,8 @@ export function FacilityFilter({ facilities }: FacilityFilterProps) {
   const toggleFeature = (feature: string) => {
     setFeatureFilters((prev) => {
       const next = new Set(prev)
-      if (next.has(feature)) {
-        next.delete(feature)
-      } else {
-        next.add(feature)
-      }
+      if (next.has(feature)) next.delete(feature)
+      else next.add(feature)
       return next
     })
   }
@@ -63,49 +62,58 @@ export function FacilityFilter({ facilities }: FacilityFilterProps) {
     return facilities.filter((f) => {
       if (search) {
         const q = search.toLowerCase()
-        const searchable = [
-          f.name,
-          f.info.address.city,
-          f.info.address.state,
-          f.info.address.zip,
-          f.info.address.street,
-        ]
-          .join(' ')
-          .toLowerCase()
-        if (!searchable.includes(q)) return false
+        const haystack = [f.name, f.info.address.city, f.info.address.state, f.info.address.zip, f.info.address.street]
+          .join(' ').toLowerCase()
+        if (!haystack.includes(q)) return false
       }
-
-      if (stateFilter !== 'all' && f.info.address.state !== stateFilter) {
-        return false
-      }
-
+      if (stateFilter !== 'all' && f.info.address.state !== stateFilter) return false
       if (featureFilters.size > 0) {
-        const facilityFeatures = new Set<string>()
-        for (const u of f.data.units) {
-          for (const feat of u.features) {
-            facilityFeatures.add(feat)
-          }
-        }
-        for (const required of featureFilters) {
-          if (!facilityFeatures.has(required)) return false
+        const fFeats = new Set(f.data.units.flatMap((u) => u.features))
+        for (const req of featureFilters) {
+          if (!fFeats.has(req)) return false
         }
       }
-
       return true
     })
   }, [facilities, search, stateFilter, featureFilters])
 
   const hasActiveFilters = search || stateFilter !== 'all' || featureFilters.size > 0
 
+  // ── Search-only variant (for hero card) ──
+  if (variant === 'search') {
+    return (
+      <Flex gap="2" align="end" wrap="wrap">
+        <Box flexGrow="1">
+          <TextField.Root
+            placeholder="Zip or City, State"
+            value={search}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)}
+            size="3"
+          >
+            <TextField.Slot>
+              <Search size={16} />
+            </TextField.Slot>
+          </TextField.Root>
+        </Box>
+        <Button size="3" variant="solid" color="red" asChild>
+          <a href="#locations">Search</a>
+        </Button>
+        <Text size="2" color="gray" className="self-center">or</Text>
+        <Button size="3" variant="solid" color="red">
+          <MapPin size={16} /> Near Me
+        </Button>
+      </Flex>
+    )
+  }
+
+  // ── Full grid variant ──
   return (
     <>
-      {/* Filter Bar */}
-      <Box mb="5" p="4" className="bg-[var(--gray-2)] rounded-[var(--radius-3)] border border-[var(--gray-a4)]">
-        <Flex gap="3" wrap="wrap" align="end">
-          <Box className="flex-[1_1_200px] min-w-[200px]">
-            <Text as="label" size="1" weight="medium" mb="1" className="block">
-              Search
-            </Text>
+      {/* Filter bar */}
+      <Box mb="5" className="bg-[var(--gray-a2)] rounded-[var(--radius-3)] border border-[var(--gray-a4)]">
+        <Flex gap="3" wrap="wrap" align="end" p="4">
+          <Box flexGrow="1" className="min-w-48">
+            <Text as="label" size="1" weight="medium" mb="1" className="block">Search</Text>
             <TextField.Root
               placeholder="City, state, or zip..."
               value={search}
@@ -118,10 +126,8 @@ export function FacilityFilter({ facilities }: FacilityFilterProps) {
             </TextField.Root>
           </Box>
 
-          <Box className="min-w-[140px]">
-            <Text as="label" size="1" weight="medium" mb="1" className="block">
-              State
-            </Text>
+          <Box className="min-w-36">
+            <Text as="label" size="1" weight="medium" mb="1" className="block">State</Text>
             <Select.Root value={stateFilter} onValueChange={setStateFilter} size="2">
               <Select.Trigger placeholder="All States" />
               <Select.Content>
@@ -134,32 +140,29 @@ export function FacilityFilter({ facilities }: FacilityFilterProps) {
           </Box>
 
           {hasActiveFilters && (
-            <Button variant="ghost" size="2" onClick={clearFilters} className="self-end">
+            <Button variant="ghost" size="2" onClick={clearFilters}>
               <X size={14} /> Clear
             </Button>
           )}
         </Flex>
 
-        <Flex gap="2" mt="3" wrap="wrap">
+        <Flex gap="2" px="4" pb="4" wrap="wrap">
           <Text size="1" weight="medium" className="self-center">Features:</Text>
-          {allFeatures.map((feature) => {
-            const active = featureFilters.has(feature)
-            return (
-              <Badge
-                key={feature}
-                size="2"
-                variant={active ? 'solid' : 'outline'}
-                className="cursor-pointer"
-                onClick={() => toggleFeature(feature)}
-              >
-                {formatFeature(feature)}
-              </Badge>
-            )
-          })}
+          {allFeatures.map((feature) => (
+            <Badge
+              key={feature}
+              size="2"
+              variant={featureFilters.has(feature) ? 'solid' : 'outline'}
+              className="cursor-pointer"
+              onClick={() => toggleFeature(feature)}
+            >
+              {formatFeature(feature)}
+            </Badge>
+          ))}
         </Flex>
       </Box>
 
-      {/* Results */}
+      {/* Results count */}
       <Flex justify="between" align="center" mb="4">
         <Text size="2" color="gray">
           {filtered.length === facilities.length
@@ -171,14 +174,11 @@ export function FacilityFilter({ facilities }: FacilityFilterProps) {
         )}
       </Flex>
 
+      {/* Card grid */}
       {filtered.length > 0 ? (
         <Grid columns={{ initial: '1', sm: '2', md: '3' }} gap="5">
           {filtered.map((facility) => (
-            <a
-              key={facility.slug}
-              href={`/${facility.slug}`}
-              className="no-underline text-inherit block"
-            >
+            <a key={facility.slug} href={`/${facility.slug}`} className="no-underline text-inherit block">
               <Box className="facility-card-hover transition-all">
                 <FacilityCard facility={facility} href={`/${facility.slug}`} />
               </Box>
@@ -186,12 +186,10 @@ export function FacilityFilter({ facilities }: FacilityFilterProps) {
           ))}
         </Grid>
       ) : (
-        <Box py="8" className="text-center">
+        <Flex direction="column" align="center" gap="3" py="8">
           <Text size="4" color="gray">No facilities match your filters.</Text>
-          <Box mt="3">
-            <Button variant="soft" size="2" onClick={clearFilters}>Clear Filters</Button>
-          </Box>
-        </Box>
+          <Button variant="soft" size="2" onClick={clearFilters}>Clear Filters</Button>
+        </Flex>
       )}
     </>
   )
