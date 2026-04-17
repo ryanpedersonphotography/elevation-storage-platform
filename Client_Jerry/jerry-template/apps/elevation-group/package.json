@@ -12,6 +12,7 @@
     "@jerry/storage-ui": "workspace:*",
     "@jerry/facility-config": "workspace:*",
     "@radix-ui/themes": "^3",
+    "lucide-react": "^0.460",
     "next": "^15",
     "react": "^19",
     "react-dom": "^19"

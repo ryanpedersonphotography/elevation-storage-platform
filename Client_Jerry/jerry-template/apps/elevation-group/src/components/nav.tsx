@@ -39,9 +39,11 @@ export function Nav({ facility }: NavProps) {
               <Text size="5" weight="bold">{facility.name}</Text>
             </Link>
             {facility.branding.showParent && (
-              <Text size="1" color="gray" display={{ initial: 'none', md: 'block' }}>
-                An Elevation Group Property
-              </Text>
+              <Box display={{ initial: 'none', md: 'block' }}>
+                <Text size="1" color="gray">
+                  An Elevation Group Property
+                </Text>
+              </Box>
             )}
           </Flex>
 
