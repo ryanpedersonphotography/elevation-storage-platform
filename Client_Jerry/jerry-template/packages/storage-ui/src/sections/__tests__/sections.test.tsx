@@ -128,10 +128,10 @@ describe('Hero', () => {
 
 // ─── HeroSimple ───
 describe('HeroSimple', () => {
-  it('renders h2 heading', () => {
+  it('renders h1 heading (page title)', () => {
     const props = makeSectionProps({ heading: 'Our Services' })
     render(<HeroSimple {...props} />)
-    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('Our Services')
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Our Services')
   })
 
   it('renders blurb when provided', () => {

@@ -24,7 +24,7 @@ export function HeroSimple({ content, variant = 'minimal' }: SectionProps) {
     <Section className={variant === 'colored' ? 'hero-simple-colored' : undefined}>
       <div style={style}>
         <Container>
-          <SectionHeader heading={c.heading} description={c.blurb} level="2" />
+          <SectionHeader heading={c.heading} description={c.blurb} level="1" />
         </Container>
       </div>
     </Section>
