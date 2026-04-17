@@ -43,21 +43,21 @@ export function Nav({ facility }: NavProps) {
         >
           <nav aria-label="Main navigation">
             {/* Wide container — px for edge padding, max-w for cap */}
-            <Flex justify="between" align="center" className="h-16 max-w-7xl mx-auto px-6">
+            <Flex justify="between" align="center" className="h-20 max-w-7xl mx-auto px-8">
               {/* Logo */}
               <Link href={`/${facility.slug}`} className="no-underline text-inherit shrink-0">
-                <Text size="5" weight="bold" className="tracking-tight whitespace-nowrap">
+                <Text size="6" weight="bold" className="tracking-tight whitespace-nowrap">
                   {facility.name}
                 </Text>
               </Link>
 
               {/* Desktop nav links — single line, no wrapping */}
-              <Flex asChild gap="6" align="center" className="hidden lg:flex">
+              <Flex asChild gap="8" align="center" className="hidden lg:flex">
                 <ul className="list-none m-0 p-0">
                   {navPages.map(([slug]) => (
                     <li key={slug}>
                       <Link href={`/${facility.slug}/${slug}`} className="no-underline text-inherit whitespace-nowrap">
-                        <Text size="3" weight="medium" color="gray" className="hover:text-[var(--gray-12)] transition-colors">
+                        <Text size="4" weight="medium" className="text-[var(--gray-11)] hover:text-[var(--gray-12)] transition-colors">
                           {navLabels[slug] ?? slug}
                         </Text>
                       </Link>
@@ -67,18 +67,18 @@ export function Nav({ facility }: NavProps) {
               </Flex>
 
               {/* Right side */}
-              <Flex gap="4" align="center" className="shrink-0">
+              <Flex gap="5" align="center" className="shrink-0">
                 <a href={`tel:${facility.info.phone}`} className="no-underline text-inherit hidden xl:block whitespace-nowrap">
-                  <Text size="3" weight="medium">{facility.info.phone}</Text>
+                  <Text size="4" weight="medium">{facility.info.phone}</Text>
                 </a>
 
-                <IconButton variant="ghost" size="2" className="hidden lg:flex" asChild>
+                <IconButton variant="ghost" size="3" className="hidden lg:flex" asChild>
                   <a href={`/${facility.slug}/reserve`} aria-label="Account">
-                    <User size={20} />
+                    <User size={22} />
                   </a>
                 </IconButton>
 
-                <Button variant="outline" size="2" className="hidden lg:flex" asChild>
+                <Button variant="outline" size="3" className="hidden lg:flex" asChild>
                   <Link href={`/${facility.slug}/reserve`}>Pay Bill</Link>
                 </Button>
 
@@ -103,7 +103,7 @@ export function Nav({ facility }: NavProps) {
             {/* Slide-down menu */}
             {mobileOpen && (
               <Box className="border-t border-[var(--gray-a4)] bg-[var(--color-background)]">
-                <Flex direction="column" py="4" gap="1" className="max-w-7xl mx-auto px-6">
+                <Flex direction="column" py="4" gap="1" className="max-w-7xl mx-auto px-8">
                   {allPages.map(([slug]) => {
                     const href = slug === 'home' ? `/${facility.slug}` : `/${facility.slug}/${slug}`
                     const label = slug.charAt(0).toUpperCase() + slug.slice(1)

@@ -8,9 +8,16 @@
   transform: translateY(-2px);
 }
 
-/* Tighten section spacing when rendered inside facility content area */
+/* Facility content sections — spacing and alternating backgrounds */
 .facility-content section {
-  padding-block: var(--space-5);
+  padding-block: var(--space-6);
+  border-radius: var(--radius-3);
+  margin-block-end: var(--space-4);
+}
+
+.facility-content section:nth-child(even) {
+  background-color: var(--gray-a2);
+  padding-inline: var(--space-5);
 }
 
 .facility-content section:first-child {
