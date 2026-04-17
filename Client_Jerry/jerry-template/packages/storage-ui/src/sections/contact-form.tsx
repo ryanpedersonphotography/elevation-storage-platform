@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useCallback } from 'react'
 import { z } from 'zod'
-import { Section, Container, TextField, TextArea, Select, Button, Text, Box } from '../primitives'
+import { Section, Container, TextField, TextArea, Select, Button, Text, Box, Flex } from '../primitives'
 import { SectionHeader } from '../compositions'
 import { useAnalytics } from '../hooks/use-analytics'
 import type { SectionProps } from '../renderer/registry'
@@ -25,6 +25,9 @@ const fieldLabels: Record<string, string> = {
   message: 'Message',
 }
 
+/** Fields that always occupy the full two-column row */
+const FULL_WIDTH_FIELDS = new Set(['message', 'moveInDate'])
+
 export function ContactForm({ content, variant = 'standard', facilityData }: SectionProps) {
   const c = content as unknown as ContactFormContent
   const [submitted, setSubmitted] = useState(false)
@@ -42,7 +45,7 @@ export function ContactForm({ content, variant = 'standard', facilityData }: Sec
     return (
       <Section>
         <Container>
-          <Box style={{ textAlign: 'center', padding: '3rem 0' }}>
+          <Box className="py-12 text-center">
             <Text as="p" size="4" data-testid="success-message">{c.successMessage}</Text>
           </Box>
         </Container>
@@ -55,47 +58,64 @@ export function ContactForm({ content, variant = 'standard', facilityData }: Sec
       <Container size={variant === 'minimal' ? '2' : '3'}>
         <SectionHeader heading={c.heading} description={c.blurb} level="2" />
         <form onSubmit={handleSubmit}>
-          <Box style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '32rem', margin: '0 auto' }}>
+          <Box className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {c.fields.map((field) => {
+              const isFullWidth = FULL_WIDTH_FIELDS.has(field)
+              const colClass = isFullWidth ? 'sm:col-span-2' : ''
+
               if (field === 'message') {
                 return (
-                  <label key={field}>
-                    <Text as="p" size="2" mb="1" weight="medium">{fieldLabels[field]}</Text>
-                    <TextArea name={field} placeholder={fieldLabels[field]} rows={4} />
-                  </label>
+                  <Box key={field} className={colClass}>
+                    <label>
+                      <Text as="p" size="2" mb="1" weight="medium">{fieldLabels[field]}</Text>
+                      <TextArea name={field} placeholder={fieldLabels[field]} rows={4} size="3" className="w-full" />
+                    </label>
+                  </Box>
                 )
               }
+
               if (field === 'unitSize') {
                 return (
-                  <label key={field}>
-                    <Text as="p" size="2" mb="1" weight="medium">{fieldLabels[field]}</Text>
-                    <Select.Root name={field}>
-                      <Select.Trigger placeholder="Select a size" />
-                      <Select.Content>
-                        {unitSizes.map((size) => (
-                          <Select.Item key={size} value={size}>{size}</Select.Item>
-                        ))}
-                      </Select.Content>
-                    </Select.Root>
-                  </label>
+                  <Box key={field} className={colClass}>
+                    <label>
+                      <Text as="p" size="2" mb="1" weight="medium">{fieldLabels[field]}</Text>
+                      <Select.Root name={field} size="3">
+                        <Select.Trigger placeholder="Select a size" className="w-full" />
+                        <Select.Content>
+                          {unitSizes.map((size) => (
+                            <Select.Item key={size} value={size}>{size}</Select.Item>
+                          ))}
+                        </Select.Content>
+                      </Select.Root>
+                    </label>
+                  </Box>
                 )
               }
+
               const inputType =
                 field === 'email' ? 'email' :
                 field === 'phone' ? 'tel' :
                 field === 'moveInDate' ? 'date' : 'text'
+
               return (
-                <label key={field}>
-                  <Text as="p" size="2" mb="1" weight="medium">{fieldLabels[field]}</Text>
-                  <TextField.Root
-                    name={field}
-                    type={inputType}
-                    placeholder={fieldLabels[field]}
-                  />
-                </label>
+                <Box key={field} className={colClass}>
+                  <label>
+                    <Text as="p" size="2" mb="1" weight="medium">{fieldLabels[field]}</Text>
+                    <TextField.Root
+                      name={field}
+                      type={inputType}
+                      placeholder={fieldLabels[field]}
+                      size="3"
+                      className="w-full"
+                    />
+                  </label>
+                </Box>
               )
             })}
-            <Button type="submit" size="3">{c.submitLabel}</Button>
+
+            <Flex className="sm:col-span-2" justify="end">
+              <Button type="submit" size="3">{c.submitLabel}</Button>
+            </Flex>
           </Box>
         </form>
       </Container>
