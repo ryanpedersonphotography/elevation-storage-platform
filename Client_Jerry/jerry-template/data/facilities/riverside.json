@@ -16,7 +16,9 @@
       { "days": ["Mo", "Tu", "We", "Th", "Fr"], "open": "07:00", "close": "20:00" },
       { "days": ["Sa"], "open": "08:00", "close": "17:00" },
       { "days": ["Su"], "open": "10:00", "close": "15:00" }
-    ]
+    ],
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=4500+River+Rd+Riverside+CA+92501",
+    "image": { "src": "/images/riverside/facility-exterior.jpg", "alt": "Riverside Storage Co. exterior" }
   },
 
   "branding": {
@@ -346,18 +348,44 @@
           }
         }
       }
+    },
+    "faq": {
+      "enabled": true,
+      "seo": {
+        "title": "FAQ | Riverside Storage Co.",
+        "description": "Frequently asked questions about Riverside Storage Co.",
+        "keywords": ["storage faq riverside", "self storage questions"]
+      },
+      "layout": ["page-header", "faq-section"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": {
+            "heading": "Frequently Asked Questions",
+            "blurb": "Answers to your most common questions",
+            "breadcrumb": true
+          }
+        },
+        "faq-section": {
+          "component": "FAQ",
+          "variant": "accordion",
+          "content": {
+            "heading": "Common Questions"
+          }
+        }
+      }
     }
   },
 
   "data": {
     "units": [
-      { "id": "5x5-indoor", "size": "5x5", "sqft": 25, "price": 39, "features": ["indoor"] },
-      { "id": "5x10-indoor", "size": "5x10", "sqft": 50, "price": 59, "features": ["indoor"] },
-      { "id": "10x10-driveup", "size": "10x10", "sqft": 100, "price": 89, "features": ["drive-up"] },
-      { "id": "10x10-climate", "size": "10x10", "sqft": 100, "price": 109, "features": ["indoor", "climate-controlled"] },
-      { "id": "10x15-driveup", "size": "10x15", "sqft": 150, "price": 129, "features": ["drive-up"] },
-      { "id": "10x20-climate", "size": "10x20", "sqft": 200, "price": 179, "features": ["indoor", "climate-controlled"] },
-      { "id": "10x30-driveup", "size": "10x30", "sqft": 300, "price": 219, "features": ["drive-up"] }
+      { "id": "5x5-indoor", "size": "5x5", "sqft": 25, "price": 39, "features": ["indoor"], "available": true },
+      { "id": "5x10-indoor", "size": "5x10", "sqft": 50, "price": 59, "features": ["indoor"], "available": true },
+      { "id": "10x10-driveup", "size": "10x10", "sqft": 100, "price": 89, "features": ["drive-up"], "available": true },
+      { "id": "10x10-climate", "size": "10x10", "sqft": 100, "price": 109, "features": ["indoor", "climate-controlled"], "available": true },
+      { "id": "10x15-driveup", "size": "10x15", "sqft": 150, "price": 129, "features": ["drive-up"], "available": true },
+      { "id": "10x20-climate", "size": "10x20", "sqft": 200, "price": 179, "features": ["indoor", "climate-controlled"], "available": true },
+      { "id": "10x30-driveup", "size": "10x30", "sqft": 300, "price": 219, "features": ["drive-up"], "available": true }
     ],
     "amenities": [
       { "id": "24hr-access", "label": "24/7 Gate Access", "icon": "clock", "description": "Come and go whenever you need" },
@@ -370,6 +398,12 @@
       { "name": "Maria L.", "rating": 5, "text": "Super clean facility and the staff is incredibly helpful. Best storage experience I've had." },
       { "name": "Kevin R.", "rating": 5, "text": "Drive-up access makes moving in a breeze. Great prices too." },
       { "name": "Sarah T.", "rating": 4, "text": "Convenient location right off the freeway. My unit stays cool even in summer." }
+    ],
+    "faq": [
+      { "question": "Do you have drive-up access?", "answer": "Yes! Many of our units feature drive-up access so you can pull right up to your unit door." },
+      { "question": "What are your gate hours?", "answer": "Our gate is open 24 hours a day, 7 days a week. You'll receive a personal access code when you move in." },
+      { "question": "Is there a long-term contract?", "answer": "No! We offer month-to-month rentals with no long-term commitment required." },
+      { "question": "Do you offer climate-controlled units?", "answer": "Yes, we have temperature-regulated units that protect sensitive belongings from extreme heat and humidity." }
     ]
   },
 

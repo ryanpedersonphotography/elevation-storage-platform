@@ -15,7 +15,9 @@
     "hours": [
       { "days": ["Mo", "Tu", "We", "Th", "Fr"], "open": "06:00", "close": "21:00" },
       { "days": ["Sa", "Su"], "open": "08:00", "close": "18:00" }
-    ]
+    ],
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=123+Main+St+Smithtown+NY+11787",
+    "image": { "src": "/images/smithtown/facility-exterior.jpg", "alt": "Smithtown Self Storage exterior" }
   },
 
   "branding": {
@@ -307,6 +309,32 @@
         }
       }
     },
+    "faq": {
+      "enabled": true,
+      "seo": {
+        "title": "FAQ | Smithtown Self Storage",
+        "description": "Frequently asked questions about Smithtown Self Storage.",
+        "keywords": ["storage faq", "self storage questions"]
+      },
+      "layout": ["page-header", "faq-section"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": {
+            "heading": "Frequently Asked Questions",
+            "blurb": "Everything you need to know about storing with us",
+            "breadcrumb": true
+          }
+        },
+        "faq-section": {
+          "component": "FAQ",
+          "variant": "accordion",
+          "content": {
+            "heading": "Common Questions"
+          }
+        }
+      }
+    },
     "reviews": {
       "enabled": false,
       "seo": {},
@@ -317,9 +345,9 @@
 
   "data": {
     "units": [
-      { "id": "5x5-indoor", "size": "5x5", "sqft": 25, "price": 49, "features": ["indoor"] },
-      { "id": "10x10-climate", "size": "10x10", "sqft": 100, "price": 99, "features": ["indoor", "climate-controlled"] },
-      { "id": "10x20-driveup", "size": "10x20", "sqft": 200, "price": 159, "features": ["drive-up"] }
+      { "id": "5x5-indoor", "size": "5x5", "sqft": 25, "price": 49, "features": ["indoor"], "available": true },
+      { "id": "10x10-climate", "size": "10x10", "sqft": 100, "price": 99, "features": ["indoor", "climate-controlled"], "available": true },
+      { "id": "10x20-driveup", "size": "10x20", "sqft": 200, "price": 159, "features": ["drive-up"], "available": true }
     ],
     "amenities": [
       { "id": "24hr-access", "label": "24-Hour Access", "icon": "clock", "description": "Access your unit any time, day or night" },
@@ -328,6 +356,11 @@
     ],
     "testimonials": [
       { "name": "John D.", "rating": 5, "text": "Great facility, very clean and secure." }
+    ],
+    "faq": [
+      { "question": "Do you have 24-hour access?", "answer": "Yes, all tenants receive a personal access code for 24/7 gate entry." },
+      { "question": "Are units climate controlled?", "answer": "We offer both standard indoor and climate-controlled units. Climate-controlled units maintain a consistent temperature and humidity level year-round." },
+      { "question": "How do I reserve a unit?", "answer": "You can reserve online through our website or call us at (631) 555-1234. No long-term commitment required." }
     ]
   },
 
