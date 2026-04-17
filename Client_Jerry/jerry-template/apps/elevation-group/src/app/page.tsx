@@ -80,112 +80,116 @@ export default function HomePage() {
 
       {/* ── Quick Links Strip ── */}
       <Box className="bg-[var(--gray-2)] border-b border-[var(--gray-a4)]">
-        <Container size="3" py="5">
-          <Grid columns="3" gap="5">
+        <Box className="max-w-7xl mx-auto px-6" py="7">
+          <Grid columns="3" gap="6">
             <Link href="#locations" className="no-underline text-inherit">
-              <Flex direction="column" align="center" gap="2">
-                <MapPin size={28} />
-                <Text size="3" weight="bold">Locations</Text>
+              <Flex direction="column" align="center" gap="3" py="4" className="rounded-[var(--radius-3)] transition-colors hover:bg-[var(--accent-a2)]">
+                <MapPin size={40} className="text-[var(--accent-9)]" />
+                <Text size="4" weight="bold">Locations</Text>
+                <Text size="2" color="gray" align="center">Find a facility near you</Text>
               </Flex>
             </Link>
             <Link href="#features" className="no-underline text-inherit">
-              <Flex direction="column" align="center" gap="2">
-                <Ruler size={28} />
-                <Text size="3" weight="bold">Size Guide</Text>
+              <Flex direction="column" align="center" gap="3" py="4" className="rounded-[var(--radius-3)] transition-colors hover:bg-[var(--accent-a2)]">
+                <Ruler size={40} className="text-[var(--accent-9)]" />
+                <Text size="4" weight="bold">Size Guide</Text>
+                <Text size="2" color="gray" align="center">Find the right unit for you</Text>
               </Flex>
             </Link>
             <Link href="#contact" className="no-underline text-inherit">
-              <Flex direction="column" align="center" gap="2">
-                <BookOpen size={28} />
-                <Text size="3" weight="bold">Blog</Text>
+              <Flex direction="column" align="center" gap="3" py="4" className="rounded-[var(--radius-3)] transition-colors hover:bg-[var(--accent-a2)]">
+                <BookOpen size={40} className="text-[var(--accent-9)]" />
+                <Text size="4" weight="bold">Blog</Text>
+                <Text size="2" color="gray" align="center">Storage tips and guides</Text>
               </Flex>
             </Link>
           </Grid>
-        </Container>
+        </Box>
       </Box>
 
       {/* ── What We Offer (split layout) ── */}
-      <Box id="features" className="bg-[var(--gray-2)]">
-        <Container size="3" py="8">
-          <Flex direction={{ initial: 'column', md: 'row' }} gap="7">
+      <Box id="features" className="bg-[var(--gray-1)]">
+        <Box className="max-w-7xl mx-auto px-6" py="9">
+          <Flex direction={{ initial: 'column', lg: 'row' }} gap="9" align={{ lg: 'center' }}>
             {/* Left column — text */}
-            <Flex direction="column" gap="3" className="md:max-w-xs" justify="center">
-              <Heading size="6">What We Offer</Heading>
-              <Text size="3" color="gray" as="p">
-                Every storage feature is designed from scratch against standards forged from
-                years of experience in the self storage industry. The result is a high quality
-                consistent customer experience you can count on.
-              </Text>
+            <Flex direction="column" gap="5" className="lg:max-w-md" justify="center">
               <Box>
-                <Button size="3" variant="solid" color="red" asChild>
+                <Heading size="8" mb="4">What We Offer</Heading>
+                <Text size="3" color="gray" as="p" className="leading-relaxed">
+                  Every storage feature is designed from scratch against standards forged from
+                  years of experience in the self storage industry. The result is a high quality
+                  consistent customer experience you can count on.
+                </Text>
+              </Box>
+              <Box>
+                <Button size="3" variant="solid" asChild>
                   <Link href="#features">View All Features</Link>
                 </Button>
               </Box>
             </Flex>
             {/* Right column — 2x2 feature grid */}
             <Box flexGrow="1">
-              <Grid columns="2" gap="0">
+              <Grid columns="2" gap="4">
                 {[
-                  { icon: Truck, label: 'Hand Carts and Dollies' },
-                  { icon: Clock, label: 'No Long Term Contracts' },
-                  { icon: Shield, label: 'Drive-Up Access' },
-                  { icon: Thermometer, label: 'Climate-Controlled Units' },
+                  { icon: Truck, label: 'Hand Carts and Dollies', desc: 'Available at every location' },
+                  { icon: Clock, label: 'No Long Term Contracts', desc: 'Month-to-month flexibility' },
+                  { icon: Shield, label: 'Drive-Up Access', desc: 'Load and unload with ease' },
+                  { icon: Thermometer, label: 'Climate-Controlled', desc: 'Protect your valuables' },
                 ].map((f) => (
-                  <Flex
-                    key={f.label}
-                    direction="column"
-                    align="center"
-                    justify="center"
-                    gap="3"
-                    p="6"
-                    className="border border-[var(--gray-a4)]"
-                  >
-                    <f.icon size={32} className="text-[var(--accent-9)]" />
-                    <Text size="3" weight="bold" align="center">{f.label}</Text>
-                  </Flex>
+                  <Card key={f.label} size="3">
+                    <Flex direction="column" align="center" gap="3" p="4" className="text-center">
+                      <f.icon size={40} className="text-[var(--accent-9)]" />
+                      <Box>
+                        <Text size="4" weight="bold" as="p">{f.label}</Text>
+                        <Text size="2" color="gray" as="p" mt="1">{f.desc}</Text>
+                      </Box>
+                    </Flex>
+                  </Card>
                 ))}
               </Grid>
             </Box>
           </Flex>
-        </Container>
+        </Box>
       </Box>
 
-      <Separator size="4" />
-
       {/* ── Our Guarantee ── */}
-      <Container size="2" py="8">
-        <Flex direction="column" align="center" gap="3" className="text-center">
-          <Heading size="6">Our Guarantee</Heading>
-          <Text size="3" color="gray" as="p">
-            We stand behind every facility in the Elevation Group network. If you&apos;re not
-            satisfied within 30 days, we&apos;ll help you find a better fit — no questions asked.
-          </Text>
-        </Flex>
-      </Container>
-
-      <Separator size="4" />
+      <Box className="bg-[var(--accent-a2)]">
+        <Box className="max-w-7xl mx-auto px-6" py="9">
+          <Box className="max-w-2xl mx-auto text-center">
+            <Heading size="7" mb="4">Our Guarantee</Heading>
+            <Text size="4" color="gray" as="p" className="leading-relaxed">
+              We stand behind every facility in the Elevation Group network. If you&apos;re not
+              satisfied within 30 days, we&apos;ll help you find a better fit — no questions asked.
+            </Text>
+          </Box>
+        </Box>
+      </Box>
 
       {/* ── Testimonial ── */}
       {bestReview && (
-        <Container size="2" py="8">
-          <Flex direction="column" align="center" gap="3" className="text-center">
-            <Heading size="6">What Our Customers Are Saying</Heading>
-            {totalReviews > 0 && (
-              <Text size="2" color="gray" as="p">
-                {totalReviews} reviews across all locations
-              </Text>
-            )}
-            <Box py="3">
-              <Text as="p" size="5" className="italic leading-relaxed">
-                &ldquo;{bestReview.text}&rdquo;
-              </Text>
-              <Text as="p" size="3" mt="4" weight="bold">{bestReview.name}</Text>
-              <Text as="p" size="2" color="gray" mt="1">
-                {'★'.repeat(bestReview.rating)}{'☆'.repeat(5 - bestReview.rating)}
-              </Text>
+        <Box className="bg-[var(--gray-a2)]">
+          <Box className="max-w-7xl mx-auto px-6" py="9">
+            <Box className="max-w-2xl mx-auto text-center">
+              <Heading size="7" mb="2">What Our Customers Are Saying</Heading>
+              {totalReviews > 0 && (
+                <Text size="2" color="gray" as="p" mb="6">
+                  {totalReviews} reviews across all locations
+                </Text>
+              )}
+              <Box py="5">
+                <Text as="p" size="8" color="gray" className="leading-none select-none mb-3" aria-hidden="true">&ldquo;</Text>
+                <Text as="p" size="5" className="italic leading-relaxed">
+                  {bestReview.text}
+                </Text>
+                <Separator my="5" size="1" className="mx-auto" />
+                <Text as="p" size="3" weight="bold">{bestReview.name}</Text>
+                <Text as="p" size="3" color="amber" mt="1">
+                  {'★'.repeat(bestReview.rating)}{'☆'.repeat(5 - bestReview.rating)}
+                </Text>
+              </Box>
             </Box>
-          </Flex>
-        </Container>
+          </Box>
+        </Box>
       )}
 
       {/* ── Locations (merged: map-bg + full filter grid) ── */}
