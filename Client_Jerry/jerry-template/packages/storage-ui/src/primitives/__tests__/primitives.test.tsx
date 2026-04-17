@@ -58,7 +58,7 @@ describe('Section', () => {
     )
     const overlay = screen.getByTestId('overlay')
     expect(overlay).toBeInTheDocument()
-    expect(overlay.style.backgroundColor).toBe('rgba(0, 0, 0, 0.6)')
+    expect(overlay.style.backgroundColor).toBe('rgba(0, 0, 0, 0.7)')
   })
 
   it('renders light overlay', () => {

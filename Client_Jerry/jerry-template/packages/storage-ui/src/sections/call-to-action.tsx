@@ -41,8 +41,8 @@ export function CallToAction({ content, variant = 'gradient', layout }: SectionP
     return (
       <Section background={c.image} overlay="dark">
         <Container>
-          <Box style={{ textAlign }}>
-            <SectionHeader heading={c.heading} description={c.blurb} level="2" align={textAlign === 'left' ? 'left' : 'center'} />
+          <Box style={{ textAlign, color: 'white' }}>
+            <SectionHeader heading={c.heading} description={c.blurb} level="2" align={textAlign === 'left' ? 'left' : 'center'} invertColor />
             <CTAGroup primary={c.cta} secondary={c.ctaSecondary} />
           </Box>
         </Container>

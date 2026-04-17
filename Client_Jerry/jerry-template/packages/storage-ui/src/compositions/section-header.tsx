@@ -6,6 +6,8 @@ export interface SectionHeaderProps {
   description?: string
   level?: '1' | '2' | '3' | '4'
   align?: 'left' | 'center'
+  /** When true, renders white text suitable for dark overlays / backgrounds. */
+  invertColor?: boolean
 }
 
 const levelToSize: Record<string, '8' | '6' | '5' | '4'> = {
@@ -27,14 +29,29 @@ export function SectionHeader({
   description,
   level = '2',
   align = 'left',
+  invertColor = false,
 }: SectionHeaderProps) {
   return (
     <Box mb="4">
-      <Heading as={levelToAs[level]} size={levelToSize[level]} align={align}>
+      <Heading
+        as={levelToAs[level]}
+        size={levelToSize[level]}
+        align={align}
+        weight="bold"
+        {...(invertColor ? { style: { color: 'white' } } : {})}
+      >
         {heading}
       </Heading>
       {description && (
-        <Text as="p" size="3" mt="2" color="gray" align={align}>
+        <Text
+          as="p"
+          size="3"
+          mt="2"
+          align={align}
+          {...(invertColor
+            ? { style: { color: 'rgba(255,255,255,0.95)' } }
+            : { color: 'gray' as const })}
+        >
           {description}
         </Text>
       )}

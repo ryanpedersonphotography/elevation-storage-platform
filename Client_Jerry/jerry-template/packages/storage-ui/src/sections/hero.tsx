@@ -69,9 +69,9 @@ export function Hero({ content, variant = 'overlay', layout }: SectionProps) {
     <Section background={c.image} overlay="dark">
       <Container>
         <Box py="9" style={{ textAlign, color: 'white' }}>
-          <Heading as="h1" size="8" style={{ color: 'white' }}>{c.heading}</Heading>
+          <Heading as="h1" size="8" weight="bold" style={{ color: 'white' }}>{c.heading}</Heading>
           {c.subtitle && (
-            <Text as="p" size="4" mt="3" style={{ color: 'rgba(255,255,255,0.9)' }}>
+            <Text as="p" size="4" mt="3" style={{ color: 'rgba(255,255,255,0.95)' }}>
               {c.subtitle}
             </Text>
           )}

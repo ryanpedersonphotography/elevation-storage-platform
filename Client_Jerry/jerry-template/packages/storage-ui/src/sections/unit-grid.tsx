@@ -1,7 +1,8 @@
 import React from 'react'
 import { z } from 'zod'
-import { Section, Container, Grid, Badge, Table, Heading, Text, Box, Button } from '../primitives'
-import { SectionHeader, ContentCard } from '../compositions'
+import { Check } from 'lucide-react'
+import { Section, Container, Flex, Badge, Table, Heading, Text, Box, Button, Card } from '../primitives'
+import { SectionHeader } from '../compositions'
 import type { SectionProps } from '../renderer/registry'
 
 export const UnitGridContentSchema = z.object({
@@ -14,19 +15,6 @@ export const UnitGridContentSchema = z.object({
 
 type UnitGridContent = z.infer<typeof UnitGridContentSchema>
 
-/** Map layout prop to Grid columns */
-function resolveColumns(layout?: string): Record<string, string> {
-  switch (layout) {
-    case '2-col':
-      return { initial: '1', sm: '2' }
-    case '4-col':
-      return { initial: '1', sm: '2', md: '4' }
-    case '3-col':
-    default:
-      return { initial: '1', sm: '2', md: '3' }
-  }
-}
-
 export function UnitGrid({ content, variant = 'cards', layout, facilityData }: SectionProps) {
   const c = content as unknown as UnitGridContent
   const allUnits = facilityData?.data?.units ?? []
@@ -37,7 +25,6 @@ export function UnitGrid({ content, variant = 'cards', layout, facilityData }: S
   const units = filtered.length > 0 ? filtered : allUnits
 
   const isFullWidth = layout === 'full-width'
-  const columns = resolveColumns(layout)
 
   const gridContent = (
     <>
@@ -48,72 +35,124 @@ export function UnitGrid({ content, variant = 'cards', layout, facilityData }: S
             <Table.Row>
               <Table.ColumnHeaderCell>Size</Table.ColumnHeaderCell>
               <Table.ColumnHeaderCell>Sq Ft</Table.ColumnHeaderCell>
-              {c.showPricing !== false && (
-                <Table.ColumnHeaderCell>Price</Table.ColumnHeaderCell>
-              )}
               {c.showFeatures && (
                 <Table.ColumnHeaderCell>Features</Table.ColumnHeaderCell>
               )}
+              <Table.ColumnHeaderCell>Status</Table.ColumnHeaderCell>
+              {c.showPricing !== false && (
+                <Table.ColumnHeaderCell>Price</Table.ColumnHeaderCell>
+              )}
+              <Table.ColumnHeaderCell></Table.ColumnHeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {units.map((unit) => (
-              <Table.Row key={unit.id}>
-                <Table.Cell>{unit.size}</Table.Cell>
-                <Table.Cell>{unit.sqft}</Table.Cell>
-                {c.showPricing !== false && (
-                  <Table.Cell>${unit.price}/mo</Table.Cell>
-                )}
-                {c.showFeatures && (
+            {units.map((unit) => {
+              const isAvailable = unit.available !== false
+              return (
+                <Table.Row key={unit.id}>
                   <Table.Cell>
-                    {unit.features.map((f) => (
-                      <Badge key={f} mr="1" size="1">{f}</Badge>
-                    ))}
+                    <Text weight="bold">{unit.size}</Text>
                   </Table.Cell>
-                )}
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table.Root>
-      ) : (
-        <Grid columns={columns} gap="4">
-          {units.map((unit) => {
-            const isAvailable = unit.available !== false
-
-            return (
-              <ContentCard key={unit.id} title={unit.size}>
-                <Box>
-                  <Text as="p" size="2">
-                    {unit.sqft} sq ft
-                  </Text>
-                  {c.showPricing !== false && (
-                    <Heading as="h4" size="5" mt="2">
-                      ${unit.price}
-                      <Text as="span" size="2" color="gray">/mo</Text>
-                    </Heading>
-                  )}
-                  {c.showFeatures && unit.features.length > 0 && (
-                    <Box mt="2">
+                  <Table.Cell>{unit.sqft} sq ft</Table.Cell>
+                  {c.showFeatures && (
+                    <Table.Cell>
                       {unit.features.map((f) => (
                         <Badge key={f} mr="1" size="1">{f}</Badge>
                       ))}
-                    </Box>
+                    </Table.Cell>
                   )}
-                  <Box mt="3" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Badge size="1" variant={isAvailable ? 'soft' : 'surface'} color={isAvailable ? 'green' : 'gray'}>
+                  <Table.Cell>
+                    <Badge
+                      size="1"
+                      variant={isAvailable ? 'soft' : 'surface'}
+                      color={isAvailable ? 'green' : 'red'}
+                    >
                       {isAvailable ? 'Available' : 'Unavailable'}
                     </Badge>
-                    {isAvailable && (
+                  </Table.Cell>
+                  {c.showPricing !== false && (
+                    <Table.Cell>
+                      <Text weight="bold">${unit.price}/mo</Text>
+                    </Table.Cell>
+                  )}
+                  <Table.Cell>
+                    {isAvailable ? (
                       <Button size="2" variant="solid" asChild>
                         <a href="?reserve">Reserve</a>
                       </Button>
+                    ) : (
+                      <Button size="2" variant="surface" disabled>
+                        Unavailable
+                      </Button>
                     )}
-                  </Box>
-                </Box>
-              </ContentCard>
+                  </Table.Cell>
+                </Table.Row>
+              )
+            })}
+          </Table.Body>
+        </Table.Root>
+      ) : (
+        <Flex direction="column" gap="0">
+          {units.map((unit) => {
+            const isAvailable = unit.available !== false
+            const formatFeature = (f: string) =>
+              f.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+
+            return (
+              <Box
+                key={unit.id}
+                py="4"
+                px="5"
+                className="border border-[var(--gray-a4)] -mt-px first:rounded-t-[var(--radius-3)] last:rounded-b-[var(--radius-3)] bg-[var(--color-background)] hover:bg-[var(--accent-a2)] transition-colors"
+              >
+                <Flex
+                  direction={{ initial: 'column', sm: 'row' }}
+                  align={{ initial: 'start', sm: 'center' }}
+                  justify="between"
+                  gap="4"
+                >
+                  {/* Left: Size + sqft */}
+                  <Flex direction="column" gap="0" className="shrink-0" style={{ minWidth: '90px' }}>
+                    <Heading as="h3" size="5" weight="bold">{unit.size}</Heading>
+                    <Text size="1" color="gray">{unit.sqft} sq ft</Text>
+                  </Flex>
+
+                  {/* Middle: Features as checkmark list */}
+                  <Flex direction="column" gap="1" flexGrow="1" className="min-w-0">
+                    {unit.features.map((f) => (
+                      <Flex key={f} align="center" gap="2">
+                        <Check size={14} className="text-[var(--accent-9)] shrink-0" />
+                        <Text size="2">{formatFeature(f)}</Text>
+                      </Flex>
+                    ))}
+                  </Flex>
+
+                  {/* Right: Price + status + Reserve */}
+                  <Flex align="center" gap="5" className="shrink-0">
+                    {c.showPricing !== false && (
+                      <Flex direction="column" align="end" gap="0">
+                        <Flex align="baseline" gap="1">
+                          <Text size="6" weight="bold">${unit.price}</Text>
+                          <Text size="2" color="gray">/mo</Text>
+                        </Flex>
+                        <Text size="1" color="gray">No Obligation</Text>
+                      </Flex>
+                    )}
+                    {isAvailable ? (
+                      <Button size="3" variant="solid" highContrast asChild>
+                        <a href="?reserve">Reserve Now</a>
+                      </Button>
+                    ) : (
+                      <Button size="3" variant="surface" disabled>
+                        Unavailable
+                      </Button>
+                    )}
+                  </Flex>
+                </Flex>
+              </Box>
             )
           })}
-        </Grid>
+        </Flex>
       )}
     </>
   )
