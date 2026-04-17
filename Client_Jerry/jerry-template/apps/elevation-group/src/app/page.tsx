@@ -1,7 +1,7 @@
 import { loadSubdirectoryFacilities } from '@jerry/facility-config'
-import { Container, Heading, Text, Grid, Box, Flex, Badge } from '@radix-ui/themes'
-import { FacilityCard } from '@jerry/storage-ui'
+import { Container, Heading, Text, Grid, Box, Flex } from '@radix-ui/themes'
 import { Shield, Clock, Thermometer, Truck } from 'lucide-react'
+import { FacilityFilter } from '../components/facility-filter'
 
 export default function HomePage() {
   const facilities = loadSubdirectoryFacilities()
@@ -35,23 +35,10 @@ export default function HomePage() {
         </Container>
       </Box>
 
-      {/* Facility Grid */}
+      {/* Filterable Facility Grid */}
       <Container size="3" py="8">
-        <Flex justify="between" align="center" mb="5">
-          <Heading size="6">Our Locations</Heading>
-          <Badge size="2" variant="soft">
-            {facilities.length} {facilities.length === 1 ? 'Facility' : 'Facilities'}
-          </Badge>
-        </Flex>
-        <Grid columns={{ initial: '1', sm: '2', md: '3' }} gap="5">
-          {facilities.map((facility) => (
-            <FacilityCard
-              key={facility.slug}
-              facility={facility}
-              href={`/${facility.slug}`}
-            />
-          ))}
-        </Grid>
+        <Heading size="6" mb="4">Our Locations</Heading>
+        <FacilityFilter facilities={facilities} />
       </Container>
 
       {/* What We Offer */}
