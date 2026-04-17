@@ -1,6 +1,6 @@
 import React from 'react'
 import { z } from 'zod'
-import { Section, Container, Grid, Badge, Table, Heading, Text, Box } from '../primitives'
+import { Section, Container, Grid, Badge, Table, Heading, Text, Box, Button } from '../primitives'
 import { SectionHeader, ContentCard } from '../compositions'
 import type { SectionProps } from '../renderer/registry'
 
@@ -77,28 +77,42 @@ export function UnitGrid({ content, variant = 'cards', layout, facilityData }: S
         </Table.Root>
       ) : (
         <Grid columns={columns} gap="4">
-          {units.map((unit) => (
-            <ContentCard key={unit.id} title={unit.size}>
-              <Box>
-                <Text as="p" size="2">
-                  {unit.sqft} sq ft
-                </Text>
-                {c.showPricing !== false && (
-                  <Heading as="h4" size="5" mt="2">
-                    ${unit.price}
-                    <Text as="span" size="2" color="gray">/mo</Text>
-                  </Heading>
-                )}
-                {c.showFeatures && unit.features.length > 0 && (
-                  <Box mt="2">
-                    {unit.features.map((f) => (
-                      <Badge key={f} mr="1" size="1">{f}</Badge>
-                    ))}
+          {units.map((unit) => {
+            const isAvailable = unit.available !== false
+
+            return (
+              <ContentCard key={unit.id} title={unit.size}>
+                <Box>
+                  <Text as="p" size="2">
+                    {unit.sqft} sq ft
+                  </Text>
+                  {c.showPricing !== false && (
+                    <Heading as="h4" size="5" mt="2">
+                      ${unit.price}
+                      <Text as="span" size="2" color="gray">/mo</Text>
+                    </Heading>
+                  )}
+                  {c.showFeatures && unit.features.length > 0 && (
+                    <Box mt="2">
+                      {unit.features.map((f) => (
+                        <Badge key={f} mr="1" size="1">{f}</Badge>
+                      ))}
+                    </Box>
+                  )}
+                  <Box mt="3" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Badge size="1" variant={isAvailable ? 'soft' : 'surface'} color={isAvailable ? 'green' : 'gray'}>
+                      {isAvailable ? 'Available' : 'Unavailable'}
+                    </Badge>
+                    {isAvailable && (
+                      <Button size="2" variant="solid" asChild>
+                        <a href="?reserve">Reserve</a>
+                      </Button>
+                    )}
                   </Box>
-                )}
-              </Box>
-            </ContentCard>
-          ))}
+                </Box>
+              </ContentCard>
+            )
+          })}
         </Grid>
       )}
     </>

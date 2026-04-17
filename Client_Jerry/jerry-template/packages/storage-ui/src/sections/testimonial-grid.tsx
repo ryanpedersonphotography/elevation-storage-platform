@@ -17,6 +17,30 @@ export function TestimonialGrid({ content, variant = 'cards', facilityData }: Se
   const allTestimonials = facilityData?.data?.testimonials ?? []
   const testimonials = c.limit ? allTestimonials.slice(0, c.limit) : allTestimonials
 
+  if (variant === 'featured') {
+    const featured = allTestimonials[0]
+    if (!featured) return null
+
+    return (
+      <Section>
+        <Container size="2">
+          <SectionHeader heading={c.heading} description={c.blurb} level="2" />
+          <Box style={{ textAlign: 'center', padding: '2rem 0' }}>
+            <Text as="p" size="5" style={{ fontStyle: 'italic', lineHeight: 1.6 }}>
+              &ldquo;{featured.text}&rdquo;
+            </Text>
+            <Text as="p" size="3" mt="4" weight="bold">
+              {featured.name}
+            </Text>
+            <Text as="p" size="2" color="gray" mt="1">
+              {'★'.repeat(featured.rating)}{'☆'.repeat(5 - featured.rating)}
+            </Text>
+          </Box>
+        </Container>
+      </Section>
+    )
+  }
+
   if (variant === 'quotes') {
     return (
       <Section>

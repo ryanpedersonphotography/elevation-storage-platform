@@ -300,6 +300,14 @@ describe('TestimonialGrid', () => {
     // Jane Doe has 5 stars
     expect(screen.getByText('★★★★★')).toBeInTheDocument()
   })
+
+  it('renders single featured testimonial', () => {
+    const props = makeSectionProps({ heading: 'What Customers Say' }, { variant: 'featured' })
+    render(<TestimonialGrid {...props} />)
+    expect(screen.getByText('Jane Doe')).toBeInTheDocument()
+    expect(screen.getByText(/Great facility/)).toBeInTheDocument()
+    expect(screen.queryByText('Alice Johnson')).not.toBeInTheDocument()
+  })
 })
 
 // ─── FAQ ───
