@@ -3,7 +3,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { Box, Flex, Heading, Text, Button, Badge, ScrollArea } from '@radix-ui/themes'
 import { X, MapPin, Phone, Clock, ExternalLink, Package, Shield, MessageSquare, HelpCircle, ChevronDown } from 'lucide-react'
-import Link from 'next/link'
 import type { FacilityConfig } from '@jerry/facility-config/schema'
 
 export interface FacilityDrawerProps {
@@ -260,7 +259,7 @@ export function FacilityDrawer({ facility, open, onClose }: FacilityDrawerProps)
             {/* CTA buttons */}
             <Flex direction="column" gap="2" mt="2" pb="4">
               <Button size="3" variant="solid" asChild>
-                <Link href={`/${displayFacility.slug}`}>View Full Details</Link>
+                <a href={`/${displayFacility.slug}`}>View Full Details</a>
               </Button>
               {info.directionsUrl && (
                 <Button size="2" variant="outline" asChild>

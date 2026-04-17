@@ -12,7 +12,7 @@ const levelToSize: Record<string, '8' | '6' | '5' | '4'> = {
   '1': '8',
   '2': '5',
   '3': '4',
-  '4': '3',
+  '4': '4',
 }
 
 const levelToAs: Record<string, 'h1' | 'h2' | 'h3' | 'h4'> = {
