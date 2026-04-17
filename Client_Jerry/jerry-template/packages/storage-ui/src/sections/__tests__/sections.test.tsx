@@ -257,8 +257,8 @@ describe('ContactForm', () => {
       successMessage: 'Thank you!',
     })
     render(<ContactForm {...props} />)
-    expect(screen.getByText('Name')).toBeInTheDocument()
-    expect(screen.getByText('Email')).toBeInTheDocument()
+    expect(screen.getByText('Full Name')).toBeInTheDocument()
+    expect(screen.getByText('Email Address')).toBeInTheDocument()
     expect(screen.getByText('Message')).toBeInTheDocument()
     expect(screen.getByText('Send')).toBeInTheDocument()
   })

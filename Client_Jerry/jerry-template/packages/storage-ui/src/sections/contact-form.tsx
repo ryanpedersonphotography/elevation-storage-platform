@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useCallback } from 'react'
 import { z } from 'zod'
-import { Section, Container, TextField, TextArea, Select, Button, Text, Box, Flex } from '../primitives'
+import { Section, Container, TextField, TextArea, Select, Button, Text, Box, Flex, Card } from '../primitives'
 import { SectionHeader } from '../compositions'
 import { useAnalytics } from '../hooks/use-analytics'
 import type { SectionProps } from '../renderer/registry'
@@ -17,16 +17,34 @@ export const ContactFormContentSchema = z.object({
 type ContactFormContent = z.infer<typeof ContactFormContentSchema>
 
 const fieldLabels: Record<string, string> = {
-  name: 'Name',
-  email: 'Email',
-  phone: 'Phone',
+  name: 'Full Name',
+  email: 'Email Address',
+  phone: 'Phone Number',
   unitSize: 'Unit Size',
   moveInDate: 'Move-in Date',
   message: 'Message',
 }
 
-/** Fields that always occupy the full two-column row */
+const fieldPlaceholders: Record<string, string> = {
+  name: 'John Smith',
+  email: 'john@example.com',
+  phone: '(555) 123-4567',
+  unitSize: 'Select a size',
+  moveInDate: '',
+  message: 'Tell us about your storage needs...',
+}
+
+/** Fields that span full width in the two-column layout */
 const FULL_WIDTH_FIELDS = new Set(['message', 'moveInDate'])
+
+function FormField({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <Flex direction="column" gap="2">
+      <Text as="label" size="2" weight="medium">{label}</Text>
+      {children}
+    </Flex>
+  )
+}
 
 export function ContactForm({ content, variant = 'standard', facilityData }: SectionProps) {
   const c = content as unknown as ContactFormContent
@@ -45,11 +63,74 @@ export function ContactForm({ content, variant = 'standard', facilityData }: Sec
     return (
       <Section>
         <Container>
-          <Box className="py-12 text-center">
-            <Text as="p" size="4" data-testid="success-message">{c.successMessage}</Text>
-          </Box>
+          <Card size="4">
+            <Flex direction="column" align="center" gap="3" py="8">
+              <Text as="p" size="5" weight="bold" data-testid="success-message">
+                {c.successMessage}
+              </Text>
+              <Text as="p" size="3" color="gray">
+                We&apos;ll be in touch soon.
+              </Text>
+            </Flex>
+          </Card>
         </Container>
       </Section>
+    )
+  }
+
+  // Split fields into pairs for two-column layout
+  const halfFields = c.fields.filter((f) => !FULL_WIDTH_FIELDS.has(f))
+  const fullFields = c.fields.filter((f) => FULL_WIDTH_FIELDS.has(f))
+
+  // Pair up half-width fields: [name, email], [phone, unitSize], etc.
+  const rows: { left: string; right?: string }[] = []
+  for (let i = 0; i < halfFields.length; i += 2) {
+    rows.push({ left: halfFields[i], right: halfFields[i + 1] })
+  }
+
+  function renderField(field: string) {
+    if (field === 'message') {
+      return (
+        <FormField label={fieldLabels[field]} key={field}>
+          <TextArea
+            name={field}
+            placeholder={fieldPlaceholders[field]}
+            rows={5}
+            size="3"
+          />
+        </FormField>
+      )
+    }
+
+    if (field === 'unitSize') {
+      return (
+        <FormField label={fieldLabels[field]} key={field}>
+          <Select.Root name={field} size="3">
+            <Select.Trigger placeholder={fieldPlaceholders[field]} />
+            <Select.Content>
+              {unitSizes.map((size) => (
+                <Select.Item key={size} value={size}>{size}</Select.Item>
+              ))}
+            </Select.Content>
+          </Select.Root>
+        </FormField>
+      )
+    }
+
+    const inputType =
+      field === 'email' ? 'email' :
+      field === 'phone' ? 'tel' :
+      field === 'moveInDate' ? 'date' : 'text'
+
+    return (
+      <FormField label={fieldLabels[field]} key={field}>
+        <TextField.Root
+          name={field}
+          type={inputType}
+          placeholder={fieldPlaceholders[field]}
+          size="3"
+        />
+      </FormField>
     )
   }
 
@@ -57,67 +138,37 @@ export function ContactForm({ content, variant = 'standard', facilityData }: Sec
     <Section>
       <Container size={variant === 'minimal' ? '2' : '3'}>
         <SectionHeader heading={c.heading} description={c.blurb} level="2" />
-        <form onSubmit={handleSubmit}>
-          <Box className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {c.fields.map((field) => {
-              const isFullWidth = FULL_WIDTH_FIELDS.has(field)
-              const colClass = isFullWidth ? 'sm:col-span-2' : ''
-
-              if (field === 'message') {
-                return (
-                  <Box key={field} className={colClass}>
-                    <label>
-                      <Text as="p" size="2" mb="1" weight="medium">{fieldLabels[field]}</Text>
-                      <TextArea name={field} placeholder={fieldLabels[field]} rows={4} size="3" className="w-full" />
-                    </label>
+        <Card size="4">
+          <form onSubmit={handleSubmit}>
+            <Flex direction="column" gap="5">
+              {/* Paired half-width fields */}
+              {rows.map((row) => (
+                <Flex key={row.left} direction={{ initial: 'column', sm: 'row' }} gap="5">
+                  <Box flexGrow="1" flexBasis="0%">
+                    {renderField(row.left)}
                   </Box>
-                )
-              }
+                  {row.right ? (
+                    <Box flexGrow="1" flexBasis="0%">
+                      {renderField(row.right)}
+                    </Box>
+                  ) : (
+                    <Box flexGrow="1" flexBasis="0%" />
+                  )}
+                </Flex>
+              ))}
 
-              if (field === 'unitSize') {
-                return (
-                  <Box key={field} className={colClass}>
-                    <label>
-                      <Text as="p" size="2" mb="1" weight="medium">{fieldLabels[field]}</Text>
-                      <Select.Root name={field} size="3">
-                        <Select.Trigger placeholder="Select a size" className="w-full" />
-                        <Select.Content>
-                          {unitSizes.map((size) => (
-                            <Select.Item key={size} value={size}>{size}</Select.Item>
-                          ))}
-                        </Select.Content>
-                      </Select.Root>
-                    </label>
-                  </Box>
-                )
-              }
+              {/* Full-width fields */}
+              {fullFields.map((field) => renderField(field))}
 
-              const inputType =
-                field === 'email' ? 'email' :
-                field === 'phone' ? 'tel' :
-                field === 'moveInDate' ? 'date' : 'text'
-
-              return (
-                <Box key={field} className={colClass}>
-                  <label>
-                    <Text as="p" size="2" mb="1" weight="medium">{fieldLabels[field]}</Text>
-                    <TextField.Root
-                      name={field}
-                      type={inputType}
-                      placeholder={fieldLabels[field]}
-                      size="3"
-                      className="w-full"
-                    />
-                  </label>
-                </Box>
-              )
-            })}
-
-            <Flex className="sm:col-span-2" justify="end">
-              <Button type="submit" size="3">{c.submitLabel}</Button>
+              {/* Submit */}
+              <Flex justify="end" pt="2">
+                <Button type="submit" size="3" highContrast>
+                  {c.submitLabel}
+                </Button>
+              </Flex>
             </Flex>
-          </Box>
-        </form>
+          </form>
+        </Card>
       </Container>
     </Section>
   )
