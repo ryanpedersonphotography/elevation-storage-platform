@@ -1,34 +1,20 @@
 'use client'
 import React, { useState, useMemo } from 'react'
-import { Flex, Text, Box, Grid, Badge, Button, TextField, Select, Card, Heading } from '@radix-ui/themes'
-import { Search, X, Phone } from 'lucide-react'
-
-/** Serialized facility data — no imports from server packages */
-export interface SerializedFacility {
-  slug: string
-  name: string
-  info: {
-    address: { street: string; city: string; state: string; zip: string }
-    phone: string
-    image?: { src: string; alt: string }
-    directionsUrl?: string
-  }
-  data: {
-    units: { id: string; features: string[] }[]
-    testimonials: { name: string; rating: number; text: string }[]
-  }
-}
+import { Flex, Text, Box, Grid, Badge, Button, TextField, Select } from '@radix-ui/themes'
+import { FacilityCard } from '@jerry/storage-ui'
+import { Search, X } from 'lucide-react'
+import type { FacilityConfig } from '@jerry/facility-config/schema'
 
 interface FacilityFilterProps {
-  facilities: SerializedFacility[]
+  facilities: FacilityConfig[]
 }
 
-function getStates(facilities: SerializedFacility[]): string[] {
+function getStates(facilities: FacilityConfig[]): string[] {
   const states = new Set(facilities.map((f) => f.info.address.state))
   return Array.from(states).sort()
 }
 
-function getFeatures(facilities: SerializedFacility[]): string[] {
+function getFeatures(facilities: FacilityConfig[]): string[] {
   const features = new Set<string>()
   for (const f of facilities) {
     for (const u of f.data.units) {
@@ -45,70 +31,6 @@ function formatFeature(feature: string): string {
     .split('-')
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ')
-}
-
-function FacilityCardInline({ facility, href }: { facility: SerializedFacility; href: string }) {
-  const { info, data } = facility
-  const addr = info.address
-  const reviewCount = data.testimonials.length
-  const unitCount = data.units.length
-  const directionsUrl = info.directionsUrl ??
-    `https://www.google.com/maps/search/?api=1&query=${addr.street}+${addr.city}+${addr.state}+${addr.zip}`
-
-  return (
-    <a href={href} className="no-underline text-inherit block">
-      <Card className="facility-card-hover overflow-hidden cursor-pointer transition-all">
-        {info.image && (
-          <img
-            src={info.image.src}
-            alt={info.image.alt}
-            loading="lazy"
-            className="w-full h-auto object-cover aspect-video"
-          />
-        )}
-        <Box p="4">
-          <Heading as="h3" size="4" mb="2">{facility.name}</Heading>
-          <Flex direction="column" gap="1" mb="3">
-            <Text as="p" size="2" color="gray">{addr.street}</Text>
-            <Text as="p" size="2" color="gray">{addr.city}, {addr.state} {addr.zip}</Text>
-          </Flex>
-          <Box mb="3">
-            <Flex asChild align="center" gap="1" display="inline-flex">
-              <span
-                onClick={(e) => { e.preventDefault(); e.stopPropagation(); window.location.href = `tel:${info.phone}` }}
-                className="cursor-pointer"
-              >
-                <Phone size={12} />
-                <Text as="span" size="2" weight="bold">{info.phone}</Text>
-              </span>
-            </Flex>
-          </Box>
-          <Flex gap="2" mb="3" wrap="wrap">
-            <Button variant="outline" size="2" asChild>
-              <span
-                onClick={(e) => { e.preventDefault(); e.stopPropagation(); window.open(directionsUrl, '_blank') }}
-              >
-                Get Directions
-              </span>
-            </Button>
-            <Button variant="solid" size="2">
-              View Facility
-            </Button>
-          </Flex>
-          <Flex justify="between" align="center">
-            {reviewCount > 0 && (
-              <Badge size="1" variant="soft">Reviews ({reviewCount})</Badge>
-            )}
-            {unitCount > 0 && (
-              <Text as="span" size="2" weight="bold" color="blue">
-                Available Units
-              </Text>
-            )}
-          </Flex>
-        </Box>
-      </Card>
-    </a>
-  )
 }
 
 export function FacilityFilter({ facilities }: FacilityFilterProps) {
@@ -252,11 +174,15 @@ export function FacilityFilter({ facilities }: FacilityFilterProps) {
       {filtered.length > 0 ? (
         <Grid columns={{ initial: '1', sm: '2', md: '3' }} gap="5">
           {filtered.map((facility) => (
-            <FacilityCardInline
+            <a
               key={facility.slug}
-              facility={facility}
               href={`/${facility.slug}`}
-            />
+              className="no-underline text-inherit block"
+            >
+              <Box className="facility-card-hover transition-all">
+                <FacilityCard facility={facility} href={`/${facility.slug}`} />
+              </Box>
+            </a>
           ))}
         </Grid>
       ) : (

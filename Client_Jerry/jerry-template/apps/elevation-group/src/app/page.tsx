@@ -1,25 +1,10 @@
 import { loadSubdirectoryFacilities } from '@jerry/facility-config'
 import { Container, Heading, Text, Grid, Box, Flex } from '@radix-ui/themes'
 import { Shield, Clock, Thermometer, Truck } from 'lucide-react'
-import { FacilityFilter, type SerializedFacility } from '../components/facility-filter'
+import { FacilityFilter } from '../components/facility-filter'
 
 export default function HomePage() {
   const facilities = loadSubdirectoryFacilities()
-
-  const serialized: SerializedFacility[] = facilities.map((f) => ({
-    slug: f.slug,
-    name: f.name,
-    info: {
-      address: f.info.address,
-      phone: f.info.phone,
-      image: f.info.image,
-      directionsUrl: f.info.directionsUrl,
-    },
-    data: {
-      units: f.data.units.map((u) => ({ id: u.id, features: u.features })),
-      testimonials: f.data.testimonials,
-    },
-  }))
 
   const totalReviews = facilities.reduce(
     (sum, f) => sum + f.data.testimonials.length,
@@ -53,7 +38,7 @@ export default function HomePage() {
       {/* Filterable Facility Grid */}
       <Container size="3" py="8">
         <Heading size="6" mb="4">Our Locations</Heading>
-        <FacilityFilter facilities={serialized} />
+        <FacilityFilter facilities={facilities} />
       </Container>
 
       {/* What We Offer */}

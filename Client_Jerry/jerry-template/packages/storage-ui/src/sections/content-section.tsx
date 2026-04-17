@@ -1,6 +1,6 @@
 import React from 'react'
 import { z } from 'zod'
-import { ImageSchema } from '@jerry/facility-config'
+import { ImageSchema } from '@jerry/facility-config/schema'
 import { Section, Container, Text, Box } from '../primitives'
 import { SectionHeader, MediaBlock } from '../compositions'
 import type { SectionProps } from '../renderer/registry'

@@ -1,6 +1,6 @@
 import { registry } from './registry'
 import type { Template } from '../templates/types'
-import type { Page, FacilityConfig } from '@jerry/facility-config'
+import type { Page, FacilityConfig } from '@jerry/facility-config/schema'
 
 interface PageRendererProps {
   page: Page

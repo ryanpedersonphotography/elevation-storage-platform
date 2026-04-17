@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react'
-import type { FacilityConfig } from '@jerry/facility-config'
+import type { FacilityConfig } from '@jerry/facility-config/schema'
 import { Hero } from '../sections/hero'
 import { HeroSimple } from '../sections/hero-simple'
 import { ContentSection } from '../sections/content-section'

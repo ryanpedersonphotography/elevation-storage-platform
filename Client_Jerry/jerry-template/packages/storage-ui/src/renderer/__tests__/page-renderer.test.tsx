@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { PageRenderer } from '../page-renderer'
-import type { Page, FacilityConfig } from '@jerry/facility-config'
+import type { Page, FacilityConfig } from '@jerry/facility-config/schema'
 import type { Template } from '../../templates/types'
 
 // Mock lucide-react for FeatureGrid dependency chain

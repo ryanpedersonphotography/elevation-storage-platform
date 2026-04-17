@@ -1,6 +1,6 @@
 import React from 'react'
 import { z } from 'zod'
-import { ImageSchema, CTASchema } from '@jerry/facility-config'
+import { ImageSchema, CTASchema } from '@jerry/facility-config/schema'
 import { Section, Container, Box } from '../primitives'
 import { SectionHeader, CTAGroup } from '../compositions'
 import type { SectionProps } from '../renderer/registry'

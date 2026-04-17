@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, Heading, Text, Box, Flex, Button, Badge } from '../primitives'
 import { Image } from '../primitives'
-import type { FacilityConfig } from '@jerry/facility-config'
+import type { FacilityConfig } from '@jerry/facility-config/schema'
 
 export interface FacilityCardProps {
   facility: FacilityConfig

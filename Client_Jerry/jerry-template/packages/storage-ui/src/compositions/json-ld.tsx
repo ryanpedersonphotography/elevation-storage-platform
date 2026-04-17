@@ -1,5 +1,5 @@
 import React from 'react'
-import type { FacilityConfig } from '@jerry/facility-config'
+import type { FacilityConfig } from '@jerry/facility-config/schema'
 
 interface JsonLdProps {
   facility: FacilityConfig

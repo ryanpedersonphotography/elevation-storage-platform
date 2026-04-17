@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { Section, Container, Grid, Flex, Text, Box } from '../primitives'
 import { SectionHeader, FacilityCard } from '../compositions'
 import type { SectionProps } from '../renderer/registry'
-import type { FacilityConfig } from '@jerry/facility-config'
+import type { FacilityConfig } from '@jerry/facility-config/schema'
 
 export const FacilityDirectoryContentSchema = z.object({
   heading: z.string().min(1),

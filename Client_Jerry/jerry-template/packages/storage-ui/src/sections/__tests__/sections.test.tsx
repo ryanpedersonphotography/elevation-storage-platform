@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
-import type { FacilityConfig } from '@jerry/facility-config'
+import type { FacilityConfig } from '@jerry/facility-config/schema'
 import type { SectionProps } from '../../renderer/registry'
 import { Hero } from '../hero'
 import { HeroSimple } from '../hero-simple'
