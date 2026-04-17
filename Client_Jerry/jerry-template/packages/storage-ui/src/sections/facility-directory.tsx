@@ -1,7 +1,7 @@
 import React from 'react'
 import { z } from 'zod'
 import { Section, Container, Grid, Flex, Text, Box } from '../primitives'
-import { SectionHeader, ContentCard } from '../compositions'
+import { SectionHeader, FacilityCard } from '../compositions'
 import type { SectionProps } from '../renderer/registry'
 import type { FacilityConfig } from '@jerry/facility-config'
 
@@ -47,6 +47,21 @@ export function FacilityDirectory({ content, variant = 'cards', facilities = [] 
     )
   }
 
+  if (variant === 'featured') {
+    return (
+      <Section>
+        <Container>
+          <SectionHeader heading={c.heading} description={c.blurb} level="2" />
+          <Grid columns={{ initial: '1', md: '2' }} gap="5">
+            {facilities.map((f) => (
+              <FacilityCard key={f.slug} facility={f} href={`/${f.slug}`} />
+            ))}
+          </Grid>
+        </Container>
+      </Section>
+    )
+  }
+
   // cards (default) and map variant fall back to cards layout
   return (
     <Section>
@@ -54,13 +69,7 @@ export function FacilityDirectory({ content, variant = 'cards', facilities = [] 
         <SectionHeader heading={c.heading} description={c.blurb} level="2" />
         <Grid columns={{ initial: '1', sm: '2', md: '3' }} gap="4">
           {facilities.map((f) => (
-            <ContentCard
-              key={f.slug}
-              title={f.name}
-              description={`${f.info.address.city}, ${f.info.address.state}`}
-            >
-              <Text as="p" size="2">{f.info.phone}</Text>
-            </ContentCard>
+            <FacilityCard key={f.slug} facility={f} href={`/${f.slug}`} />
           ))}
         </Grid>
       </Container>
