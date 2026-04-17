@@ -57,49 +57,59 @@ function FacilityCardInline({ facility, href }: { facility: SerializedFacility; 
     `https://www.google.com/maps/search/?api=1&query=${addr.street}+${addr.city}+${addr.state}+${addr.zip}`
 
   return (
-    <Card style={{ overflow: 'hidden' }}>
-      {info.image && (
-        <img
-          src={info.image.src}
-          alt={info.image.alt}
-          loading="lazy"
-          style={{ width: '100%', height: 'auto', objectFit: 'cover', aspectRatio: '16/9' }}
-        />
-      )}
-      <Box p="4">
-        <Heading as="h3" size="4" mb="2">{facility.name}</Heading>
-        <Flex direction="column" gap="1" mb="3">
-          <Text as="p" size="2" color="gray">{addr.street}</Text>
-          <Text as="p" size="2" color="gray">{addr.city}, {addr.state} {addr.zip}</Text>
-        </Flex>
-        <Box mb="3">
-          <a href={`tel:${info.phone}`} style={{ textDecoration: 'none', color: 'inherit', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
-            <Phone size={12} />
-            <Text as="span" size="2" weight="bold">{info.phone}</Text>
-          </a>
-        </Box>
-        <Flex gap="2" mb="3" wrap="wrap">
-          <Button variant="outline" size="2" asChild>
-            <a href={directionsUrl} target="_blank" rel="noopener noreferrer">Get Directions</a>
-          </Button>
-          <Button variant="solid" size="2" asChild>
-            <a href={href}>View Facility</a>
-          </Button>
-        </Flex>
-        <Flex justify="between" align="center">
-          {reviewCount > 0 && (
-            <Badge size="1" variant="soft">Reviews ({reviewCount})</Badge>
-          )}
-          {unitCount > 0 && (
-            <a href={`${href}/units`} style={{ textDecoration: 'none' }}>
+    <a
+      href={href}
+      style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
+    >
+      <Card style={{ overflow: 'hidden', cursor: 'pointer', transition: 'box-shadow 0.15s, transform 0.15s' }} className="facility-card-hover">
+        {info.image && (
+          <img
+            src={info.image.src}
+            alt={info.image.alt}
+            loading="lazy"
+            style={{ width: '100%', height: 'auto', objectFit: 'cover', aspectRatio: '16/9' }}
+          />
+        )}
+        <Box p="4">
+          <Heading as="h3" size="4" mb="2">{facility.name}</Heading>
+          <Flex direction="column" gap="1" mb="3">
+            <Text as="p" size="2" color="gray">{addr.street}</Text>
+            <Text as="p" size="2" color="gray">{addr.city}, {addr.state} {addr.zip}</Text>
+          </Flex>
+          <Box mb="3">
+            <span
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); window.location.href = `tel:${info.phone}` }}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem', cursor: 'pointer' }}
+            >
+              <Phone size={12} />
+              <Text as="span" size="2" weight="bold">{info.phone}</Text>
+            </span>
+          </Box>
+          <Flex gap="2" mb="3" wrap="wrap">
+            <Button variant="outline" size="2" asChild>
+              <span
+                onClick={(e) => { e.preventDefault(); e.stopPropagation(); window.open(directionsUrl, '_blank') }}
+              >
+                Get Directions
+              </span>
+            </Button>
+            <Button variant="solid" size="2">
+              View Facility
+            </Button>
+          </Flex>
+          <Flex justify="between" align="center">
+            {reviewCount > 0 && (
+              <Badge size="1" variant="soft">Reviews ({reviewCount})</Badge>
+            )}
+            {unitCount > 0 && (
               <Text as="span" size="2" weight="bold" style={{ color: 'var(--accent-9)' }}>
                 Available Units
               </Text>
-            </a>
-          )}
-        </Flex>
-      </Box>
-    </Card>
+            )}
+          </Flex>
+        </Box>
+      </Card>
+    </a>
   )
 }
 
