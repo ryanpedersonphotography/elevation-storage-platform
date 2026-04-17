@@ -1,0 +1,239 @@
+{
+  "slug": "tampa",
+  "name": "Sunshine Storage",
+
+  "info": {
+    "address": {
+      "street": "401 N Franklin St",
+      "city": "Tampa",
+      "state": "FL",
+      "zip": "33602"
+    },
+    "phone": "(813) 555-4780",
+    "email": "tampa@elevationgroup.com",
+    "coordinates": { "lat": 27.950, "lng": -82.459 },
+    "hours": [
+      { "days": ["Mo", "Tu", "We", "Th", "Fr", "Sa"], "open": "07:00", "close": "21:00" },
+      { "days": ["Su"], "open": "08:00", "close": "18:00" }
+    ],
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=401+N+Franklin+St+Tampa+FL+33602",
+    "image": { "src": "https://picsum.photos/seed/tampa-ext/852/480", "alt": "Sunshine Storage exterior" }
+  },
+
+  "branding": {
+    "showParent": true,
+    "template": "trojan",
+    "colors": {
+      "primary": "oklch(0.4 0.15 210)",
+      "accent": "oklch(0.6 0.2 50)"
+    },
+    "logo": "https://picsum.photos/seed/tampa-logo/200/200"
+  },
+
+  "deployment": {
+    "mode": "subdirectory",
+    "domain": null
+  },
+
+  "seo": {
+    "siteName": "Sunshine Storage",
+    "defaultTitle": "Sunshine Storage | Self Storage in Tampa, FL",
+    "defaultDescription": "Hurricane-resistant self storage in Tampa, FL. Boat storage, indoor units, and 24/7 access.",
+    "keywords": ["self storage tampa fl", "storage units tampa", "boat storage tampa florida", "hurricane storage tampa"],
+    "ogImage": "https://picsum.photos/seed/tampa-og/1200/630"
+  },
+
+  "analytics": {
+    "gtag": "G-TAMPA00001",
+    "gtagEvents": {
+      "reserve_click": true,
+      "phone_click": true,
+      "directions_click": true
+    }
+  },
+
+  "pages": {
+    "home": {
+      "enabled": true,
+      "seo": {
+        "title": "Sunshine Storage | Units from $49/mo",
+        "description": "Secure, hurricane-resistant storage in Tampa, FL. Boat storage available.",
+        "keywords": ["storage near downtown tampa", "cheap storage tampa fl"],
+        "ogImage": "https://picsum.photos/seed/tampa-og-home/1200/630"
+      },
+      "layout": ["hero", "intro", "featured-units", "why-us", "cta"],
+      "sections": {
+        "hero": {
+          "component": "Hero",
+          "content": {
+            "heading": "Florida-Tough Storage in the Heart of Tampa",
+            "subtitle": "Hurricane-resistant units and boat storage from $49/mo",
+            "image": { "src": "https://picsum.photos/seed/tampa-hero/1440/600", "alt": "Sunshine Storage Tampa" },
+            "cta": { "label": "Reserve Now", "href": "/tampa/reserve", "variant": "primary" }
+          }
+        },
+        "intro": {
+          "component": "ContentSection",
+          "layout": "image-right",
+          "content": {
+            "heading": "Built for Florida's Toughest Conditions",
+            "blurb": "Located in downtown Tampa, minutes from the Hillsborough River and Tampa Bay.",
+            "paragraphs": [
+              "Sunshine Storage is engineered to withstand Florida's hurricane season with reinforced steel doors and hurricane-rated construction.",
+              "Whether you need to store your boat, your business inventory, or your seasonal gear, we have the space — and the protection — you need."
+            ],
+            "image": { "src": "https://picsum.photos/seed/tampa-facility/800/450", "alt": "Sunshine Storage facility" }
+          }
+        },
+        "featured-units": {
+          "component": "UnitGrid",
+          "variant": "cards",
+          "layout": "3-col",
+          "content": {
+            "heading": "Popular Units",
+            "blurb": "Right-sized for Tampa living",
+            "showPricing": true,
+            "filter": ["5x10-indoor", "10x10-indoor", "10x30-boat"]
+          }
+        },
+        "why-us": {
+          "component": "FeatureGrid",
+          "layout": "4-col",
+          "content": {
+            "heading": "Why Sunshine Storage",
+            "features": [
+              { "icon": "Anchor", "heading": "Boat Storage", "blurb": "Dedicated boat and watercraft storage available" },
+              { "icon": "Shield", "heading": "Hurricane-Resistant", "blurb": "Reinforced construction rated for Category 4 winds" },
+              { "icon": "Building", "heading": "All Indoor Units", "blurb": "Climate-protected from Florida heat and humidity" },
+              { "icon": "Lock", "heading": "24/7 Security", "blurb": "Gated entry with HD cameras around the clock" }
+            ]
+          }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": {
+            "heading": "Protect What Matters Most",
+            "blurb": "Month-to-month leases. No long-term commitment required.",
+            "image": { "src": "https://picsum.photos/seed/tampa-cta/1440/500", "alt": "" },
+            "cta": { "label": "Reserve a Unit", "href": "/tampa/reserve", "variant": "primary" },
+            "ctaSecondary": { "label": "Call (813) 555-4780", "href": "tel:8135554780", "variant": "outline" }
+          }
+        }
+      }
+    },
+    "units": {
+      "enabled": true,
+      "seo": {
+        "title": "Units & Pricing | Sunshine Storage",
+        "description": "Storage unit sizes and prices at Sunshine Storage in Tampa, FL.",
+        "keywords": ["storage unit prices tampa", "boat storage pricing tampa fl"]
+      },
+      "layout": ["page-header", "unit-table", "cta"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "Unit Sizes & Pricing", "blurb": "Transparent pricing, no hidden fees", "breadcrumb": true }
+        },
+        "unit-table": {
+          "component": "UnitGrid",
+          "variant": "table",
+          "layout": "full-width",
+          "content": { "heading": "All Units", "showPricing": true, "showFeatures": true }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": { "heading": "Ready to store?", "cta": { "label": "Reserve Now", "href": "/tampa/reserve", "variant": "primary" } }
+        }
+      }
+    },
+    "reserve": {
+      "enabled": true,
+      "seo": {
+        "title": "Reserve | Sunshine Storage",
+        "description": "Reserve a storage unit at Sunshine Storage in Tampa, FL.",
+        "keywords": ["reserve storage tampa", "rent storage unit tampa fl"]
+      },
+      "layout": ["page-header", "form", "info"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "Reserve a Unit", "blurb": "We'll confirm your spot within one business day", "breadcrumb": true }
+        },
+        "form": {
+          "component": "ContactForm",
+          "variant": "standard",
+          "content": {
+            "heading": "Request a Reservation",
+            "fields": ["name", "email", "phone", "unitSize", "moveInDate", "message"],
+            "submitLabel": "Submit Reservation",
+            "successMessage": "Thanks! We'll be in touch within 24 hours."
+          }
+        },
+        "info": {
+          "component": "ContentSection",
+          "layout": "stacked",
+          "content": {
+            "heading": "Prefer to call?",
+            "paragraphs": ["Reach us at (813) 555-4780 or tampa@elevationgroup.com."]
+          }
+        }
+      }
+    },
+    "faq": {
+      "enabled": true,
+      "seo": {
+        "title": "FAQ | Sunshine Storage",
+        "description": "Common questions about Sunshine Storage in Tampa, FL.",
+        "keywords": ["storage faq tampa fl"]
+      },
+      "layout": ["page-header", "faq-section"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "FAQ", "blurb": "Quick answers to common questions", "breadcrumb": true }
+        },
+        "faq-section": {
+          "component": "FAQ",
+          "variant": "accordion",
+          "content": { "heading": "Frequently Asked Questions" }
+        }
+      }
+    },
+    "reviews": {
+      "enabled": false,
+      "seo": {},
+      "layout": [],
+      "sections": {}
+    }
+  },
+
+  "data": {
+    "units": [
+      { "id": "5x5-indoor", "size": "5x5", "sqft": 25, "price": 49, "features": ["indoor"], "available": true },
+      { "id": "5x10-indoor", "size": "5x10", "sqft": 50, "price": 69, "features": ["indoor"], "available": true },
+      { "id": "10x10-indoor", "size": "10x10", "sqft": 100, "price": 105, "features": ["indoor", "climate-controlled"], "available": true },
+      { "id": "10x15-indoor", "size": "10x15", "sqft": 150, "price": 139, "features": ["indoor", "climate-controlled"], "available": false },
+      { "id": "10x30-boat", "size": "10x30", "sqft": 300, "price": 189, "features": ["drive-up", "boat-storage"], "available": true }
+    ],
+    "amenities": [
+      { "id": "boat-storage", "label": "Boat Storage", "icon": "Anchor", "description": "Dedicated bays for boats and watercraft up to 28 ft" },
+      { "id": "hurricane-resistant", "label": "Hurricane-Resistant", "icon": "Shield", "description": "Reinforced steel construction rated for Category 4 storms" },
+      { "id": "indoor-units", "label": "All Indoor Units", "icon": "Building", "description": "Every unit is enclosed and protected from Florida humidity" },
+      { "id": "security", "label": "24/7 Gated Security", "icon": "Lock", "description": "HD cameras and coded gate entry around the clock" }
+    ],
+    "testimonials": [
+      { "name": "Carlos M.", "rating": 5, "text": "Kept my boat here through hurricane season with zero damage. These guys are the real deal." },
+      { "name": "Brittany L.", "rating": 5, "text": "Indoor climate control is a must in Tampa summers. My furniture thanks me every month." },
+      { "name": "Derek F.", "rating": 4, "text": "Easy downtown location, staff is helpful, pricing is fair for the area." }
+    ],
+    "faq": [
+      { "question": "What are your hurricane preparedness measures?", "answer": "Our facility is constructed with reinforced steel and hurricane-rated doors. All indoor units are fully enclosed. We recommend tenants check their contents before and after a major storm." },
+      { "question": "What sizes of boats can you store?", "answer": "Our 10x30 boat bays can accommodate watercraft up to approximately 28 feet. Please call us to confirm your specific vessel dimensions before reserving." },
+      { "question": "Are indoor units air-conditioned?", "answer": "Yes, our 10x10 and 10x15 indoor units are climate-controlled to stay between 65–80°F — ideal for protecting furniture, electronics, and sensitive items from Florida's heat and humidity." }
+    ]
+  },
+
+  "integrations": {}
+}

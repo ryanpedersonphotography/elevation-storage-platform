@@ -1,0 +1,243 @@
+{
+  "slug": "phoenix",
+  "name": "Desert Lock Storage",
+
+  "info": {
+    "address": {
+      "street": "620 E Jefferson St",
+      "city": "Phoenix",
+      "state": "AZ",
+      "zip": "85004"
+    },
+    "phone": "(602) 555-9147",
+    "email": "phoenix@elevationgroup.com",
+    "coordinates": { "lat": 33.448, "lng": -112.063 },
+    "hours": [
+      { "days": ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"], "open": "00:00", "close": "23:59" }
+    ],
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=620+E+Jefferson+St+Phoenix+AZ+85004",
+    "image": { "src": "https://picsum.photos/seed/phoenix-ext/852/480", "alt": "Desert Lock Storage exterior" }
+  },
+
+  "branding": {
+    "showParent": true,
+    "template": "bold",
+    "colors": {
+      "primary": "oklch(0.5 0.2 40)",
+      "accent": "oklch(0.55 0.15 80)"
+    },
+    "logo": "https://picsum.photos/seed/phoenix-logo/200/200"
+  },
+
+  "deployment": {
+    "mode": "subdirectory",
+    "domain": null
+  },
+
+  "seo": {
+    "siteName": "Desert Lock Storage",
+    "defaultTitle": "Desert Lock Storage | Self Storage in Phoenix, AZ",
+    "defaultDescription": "24/7 self storage in downtown Phoenix with extreme heat protection, RV parking, and climate-controlled units.",
+    "keywords": ["self storage phoenix az", "storage units phoenix", "rv parking phoenix", "24 hour storage phoenix arizona", "climate controlled storage phoenix"],
+    "ogImage": "https://picsum.photos/seed/phoenix-og/1200/630"
+  },
+
+  "analytics": {
+    "gtag": "G-PHOENIX001",
+    "gtagEvents": {
+      "reserve_click": true,
+      "phone_click": true,
+      "directions_click": true
+    }
+  },
+
+  "pages": {
+    "home": {
+      "enabled": true,
+      "seo": {
+        "title": "Desert Lock Storage | Units from $44/mo",
+        "description": "24/7 access, extreme heat protection, and RV parking in downtown Phoenix.",
+        "keywords": ["storage near downtown phoenix", "rv storage phoenix az"],
+        "ogImage": "https://picsum.photos/seed/phoenix-og-home/1200/630"
+      },
+      "layout": ["hero", "intro", "featured-units", "why-us", "cta"],
+      "sections": {
+        "hero": {
+          "component": "Hero",
+          "content": {
+            "heading": "Desert-Tough Storage. Open 24/7.",
+            "subtitle": "Climate-controlled units and RV parking from $44/mo",
+            "image": { "src": "https://picsum.photos/seed/phoenix-hero/1440/600", "alt": "Desert Lock Storage Phoenix" },
+            "cta": { "label": "Reserve Now", "href": "/phoenix/reserve", "variant": "primary" }
+          }
+        },
+        "intro": {
+          "component": "ContentSection",
+          "layout": "image-right",
+          "content": {
+            "heading": "Built to Beat Arizona Heat",
+            "blurb": "Located in downtown Phoenix near Chase Field and the Phoenix Convention Center.",
+            "paragraphs": [
+              "Phoenix summers can push 115°F. Our insulated, climate-controlled units keep temperatures regulated so your belongings — and your peace of mind — stay cool.",
+              "With true 24/7 gate access and dedicated RV parking, Desert Lock Storage is the go-to for snowbirds, small businesses, and Phoenix locals alike."
+            ],
+            "image": { "src": "https://picsum.photos/seed/phoenix-facility/800/450", "alt": "Desert Lock Storage facility" }
+          }
+        },
+        "featured-units": {
+          "component": "UnitGrid",
+          "variant": "cards",
+          "layout": "3-col",
+          "content": {
+            "heading": "Top Picks",
+            "blurb": "From small lockers to RV bays",
+            "showPricing": true,
+            "filter": ["5x10-climate", "10x15-climate", "12x40-rv"]
+          }
+        },
+        "why-us": {
+          "component": "FeatureGrid",
+          "layout": "4-col",
+          "content": {
+            "heading": "Why Desert Lock Storage",
+            "features": [
+              { "icon": "Thermometer", "heading": "Extreme Heat Protection", "blurb": "Climate control engineered for Arizona summers" },
+              { "icon": "Truck", "heading": "RV & Vehicle Parking", "blurb": "Pull-through spaces for RVs, trailers, and boats" },
+              { "icon": "Clock", "heading": "24/7 Access", "blurb": "Your personal code works any hour, any day" },
+              { "icon": "Shield", "heading": "Perimeter Security", "blurb": "Fenced, gated, and camera-monitored at all times" }
+            ]
+          }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": {
+            "heading": "Your Stuff Deserves a Cool Home",
+            "blurb": "No admin fees. Month-to-month flexibility.",
+            "image": { "src": "https://picsum.photos/seed/phoenix-cta/1440/500", "alt": "" },
+            "cta": { "label": "Reserve a Unit", "href": "/phoenix/reserve", "variant": "primary" },
+            "ctaSecondary": { "label": "Call (602) 555-9147", "href": "tel:6025559147", "variant": "outline" }
+          }
+        }
+      }
+    },
+    "units": {
+      "enabled": true,
+      "seo": {
+        "title": "Units & Pricing | Desert Lock Storage",
+        "description": "Storage unit sizes and prices at Desert Lock Storage in Phoenix, AZ.",
+        "keywords": ["storage unit prices phoenix", "rv storage pricing phoenix az"]
+      },
+      "layout": ["page-header", "unit-table", "cta"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "Unit Sizes & Pricing", "blurb": "Straight-up pricing, zero hidden fees", "breadcrumb": true }
+        },
+        "unit-table": {
+          "component": "UnitGrid",
+          "variant": "table",
+          "layout": "full-width",
+          "content": { "heading": "All Units", "showPricing": true, "showFeatures": true }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": { "heading": "Ready to lock it in?", "cta": { "label": "Reserve Now", "href": "/phoenix/reserve", "variant": "primary" } }
+        }
+      }
+    },
+    "reserve": {
+      "enabled": true,
+      "seo": {
+        "title": "Reserve | Desert Lock Storage",
+        "description": "Reserve a storage unit at Desert Lock Storage in Phoenix, AZ.",
+        "keywords": ["reserve storage phoenix", "rent storage unit phoenix az"]
+      },
+      "layout": ["page-header", "form", "info"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "Reserve a Unit", "blurb": "We'll confirm your reservation within one business day", "breadcrumb": true }
+        },
+        "form": {
+          "component": "ContactForm",
+          "variant": "standard",
+          "content": {
+            "heading": "Request a Reservation",
+            "fields": ["name", "email", "phone", "unitSize", "moveInDate", "message"],
+            "submitLabel": "Submit Reservation",
+            "successMessage": "Thanks! We'll be in touch within 24 hours."
+          }
+        },
+        "info": {
+          "component": "ContentSection",
+          "layout": "stacked",
+          "content": {
+            "heading": "Prefer to call?",
+            "paragraphs": ["Reach us at (602) 555-9147 or phoenix@elevationgroup.com."]
+          }
+        }
+      }
+    },
+    "faq": {
+      "enabled": true,
+      "seo": {
+        "title": "FAQ | Desert Lock Storage",
+        "description": "Common questions about Desert Lock Storage in Phoenix, AZ.",
+        "keywords": ["storage faq phoenix az"]
+      },
+      "layout": ["page-header", "faq-section"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "FAQ", "blurb": "Quick answers to our most common questions", "breadcrumb": true }
+        },
+        "faq-section": {
+          "component": "FAQ",
+          "variant": "accordion",
+          "content": { "heading": "Frequently Asked Questions" }
+        }
+      }
+    },
+    "reviews": {
+      "enabled": false,
+      "seo": {},
+      "layout": [],
+      "sections": {}
+    }
+  },
+
+  "data": {
+    "units": [
+      { "id": "5x5-climate", "size": "5x5", "sqft": 25, "price": 44, "features": ["indoor", "climate-controlled"], "available": true },
+      { "id": "5x10-climate", "size": "5x10", "sqft": 50, "price": 62, "features": ["indoor", "climate-controlled"], "available": true },
+      { "id": "10x10-climate", "size": "10x10", "sqft": 100, "price": 95, "features": ["indoor", "climate-controlled"], "available": true },
+      { "id": "10x15-climate", "size": "10x15", "sqft": 150, "price": 129, "features": ["indoor", "climate-controlled"], "available": false },
+      { "id": "10x20-climate", "size": "10x20", "sqft": 200, "price": 159, "features": ["indoor", "climate-controlled"], "available": true },
+      { "id": "10x30-driveup", "size": "10x30", "sqft": 300, "price": 199, "features": ["drive-up"], "available": true },
+      { "id": "12x40-rv", "size": "12x40", "sqft": 480, "price": 265, "features": ["drive-up", "rv-parking"], "available": false }
+    ],
+    "amenities": [
+      { "id": "extreme-heat", "label": "Extreme Heat Protection", "icon": "Thermometer", "description": "Climate systems engineered to handle 115°F+ Arizona summers" },
+      { "id": "rv-parking", "label": "RV & Vehicle Parking", "icon": "Truck", "description": "Pull-through spaces for RVs, fifth-wheels, trailers, and boats" },
+      { "id": "24-7-access", "label": "True 24/7 Access", "icon": "Clock", "description": "Gate access around the clock, every day of the year" },
+      { "id": "security", "label": "Gated & Camera Monitored", "icon": "Shield", "description": "Full perimeter fencing, HD cameras, and coded keypad entry" },
+      { "id": "online-billing", "label": "Online Billing", "icon": "CreditCard", "description": "Manage your account and pay rent from any device" }
+    ],
+    "testimonials": [
+      { "name": "Ray V.", "rating": 5, "text": "Stored my RV here all summer. The 24/7 access means I can grab it whenever I want without calling ahead." },
+      { "name": "Sandra K.", "rating": 5, "text": "Climate control in Phoenix is non-negotiable. My electronics and wine collection are perfectly fine after 8 months." },
+      { "name": "Jesse M.", "rating": 4, "text": "Great downtown location. Prices are competitive and the staff is easy to reach." },
+      { "name": "Claudia R.", "rating": 5, "text": "I'm a snowbird and this place is exactly what I needed. Dropped my stuff off in April and picked it up in November, no issues." }
+    ],
+    "faq": [
+      { "question": "How hot do non-climate-controlled units get in summer?", "answer": "Non-climate-controlled drive-up units can reach temperatures close to the outdoor high — sometimes 115°F or more in July and August. We strongly recommend climate-controlled units for anything sensitive to heat, including electronics, wood furniture, vinyl records, and medications." },
+      { "question": "What RV and vehicle sizes can you accommodate?", "answer": "Our 12x40 pull-through spaces can fit most Class A and Class C motorhomes, fifth-wheels, and large trailers. Boats and jet skis can fit in our 10x30 drive-up units. Please call us to confirm your vehicle dimensions." },
+      { "question": "Is access truly 24/7?", "answer": "Yes. Our gate and facility are accessible 24 hours a day, 7 days a week, 365 days a year. Your personal gate code works any time, including holidays." },
+      { "question": "Do you offer auto-pay?", "answer": "Yes. You can set up automatic monthly billing through our online tenant portal. We accept major credit cards, debit cards, and ACH bank transfers." }
+    ]
+  },
+
+  "integrations": {}
+}

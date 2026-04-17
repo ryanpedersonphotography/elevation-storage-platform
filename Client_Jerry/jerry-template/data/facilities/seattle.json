@@ -1,0 +1,239 @@
+{
+  "slug": "seattle",
+  "name": "Emerald City Storage",
+
+  "info": {
+    "address": {
+      "street": "4512 Stone Way N",
+      "city": "Seattle",
+      "state": "WA",
+      "zip": "98103"
+    },
+    "phone": "(206) 555-3821",
+    "email": "seattle@elevationgroup.com",
+    "coordinates": { "lat": 47.661, "lng": -122.341 },
+    "hours": [
+      { "days": ["Mo", "Tu", "We", "Th", "Fr"], "open": "07:00", "close": "21:00" },
+      { "days": ["Sa", "Su"], "open": "08:00", "close": "19:00" }
+    ],
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=4512+Stone+Way+N+Seattle+WA+98103",
+    "image": { "src": "https://picsum.photos/seed/seattle-ext/852/480", "alt": "Emerald City Storage exterior" }
+  },
+
+  "branding": {
+    "showParent": true,
+    "template": "friendly",
+    "colors": {
+      "primary": "oklch(0.45 0.12 150)",
+      "accent": "oklch(0.6 0.18 280)"
+    },
+    "logo": "https://picsum.photos/seed/seattle-logo/200/200"
+  },
+
+  "deployment": {
+    "mode": "subdirectory",
+    "domain": null
+  },
+
+  "seo": {
+    "siteName": "Emerald City Storage",
+    "defaultTitle": "Emerald City Storage | Self Storage in Seattle, WA",
+    "defaultDescription": "All-indoor, moisture-protected self storage in Seattle's Wallingford neighborhood. Packing supplies on site.",
+    "keywords": ["self storage seattle wa", "storage units seattle", "indoor storage seattle", "moisture-proof storage seattle wallingford"],
+    "ogImage": "https://picsum.photos/seed/seattle-og/1200/630"
+  },
+
+  "analytics": {
+    "gtag": "G-SEATTLE001",
+    "gtagEvents": {
+      "reserve_click": true,
+      "phone_click": true,
+      "directions_click": true
+    }
+  },
+
+  "pages": {
+    "home": {
+      "enabled": true,
+      "seo": {
+        "title": "Emerald City Storage | Units from $55/mo",
+        "description": "All-indoor, moisture-protected storage in Seattle's Wallingford neighborhood.",
+        "keywords": ["storage near wallingford seattle", "dry indoor storage seattle wa"],
+        "ogImage": "https://picsum.photos/seed/seattle-og-home/1200/630"
+      },
+      "layout": ["hero", "intro", "featured-units", "why-us", "cta"],
+      "sections": {
+        "hero": {
+          "component": "Hero",
+          "content": {
+            "heading": "Seattle Storage That Keeps the Rain Out",
+            "subtitle": "All-indoor, moisture-protected units from $55/mo",
+            "image": { "src": "https://picsum.photos/seed/seattle-hero/1440/600", "alt": "Emerald City Storage Seattle" },
+            "cta": { "label": "Find Your Unit", "href": "/seattle/reserve", "variant": "primary" }
+          }
+        },
+        "intro": {
+          "component": "ContentSection",
+          "layout": "image-right",
+          "content": {
+            "heading": "Built for the Pacific Northwest",
+            "blurb": "Located on Stone Way N in Wallingford — serving Fremont, Green Lake, and Phinney Ridge.",
+            "paragraphs": [
+              "Seattle gets over 150 rainy days a year. At Emerald City Storage, every unit is fully indoor with moisture-barrier construction to keep your belongings bone dry.",
+              "We also carry a full selection of packing supplies on site — boxes, tape, bubble wrap, and more — so you're always ready to move."
+            ],
+            "image": { "src": "https://picsum.photos/seed/seattle-facility/800/450", "alt": "Bright, dry indoor storage hallway" }
+          }
+        },
+        "featured-units": {
+          "component": "UnitGrid",
+          "variant": "cards",
+          "layout": "3-col",
+          "content": {
+            "heading": "Popular Units",
+            "blurb": "Right-sized for Seattle living",
+            "showPricing": true,
+            "filter": ["5x5-indoor", "10x10-indoor", "10x15-indoor"]
+          }
+        },
+        "why-us": {
+          "component": "FeatureGrid",
+          "layout": "4-col",
+          "content": {
+            "heading": "Why Emerald City Storage",
+            "features": [
+              { "icon": "Shield", "heading": "All Indoor Units", "blurb": "100% enclosed — your stuff never sees Seattle rain" },
+              { "icon": "Droplets", "heading": "Moisture Protection", "blurb": "Vapor barriers and sealed concrete on every floor" },
+              { "icon": "Package", "heading": "Packing Supplies On Site", "blurb": "Boxes, tape, bubble wrap, and locks in stock" },
+              { "icon": "Heart", "heading": "Friendly Team", "blurb": "Locally staffed, always happy to help" }
+            ]
+          }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": {
+            "heading": "Keep It Dry. Keep It Safe.",
+            "blurb": "Month-to-month leases with no surprise fees.",
+            "image": { "src": "https://picsum.photos/seed/seattle-cta/1440/500", "alt": "" },
+            "cta": { "label": "Reserve a Unit", "href": "/seattle/reserve", "variant": "primary" },
+            "ctaSecondary": { "label": "Call (206) 555-3821", "href": "tel:2065553821", "variant": "outline" }
+          }
+        }
+      }
+    },
+    "units": {
+      "enabled": true,
+      "seo": {
+        "title": "Units & Pricing | Emerald City Storage",
+        "description": "Storage unit sizes and prices at Emerald City Storage in Seattle, WA.",
+        "keywords": ["storage unit prices seattle", "indoor storage unit seattle wa"]
+      },
+      "layout": ["page-header", "unit-table", "cta"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "Unit Sizes & Pricing", "blurb": "Honest pricing, no hidden costs", "breadcrumb": true }
+        },
+        "unit-table": {
+          "component": "UnitGrid",
+          "variant": "table",
+          "layout": "full-width",
+          "content": { "heading": "All Units", "showPricing": true, "showFeatures": true }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": { "heading": "Ready to get started?", "cta": { "label": "Reserve Now", "href": "/seattle/reserve", "variant": "primary" } }
+        }
+      }
+    },
+    "reserve": {
+      "enabled": true,
+      "seo": {
+        "title": "Reserve | Emerald City Storage",
+        "description": "Reserve a storage unit at Emerald City Storage in Seattle, WA.",
+        "keywords": ["reserve storage seattle", "rent storage unit seattle wa"]
+      },
+      "layout": ["page-header", "form", "info"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "Reserve a Unit", "blurb": "We'll confirm within one business day", "breadcrumb": true }
+        },
+        "form": {
+          "component": "ContactForm",
+          "variant": "standard",
+          "content": {
+            "heading": "Request a Reservation",
+            "fields": ["name", "email", "phone", "unitSize", "moveInDate", "message"],
+            "submitLabel": "Submit Reservation",
+            "successMessage": "Thank you! We'll be in touch within 24 hours."
+          }
+        },
+        "info": {
+          "component": "ContentSection",
+          "layout": "stacked",
+          "content": {
+            "heading": "Rather talk to someone?",
+            "paragraphs": ["Give us a call at (206) 555-3821 or email seattle@elevationgroup.com."]
+          }
+        }
+      }
+    },
+    "faq": {
+      "enabled": true,
+      "seo": {
+        "title": "FAQ | Emerald City Storage",
+        "description": "Common questions about Emerald City Storage in Seattle, WA.",
+        "keywords": ["storage faq seattle wa"]
+      },
+      "layout": ["page-header", "faq-section"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "FAQ", "blurb": "Quick answers to common questions", "breadcrumb": true }
+        },
+        "faq-section": {
+          "component": "FAQ",
+          "variant": "accordion",
+          "content": { "heading": "Frequently Asked Questions" }
+        }
+      }
+    },
+    "reviews": {
+      "enabled": false,
+      "seo": {},
+      "layout": [],
+      "sections": {}
+    }
+  },
+
+  "data": {
+    "units": [
+      { "id": "5x5-indoor", "size": "5x5", "sqft": 25, "price": 55, "features": ["indoor"], "available": true },
+      { "id": "5x10-indoor", "size": "5x10", "sqft": 50, "price": 75, "features": ["indoor"], "available": true },
+      { "id": "10x10-indoor", "size": "10x10", "sqft": 100, "price": 115, "features": ["indoor", "climate-controlled"], "available": false },
+      { "id": "10x15-indoor", "size": "10x15", "sqft": 150, "price": 149, "features": ["indoor", "climate-controlled"], "available": true },
+      { "id": "10x20-indoor", "size": "10x20", "sqft": 200, "price": 185, "features": ["indoor", "climate-controlled"], "available": true }
+    ],
+    "amenities": [
+      { "id": "all-indoor", "label": "All Indoor Units", "icon": "Shield", "description": "Every unit is fully enclosed — no outdoor exposure" },
+      { "id": "moisture-protection", "label": "Moisture Protection", "icon": "Droplets", "description": "Vapor barriers and sealed concrete protect against Seattle humidity" },
+      { "id": "packing-supplies", "label": "Packing Supplies On Site", "icon": "Package", "description": "Boxes, tape, bubble wrap, and padlocks available in-store" },
+      { "id": "friendly-staff", "label": "Friendly Local Staff", "icon": "Heart", "description": "Our team is Seattle-based and always ready to help" }
+    ],
+    "testimonials": [
+      { "name": "Fiona G.", "rating": 5, "text": "My wooden furniture survived a full year here without a single warped board. The moisture protection is legit." },
+      { "name": "Aaron C.", "rating": 5, "text": "Convenient location, super clean, and the staff remembered my name on my second visit. Love this place." },
+      { "name": "Naomi T.", "rating": 4, "text": "Great for Seattle — everything is indoors so I never worry about rain damage. Fair prices for the neighborhood." }
+    ],
+    "faq": [
+      { "question": "How do you protect against Seattle's moisture?", "answer": "All our units are built with vapor-barrier walls and sealed concrete floors. The facility is dehumidified and kept well-ventilated to prevent mold and moisture damage." },
+      { "question": "Do you sell packing supplies?", "answer": "Yes! Our front office carries boxes in multiple sizes, packing tape, bubble wrap, stretch wrap, and padlocks. No need to make a separate trip to a hardware store." },
+      { "question": "Is 24/7 access available?", "answer": "Our facility hours are 7am–9pm weekdays and 8am–7pm weekends. After-hours access can be arranged for business tenants — please ask at the office." }
+    ]
+  },
+
+  "integrations": {}
+}

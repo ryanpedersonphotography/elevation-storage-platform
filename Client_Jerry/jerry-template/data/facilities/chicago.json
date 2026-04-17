@@ -1,0 +1,241 @@
+{
+  "slug": "chicago",
+  "name": "Lakeshore Self Storage",
+
+  "info": {
+    "address": {
+      "street": "3200 N Clark St",
+      "city": "Chicago",
+      "state": "IL",
+      "zip": "60614"
+    },
+    "phone": "(312) 555-6310",
+    "email": "chicago@elevationgroup.com",
+    "coordinates": { "lat": 41.940, "lng": -87.646 },
+    "hours": [
+      { "days": ["Mo", "Tu", "We", "Th", "Fr"], "open": "06:30", "close": "22:00" },
+      { "days": ["Sa", "Su"], "open": "08:00", "close": "20:00" }
+    ],
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=3200+N+Clark+St+Chicago+IL+60614",
+    "image": { "src": "https://picsum.photos/seed/chicago-ext/852/480", "alt": "Lakeshore Self Storage exterior" }
+  },
+
+  "branding": {
+    "showParent": true,
+    "template": "modern",
+    "colors": {
+      "primary": "oklch(0.4 0.12 240)",
+      "accent": "oklch(0.65 0.15 15)"
+    },
+    "logo": "https://picsum.photos/seed/chicago-logo/200/200"
+  },
+
+  "deployment": {
+    "mode": "subdirectory",
+    "domain": null
+  },
+
+  "seo": {
+    "siteName": "Lakeshore Self Storage",
+    "defaultTitle": "Lakeshore Self Storage | Self Storage in Chicago, IL",
+    "defaultDescription": "Heated self storage in Chicago's Lincoln Park neighborhood. Elevator access, downtown location, and flexible month-to-month leases.",
+    "keywords": ["self storage chicago il", "storage units chicago", "heated storage chicago", "lincoln park storage chicago"],
+    "ogImage": "https://picsum.photos/seed/chicago-og/1200/630"
+  },
+
+  "analytics": {
+    "gtag": "G-CHICAGO001",
+    "gtagEvents": {
+      "reserve_click": true,
+      "phone_click": true,
+      "directions_click": true
+    }
+  },
+
+  "pages": {
+    "home": {
+      "enabled": true,
+      "seo": {
+        "title": "Lakeshore Self Storage | Units from $59/mo",
+        "description": "Heated, downtown storage in Chicago's Lincoln Park. Elevator access and flexible leasing.",
+        "keywords": ["storage near lincoln park chicago", "chicago downtown self storage"],
+        "ogImage": "https://picsum.photos/seed/chicago-og-home/1200/630"
+      },
+      "layout": ["hero", "intro", "featured-units", "why-us", "cta"],
+      "sections": {
+        "hero": {
+          "component": "Hero",
+          "content": {
+            "heading": "Heated Storage Steps from Lake Michigan",
+            "subtitle": "Downtown Chicago convenience with heated units from $59/mo",
+            "image": { "src": "https://picsum.photos/seed/chicago-hero/1440/600", "alt": "Lakeshore Self Storage Chicago" },
+            "cta": { "label": "Reserve Now", "href": "/chicago/reserve", "variant": "primary" }
+          }
+        },
+        "intro": {
+          "component": "ContentSection",
+          "layout": "image-right",
+          "content": {
+            "heading": "Chicago Storage Done Right",
+            "blurb": "Located on N Clark St in Lincoln Park — walkable from Wrigleyville, Old Town, and Lakeview.",
+            "paragraphs": [
+              "We know Chicago winters. That's why every unit is heated to keep your belongings safe from freeze-thaw damage.",
+              "Our multi-level facility offers elevator access for heavy loads — no stairs, no hassle."
+            ],
+            "image": { "src": "https://picsum.photos/seed/chicago-facility/800/450", "alt": "Lakeshore Self Storage interior hallway" }
+          }
+        },
+        "featured-units": {
+          "component": "UnitGrid",
+          "variant": "cards",
+          "layout": "3-col",
+          "content": {
+            "heading": "Popular Sizes",
+            "blurb": "From studio apartments to business inventory",
+            "showPricing": true,
+            "filter": ["5x5-heated", "10x10-heated", "10x20-heated"]
+          }
+        },
+        "why-us": {
+          "component": "FeatureGrid",
+          "layout": "4-col",
+          "content": {
+            "heading": "Why Lakeshore Self Storage",
+            "features": [
+              { "icon": "Thermometer", "heading": "Heated for Winter", "blurb": "Units stay above 55°F all season long" },
+              { "icon": "MapPin", "heading": "Downtown Location", "blurb": "Right on Clark St in the heart of Lincoln Park" },
+              { "icon": "ArrowUp", "heading": "Elevator Access", "blurb": "Move heavy items without the stairs" },
+              { "icon": "Shield", "heading": "Secure Facility", "blurb": "Gated entry, HD cameras, and on-site management" }
+            ]
+          }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": {
+            "heading": "Don't Let Winter Win",
+            "blurb": "Flexible month-to-month leases with no long-term commitment.",
+            "image": { "src": "https://picsum.photos/seed/chicago-cta/1440/500", "alt": "" },
+            "cta": { "label": "Get Started", "href": "/chicago/reserve", "variant": "primary" },
+            "ctaSecondary": { "label": "Call (312) 555-6310", "href": "tel:3125556310", "variant": "outline" }
+          }
+        }
+      }
+    },
+    "units": {
+      "enabled": true,
+      "seo": {
+        "title": "Units & Pricing | Lakeshore Self Storage",
+        "description": "Storage unit sizes and prices at Lakeshore Self Storage in Chicago, IL.",
+        "keywords": ["storage unit prices chicago", "heated storage unit chicago il"]
+      },
+      "layout": ["page-header", "unit-table", "cta"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "Unit Sizes & Pricing", "blurb": "No hidden fees — ever", "breadcrumb": true }
+        },
+        "unit-table": {
+          "component": "UnitGrid",
+          "variant": "table",
+          "layout": "full-width",
+          "content": { "heading": "All Units", "showPricing": true, "showFeatures": true }
+        },
+        "cta": {
+          "component": "CallToAction",
+          "layout": "centered",
+          "content": { "heading": "Found the right size?", "cta": { "label": "Reserve Now", "href": "/chicago/reserve", "variant": "primary" } }
+        }
+      }
+    },
+    "reserve": {
+      "enabled": true,
+      "seo": {
+        "title": "Reserve | Lakeshore Self Storage",
+        "description": "Reserve a storage unit at Lakeshore Self Storage in Chicago, IL.",
+        "keywords": ["reserve storage chicago", "rent storage unit chicago il"]
+      },
+      "layout": ["page-header", "form", "info"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "Reserve a Unit", "blurb": "We'll confirm your reservation within one business day", "breadcrumb": true }
+        },
+        "form": {
+          "component": "ContactForm",
+          "variant": "standard",
+          "content": {
+            "heading": "Request a Reservation",
+            "fields": ["name", "email", "phone", "unitSize", "moveInDate", "message"],
+            "submitLabel": "Submit Reservation",
+            "successMessage": "Thanks! We'll be in touch within 24 hours."
+          }
+        },
+        "info": {
+          "component": "ContentSection",
+          "layout": "stacked",
+          "content": {
+            "heading": "Prefer to call?",
+            "paragraphs": ["Reach us at (312) 555-6310 or chicago@elevationgroup.com."]
+          }
+        }
+      }
+    },
+    "faq": {
+      "enabled": true,
+      "seo": {
+        "title": "FAQ | Lakeshore Self Storage",
+        "description": "Common questions about Lakeshore Self Storage in Chicago, IL.",
+        "keywords": ["storage faq chicago il"]
+      },
+      "layout": ["page-header", "faq-section"],
+      "sections": {
+        "page-header": {
+          "component": "HeroSimple",
+          "content": { "heading": "FAQ", "blurb": "Answers to our most common questions", "breadcrumb": true }
+        },
+        "faq-section": {
+          "component": "FAQ",
+          "variant": "accordion",
+          "content": { "heading": "Frequently Asked Questions" }
+        }
+      }
+    },
+    "reviews": {
+      "enabled": false,
+      "seo": {},
+      "layout": [],
+      "sections": {}
+    }
+  },
+
+  "data": {
+    "units": [
+      { "id": "5x5-heated", "size": "5x5", "sqft": 25, "price": 59, "features": ["indoor", "heated"], "available": true },
+      { "id": "5x10-heated", "size": "5x10", "sqft": 50, "price": 79, "features": ["indoor", "heated"], "available": true },
+      { "id": "10x10-heated", "size": "10x10", "sqft": 100, "price": 119, "features": ["indoor", "heated", "climate-controlled"], "available": true },
+      { "id": "10x15-heated", "size": "10x15", "sqft": 150, "price": 155, "features": ["indoor", "heated", "climate-controlled"], "available": true },
+      { "id": "10x20-heated", "size": "10x20", "sqft": 200, "price": 195, "features": ["indoor", "heated", "climate-controlled"], "available": false },
+      { "id": "10x25-heated", "size": "10x25", "sqft": 250, "price": 239, "features": ["indoor", "heated", "climate-controlled"], "available": true }
+    ],
+    "amenities": [
+      { "id": "heated-units", "label": "Heated Units", "icon": "Thermometer", "description": "All units maintained above 55°F through Chicago winters" },
+      { "id": "downtown", "label": "Downtown Location", "icon": "MapPin", "description": "Centrally located on N Clark St in Lincoln Park" },
+      { "id": "elevator", "label": "Elevator Access", "icon": "ArrowUp", "description": "Full-size freight elevator for heavy or bulky items" },
+      { "id": "security", "label": "Gated & Monitored", "icon": "Shield", "description": "24/7 HD camera surveillance and coded gate access" }
+    ],
+    "testimonials": [
+      { "name": "Allison K.", "rating": 5, "text": "Finally a storage place that understands Chicago winters. My furniture came out perfectly after 6 months." },
+      { "name": "Marcus D.", "rating": 5, "text": "The elevator is a game-changer. Moving a couch up a flight of stairs? No thanks. This place gets it." },
+      { "name": "Yolanda P.", "rating": 4, "text": "Great location in Lincoln Park. A little pricier than the suburbs but worth it for the convenience." },
+      { "name": "Tom B.", "rating": 5, "text": "Used it for my small business overflow. Clean, secure, and the staff actually pick up the phone." }
+    ],
+    "faq": [
+      { "question": "Are all your units heated?", "answer": "Yes. Every unit in our facility is heated and maintained above 55°F during winter months. Climate-controlled units are kept between 60–80°F year-round." },
+      { "question": "Is there elevator access to upper floors?", "answer": "Absolutely. We have a freight-rated elevator that fits large furniture, appliances, and moving carts. No items need to go up or down stairs." },
+      { "question": "How close are you to public transit?", "answer": "We're steps from the Clark/Belmont CTA Red and Brown Line stop, and on several major bus routes. Perfect for city dwellers without a car." }
+    ]
+  },
+
+  "integrations": {}
+}
