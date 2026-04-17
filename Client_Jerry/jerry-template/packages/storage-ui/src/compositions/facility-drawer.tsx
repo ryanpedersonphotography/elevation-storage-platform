@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { Box, Flex, Heading, Text, Button, Badge, ScrollArea } from '@radix-ui/themes'
 import { X, MapPin, Phone, Clock, ExternalLink, Package, Shield, MessageSquare, HelpCircle, ChevronDown } from 'lucide-react'
 import Link from 'next/link'
@@ -13,6 +13,21 @@ export interface FacilityDrawerProps {
 }
 
 export function FacilityDrawer({ facility, open, onClose }: FacilityDrawerProps) {
+  // Keep last facility visible during slide-out animation
+  const [rendered, setRendered] = useState(false)
+  const lastFacility = useRef<FacilityConfig | null>(null)
+
+  if (facility) lastFacility.current = facility
+
+  useEffect(() => {
+    if (open) {
+      setRendered(true)
+    } else {
+      const timer = setTimeout(() => setRendered(false), 350)
+      return () => clearTimeout(timer)
+    }
+  }, [open])
+
   // Lock body scroll when drawer is open
   useEffect(() => {
     if (open) {
@@ -33,9 +48,10 @@ export function FacilityDrawer({ facility, open, onClose }: FacilityDrawerProps)
     return () => window.removeEventListener('keydown', handleKey)
   }, [open, onClose])
 
-  if (!facility) return null
+  const displayFacility = facility ?? lastFacility.current
+  if (!rendered || !displayFacility) return null
 
-  const { info, data } = facility
+  const { info, data } = displayFacility
   const addr = info.address
   const reviewCount = data.testimonials.length
   const avgRating =
@@ -61,8 +77,8 @@ export function FacilityDrawer({ facility, open, onClose }: FacilityDrawerProps)
       <Box
         position="fixed"
         className={[
-          'z-50 top-0 right-0 h-full w-[400px] max-w-[90vw]',
-          'transition-transform duration-300 ease-in-out',
+          'z-50 top-0 right-0 h-full w-[400px] max-w-[90vw] shadow-2xl',
+          'transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]',
           open ? 'translate-x-0' : 'translate-x-full',
         ].join(' ')}
         style={{ backgroundColor: 'var(--color-panel-solid)' }}
@@ -95,7 +111,7 @@ export function FacilityDrawer({ facility, open, onClose }: FacilityDrawerProps)
             )}
 
             {/* Name */}
-            <Heading size="4" mt={info.image ? '1' : '4'}>{facility.name}</Heading>
+            <Heading size="4" mt={info.image ? '1' : '4'}>{displayFacility.name}</Heading>
 
             {/* Rating + reviews */}
             {reviewCount > 0 && (
@@ -244,7 +260,7 @@ export function FacilityDrawer({ facility, open, onClose }: FacilityDrawerProps)
             {/* CTA buttons */}
             <Flex direction="column" gap="2" mt="2" pb="4">
               <Button size="3" variant="solid" asChild>
-                <Link href={`/${facility.slug}`}>View Full Details</Link>
+                <Link href={`/${displayFacility.slug}`}>View Full Details</Link>
               </Button>
               {info.directionsUrl && (
                 <Button size="2" variant="outline" asChild>
