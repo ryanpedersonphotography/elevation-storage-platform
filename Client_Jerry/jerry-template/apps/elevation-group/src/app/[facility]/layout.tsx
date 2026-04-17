@@ -1,11 +1,13 @@
 import type { ReactNode } from 'react'
 import { Inter, Space_Grotesk, DM_Sans } from 'next/font/google'
-import { Theme } from '@radix-ui/themes'
+import { Theme, Container, Flex, Box } from '@radix-ui/themes'
 import { loadFacility, loadSubdirectoryFacilities } from '@jerry/facility-config'
 import { FacilityProvider, resolveRadixColor, templates } from '@jerry/storage-ui'
 import { Nav } from '../../components/nav'
 import { Footer } from '../../components/footer'
 import { GtagScript } from '../../components/gtag'
+import { FacilitySidebar } from '../../components/facility-sidebar'
+import { FacilityTabs } from '../../components/facility-tabs'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space-grotesk' })
@@ -53,7 +55,19 @@ export default async function FacilityLayout({
       >
         <FacilityProvider facility={facility}>
           <Nav facility={facility} />
-          {children}
+          <Container size="3" py="6">
+            <Flex direction={{ initial: 'column', md: 'row' }} gap="6">
+              {/* Sidebar */}
+              <Box className="md:w-80 shrink-0">
+                <FacilitySidebar facility={facility} />
+              </Box>
+              {/* Main content with tabs */}
+              <Box flexGrow="1" className="min-w-0">
+                <FacilityTabs facility={facility} />
+                {children}
+              </Box>
+            </Flex>
+          </Container>
           <Footer facility={facility} />
         </FacilityProvider>
       </Theme>
