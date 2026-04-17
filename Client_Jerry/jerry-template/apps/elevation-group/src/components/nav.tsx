@@ -42,11 +42,30 @@ export function Nav({ facility }: NavProps) {
           ].join(' ')}
         >
           <nav aria-label="Main navigation">
-            {/* Wide container — px for edge padding, max-w for cap */}
-            <Flex justify="between" align="center" className="h-20 max-w-7xl mx-auto px-8">
-              {/* Logo */}
+            {/* Primary header — Elevation Group brand */}
+            <Box className="bg-[var(--gray-12)]">
+              <Flex justify="between" align="center" className="h-10 max-w-7xl mx-auto px-8">
+                <Link href="/" className="no-underline">
+                  <Text size="3" weight="bold" className="text-white">
+                    Elevation Group
+                  </Text>
+                </Link>
+                <Flex gap="4" align="center" className="hidden sm:flex">
+                  <Link href="/#locations" className="no-underline">
+                    <Text size="1" className="text-[var(--gray-6)] hover:text-white transition-colors">All Locations</Text>
+                  </Link>
+                  <Link href="/#contact" className="no-underline">
+                    <Text size="1" className="text-[var(--gray-6)] hover:text-white transition-colors">Contact</Text>
+                  </Link>
+                </Flex>
+              </Flex>
+            </Box>
+
+            {/* Sub-header — facility-specific nav */}
+            <Flex justify="between" align="center" className="h-14 max-w-7xl mx-auto px-8">
+              {/* Facility name */}
               <Link href={`/${facility.slug}`} className="no-underline text-inherit shrink-0">
-                <Text size="6" weight="bold" className="tracking-tight whitespace-nowrap">
+                <Text size="5" weight="bold" className="tracking-tight whitespace-nowrap">
                   {facility.name}
                 </Text>
               </Link>
